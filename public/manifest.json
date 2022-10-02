@@ -1,0 +1,17 @@
+{
+    "name": "Niftytab",
+    "description": "Awesome extension to save your tabs, groups and sessions, improving performance in the browser compatible with many browsers.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "./workers/background.js"
+    },
+    "permissions": [
+        "storage", 
+        "activeTab",
+        "tabs"
+    ],
+    "action": {
+        "default_popup": "index.html"
+    }
+  }
