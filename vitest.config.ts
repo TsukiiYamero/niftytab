@@ -1,9 +1,7 @@
-import { defineConfig } from 'vite'
-import viteConfigA from './vite.config'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-    ...viteConfigA,
     test: {
         environment: "happy-dom"
-    }, 
+    },
 })
