@@ -6,30 +6,103 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+
+  /* general vars colors */
+
+  --white: #fff;
+
+  --primary-color: #8758ff;
+  --secondary-color: #181818;
+  --third-color: #5cb8e4;
+  --aux-primary-color: #f2f2f2;
+  --shade-primary-color-15: #2009212f;
+
+  --success-color-primary-100: #a5dc86;
+  --success-color-primary-15: #a6dc8640;
+  --error-color-primary-100: #f27474;
+  --error-color-primary-15: #f2747445;
+
+  --neutral-color-primary: #646464;
+  --neutral-color-secondary: #64646465;
+
+  --bg-color-dark: #13131a;
+  --bg-color-light: #f3f3f3;
+
+  --text-color-light: #ffffff;
+  --text-color-dark: #0a0909;
+
+  /* general font sizes  */
+
+  --font-size-title: 26px;
+  --font-size-secondary-title: 22px;
+  --font-size-common: 13px;
+  --font-size-small: 12px;
+  --font-size-standard: 16px;
+
+  /* others sizes */
+
+  --border-radius: 8px;
+}
+:root,
+[data-theme="light"] {
+  background-color: #242424;
+  --primary-text: var(--text-color-dark);
+  --bg-color: var(--bg-color-light);
+}
+
+/* dark theme */
+[data-theme="dark"] {
+  --primary-text: var(--text-color-light);
+  --bg-color: var(--bg-color-dark);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--neutral-color-secondary);
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
-a:hover {
-  color: #535bf2;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
 }
 
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 2000px;
 }
 
 h1 {
@@ -54,17 +127,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
