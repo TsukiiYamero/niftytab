@@ -1,3 +1,21 @@
+@font-face {
+  font-family: SignikaNegative;
+  src: url(assets/fonts/Signika_Negative/static/SignikaNegative-Medium.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: SignikaNegative;
+  src: url(assets/fonts/Signika_Negative/static/SignikaNegative-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: SignikaNegative;
+  src: url(assets/fonts/Signika_Negative/static/SignikaNegative-Light.ttf);
+  font-weight: lighter;
+}
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -103,6 +121,7 @@ body {
   display: flex;
   place-items: center;
   height: 2000px;
+  font-family: SignikaNegative, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
