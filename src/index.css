@@ -118,9 +118,10 @@ p {
 
 body {
   margin: 0;
+  width: 720px;
+  height: 568px;
   display: flex;
   place-items: center;
-  height: 2000px;
   font-family: SignikaNegative, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
