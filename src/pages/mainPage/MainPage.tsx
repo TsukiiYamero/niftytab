@@ -1,7 +1,10 @@
+import Navbar from "@/ui/organisms/navbar/Navbar";
 
 const MainPage = () => {
     return (
-        <div>MainPage</div>
+        <div>
+            <Navbar />
+        </div>
     )
 }
 
