@@ -1,8 +1,10 @@
+import chrome from "@/avoidChromeErrors/chrome";
 import { useEffect, useState } from "react"
 import { getThemeFromStorage } from "../helpers/getThemeFromStorage";
 import { setThemeInStorage } from "../helpers/setThemeInStorage";
 import { Themes } from "../theme.types";
 import { usePrefersColorScheme } from "./usePrefersColorScheme";
+
 
 export const useGetTheme = () => {
     const themePrefer = usePrefersColorScheme();

@@ -1,28 +1,20 @@
-import { useEffect, useState } from 'react';
-import reactLogo from '@/assets/react.svg';
 import './App.css';
-import { ToggleTheme } from './theme/components/ToggleTheme/ToggleTheme';
 import { ThemeContext } from './theme/context/themeContext';
 import { useSetInitialTheme } from './theme/hooks/useSetInitialTheme';
+import MainPage from './pages/mainPage/MainPage';
 
 export function App() {
   const userTheme = useSetInitialTheme();
 
   return (
       <ThemeContext.Provider value={{ userTheme }}>
-          <AppExample />
+          <MainPage />
       </ThemeContext.Provider>
   )
 }
 
-export function AppExample() {
+/* export function AppExample() {
   const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    /* chrome.storage?.sync?.get('color', (ev) => {
-      console.log(ev);
-    }); */
-  }, []);
 
   return (
     <div className="App">
@@ -47,6 +39,6 @@ export function AppExample() {
       </p>
     </div>
   );
-}
+} */
 
 export default App;

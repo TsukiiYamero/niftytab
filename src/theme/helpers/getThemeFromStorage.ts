@@ -1,4 +1,5 @@
 import { ChromeStoredTheme, Themes } from "../theme.types";
+import chrome from "@/avoidChromeErrors/chrome";
 
 type RespThemeFromStorage = {
     existError: boolean,
