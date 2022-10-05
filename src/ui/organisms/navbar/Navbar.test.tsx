@@ -1,5 +1,5 @@
-import { afterEach, describe, it } from "vitest";
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { render } from "@testing-library/react";
 import Navbar from "./Navbar";
 
 describe("Navbar Test", () => {

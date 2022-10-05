@@ -1,19 +1,13 @@
-import BellIcon from '@/ui/atoms/BellIcon/BellIcon'
-import { IconButton } from '@/ui/atoms/IconButtonStyled/IconButton.styled'
+import { IconButtonSimple } from '@/ui/atoms/Buttons'
+import { BellIcon } from '@/ui/atoms/icons'
+import { StandardIconsSize } from '@/utils/icons/iconsPropertys'
 
 
-type Props = {}
-
-const bellSizeStyle = {
-    width: 'var(--icons-size-primary)',
-    height: 'var(--icons-size-primary)'
-}
-
-const Notification = (props: Props) => {
+const Notification = () => {
     return (
-        <IconButton>
-            <BellIcon style={bellSizeStyle} color={'var(--main-text-color)'} />
-        </IconButton>
+        <IconButtonSimple>
+            <BellIcon style={StandardIconsSize} color={'var(--main-text-color)'} />
+        </IconButtonSimple>
     )
 }
 

@@ -1,6 +1,7 @@
-import { IconButton } from "@/ui/atoms/IconButtonStyled/IconButton.styled"
-import SearchIcon from "@/ui/atoms/searchIcon/SearchIcon"
+
 import { useRef } from "react"
+import SearchIcon from "@/ui/atoms/icons/SearchIcon/SearchIcon"
+import { IconButtonSimple } from "@/ui/atoms/Buttons"
 import { SearchBarWrapper } from "./searchBarWrapper.styled"
 import { SearchInput } from "./SearchInput.styled"
 
@@ -17,9 +18,9 @@ const SearchBar = (props: Props) => {
     return (
         <SearchBarWrapper>
             <SearchInput ref={ref} type="text" placeholder="Search tab, group, session" />
-            <IconButton onClick={onClickSearchIcon}>
+            <IconButtonSimple onClick={onClickSearchIcon}>
                 <SearchIcon size={"24px"} color={'var(--border-color-secondary)'} />
-            </IconButton>
+            </IconButtonSimple>
         </SearchBarWrapper >
     )
 }
