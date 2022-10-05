@@ -17,8 +17,8 @@
 } */
 
 :root {
-
-  --main-font-family: SignikaNegative, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --main-font-family: SignikaNegative, "Segoe UI", Tahoma, Geneva, Verdana,
+    sans-serif;
   font-family: var(--main-font-family);
 
   color-scheme: light dark;
@@ -45,7 +45,7 @@
   --neutral-color-primary: #646464;
   --neutral-color-secondary: #64646465;
 
-  --border-color-primary: #CDCDCD;
+  --border-color-primary: #cdcdcd;
   --border-color-secondary: #b8b1b1;
 
   --bg-color-dark: #13131a;
@@ -58,20 +58,23 @@
 
   /* icons */
 
-  --icons-size-primary: 24px;
+  --icons-size-primary: 26px;
+  --icons-size-secondary: 22px;
+  --icons-size-third: 20px;
 
   /* general font sizes  */
 
   --font-size-title: 26px;
   --font-size-secondary-title: 22px;
   --font-size-semi-title: 20px;
-  --font-size-common: 13px;
-  --font-size-small: 12px;
-  --font-size-standard: 16px;
+  --font-size-common: 16px;
+  --font-size-small: 13px;
+  --font-size-standard: 18px;
 
   /* others sizes */
 
   --border-radius-primary: 8px;
+  --border-radius-secondary: 44px;
 }
 
 [data-theme="light"] {
@@ -146,26 +149,21 @@ body {
   outline: 1px solid var(--main-text-color);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.main-text-color {
+  color: var(--main-text-color);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.standard-icons-size {
+  width: var(--icons-size-primary);
+  height: var(--icons-size-primary);
 }
-button:hover {
-  border-color: #646cff;
+
+.medium-icons-size {
+  width: var(--icons-size-secondary);
+  height: var(--icons-size-secondary);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.small-icons-size {
+  width: var(--icons-size-third);
+  height: var(--icons-size-third);
 }
