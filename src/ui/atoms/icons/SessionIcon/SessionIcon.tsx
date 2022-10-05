@@ -1,4 +1,4 @@
 import { IconBaseProps } from 'react-icons'
-import { TiTabsOutline } from 'react-icons/ti'
+import { HiOutlineInbox } from 'react-icons/hi'
 
-export const SessionIcon = (props: IconBaseProps) => <TiTabsOutline {...props} />
+export const SessionIcon = (props: IconBaseProps) => <HiOutlineInbox {...props} />

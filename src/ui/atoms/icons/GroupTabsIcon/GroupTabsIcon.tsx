@@ -1,4 +1,4 @@
 import { IconBaseProps } from 'react-icons'
-import { TiTabsOutline } from 'react-icons/ti'
+import { FiFolder } from 'react-icons/fi'
 
-export const GroupTabsIcon = (props: IconBaseProps) => <TiTabsOutline {...props} />
+export const GroupTabsIcon = (props: IconBaseProps) => <FiFolder {...props} />
