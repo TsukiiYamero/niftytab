@@ -1,3 +1,4 @@
+import TabsFiltersSelection from "../TabsFiltersSelection/TabsFiltersSelection"
 import TabsSelection from "../TabsSelection/TabsSelection"
 
 type Props = {}
@@ -5,7 +6,9 @@ type Props = {}
 const TabNavbar = (props: Props) => {
   return (
     <div>
-       <TabsSelection />
+      <TabsSelection />
+      <hr />
+      <TabsFiltersSelection />
     </div>
   )
 }

@@ -5,7 +5,9 @@ type Props = {}
 
 const TabsSection = (props: Props) => {
   return (
-    <TabNavbar />
+    <div>
+      <TabNavbar />
+    </div>
   )
 }
 

@@ -1,27 +1,37 @@
+import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { ReactElement, cloneElement, MouseEvent } from 'react'
 import styled from 'styled-components';
 import { CustomButton, BtnStyles } from '../CustomButton';
 
 type Props = {
-    text: string;
     onClick: (ev: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => any;
+    text?: string;
     icon?: ReactElement;
+    iconSize?: IconsSize;
     textStyle?: string;
     buttonStyle?: BtnStyles;
 }
 
-export const IconButtonTab = ({ icon, text, textStyle, onClick, buttonStyle }: Props) => {
+export const StandardButton = ({
+    icon,
+    text,
+    textStyle,
+    iconSize = IconsSize.medium,
+    buttonStyle = 'btn-outline',
+    onClick,
+}: Props) => {
 
     const Icon = icon && cloneElement(icon, {
-        className: `main-text-color medium-icons-size ${icon.props.className}`
+        className: `main-text-color ${iconSize} ${icon.props.className}`
     })
 
     return (
         <CustomButton onClick={onClick} buttonStyle={buttonStyle}>
             {Icon}
-            <TextCustomButton className={`${textStyle}`}>
-                {text}
-            </TextCustomButton>
+            {text &&
+                <TextCustomButton className={`${textStyle}`}>
+                    {text}
+                </TextCustomButton>}
         </CustomButton>
     )
 }

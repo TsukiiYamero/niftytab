@@ -1,4 +1,4 @@
 export * from './CustomButton/CustomButton'
 export * from './CustomButton/customButton.types'
 export * from './IconButtonSimpleStyled/IconButton.styled'
-export * from './IconButtonTab/IconButtonTab'
+export * from './StandardButton/StandardButton'
