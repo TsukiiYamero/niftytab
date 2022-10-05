@@ -1,0 +1,36 @@
+.common-btn {
+  cursor: pointer;
+  position: relative;
+  transition: background 400ms;
+  overflow: hidden;
+  font-style: normal;
+  border: 0;
+  display: flex;
+  align-items: center;
+}
+
+.common-btn:focus {
+  outline: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  outline: var(--primary-color);
+  border-radius: var(--border-radius-secondary);
+}
+
+.btn-outline {
+  background-color: var(--white);
+  outline: var(--primary-color);
+  border-radius: var(--border-radius-secondary);
+}
+
+/* 16px */
+.btn-xs {
+  font-size: var(--font-size-standard);
+}
+
+/* 36px */
+.btn-cmn-p {
+  padding: 4px 18px;
+}
