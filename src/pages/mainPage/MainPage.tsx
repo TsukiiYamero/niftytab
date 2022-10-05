@@ -1,10 +1,11 @@
 import Navbar from "@/ui/organisms/navbar/Navbar";
+import { MainPageWrapper } from "./MainPageWrapper.styled";
 
 const MainPage = () => {
     return (
-        <div>
+        <MainPageWrapper>
             <Navbar />
-        </div>
+        </MainPageWrapper>
     )
 }
 
