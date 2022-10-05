@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ImgUser from "../../../assets/img/userIcon/artw.jpg";
+import ImgUser from "../../../../assets/img/userIcon/artw.jpg";
 
 export const UserIcon = styled.div`
 border-radius: 5rem;
