@@ -3,6 +3,7 @@ export * from './AddIcon';
 export * from './ArrowForwardIcon';
 export * from './BellIcon';
 export * from './CloseIcon';
+export * from './FoldersIcon';
 export * from './GroupTabsIcon';
 export * from './SearchIcon';
 export * from './SessionIcon';
