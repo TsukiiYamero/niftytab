@@ -1,16 +1,41 @@
 
 import { StandardButton } from "@/ui/atoms/Buttons"
 import { FoldersIcon, SessionIcon, TabsIcon } from "@/ui/atoms/icons"
+import { useState } from "react";
 import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.styled';
 
-type Props = {}
+type TabsSelection = {
+    tabs?: boolean,
+    groups?: boolean,
+    sessions?: boolean
+}
 
-const TabsSelection = (props: Props) => {
+enum TabSelectionOpts {
+    tabs = "tabs",
+    groups = "groups",
+    sessions = "sessions",
+}
+
+const TabsSelection = () => {
+
+    const [active, setActive] = useState<TabsSelection>({ tabs: true })
+
+    const changeActiveTab = (ev: TabSelectionOpts) => {
+        setActive({
+            [ev]: true
+        })
+    }
+
     return (
         <TabsSelectionWrapper>
-            <StandardButton text="Tabs" buttonStyle="btn-primary" icon={<TabsIcon />} onClick={() => { }} />
-            <StandardButton text="GroupTabs" icon={<FoldersIcon />} onClick={() => { }} />
-            <StandardButton text="Sessions" icon={<SessionIcon />} onClick={() => { }} />
+            <StandardButton active={active.tabs} text="Tabs" icon={<TabsIcon />}
+                onClick={() => changeActiveTab(TabSelectionOpts.tabs)} />
+
+            <StandardButton active={active.groups} text="Groups" icon={<FoldersIcon />}
+                onClick={() => changeActiveTab(TabSelectionOpts.groups)} />
+
+            <StandardButton active={active.sessions} text="Sessions" icon={<SessionIcon />}
+                onClick={() => changeActiveTab(TabSelectionOpts.sessions)} />
         </TabsSelectionWrapper>
     )
 }
