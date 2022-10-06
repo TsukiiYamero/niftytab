@@ -1,4 +1,3 @@
-import { getDataTavs } from "@/mocks/getDataTabs";
 import { TabSmallView } from "@/ui/atoms/TabSmallView"
 import { useEffect, useState } from "react"
 
