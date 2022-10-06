@@ -13,6 +13,8 @@ export interface Props {
   buttonSize?: BtnSizes;
   buttonSpace?: BtnSpace;
   disabled?: boolean;
+  active?: boolean;
+  ripple?: boolean;
 }
 
 /**
@@ -25,20 +27,22 @@ export const CustomButton: FC<Props> = ({
   children,
   className = "",
   type = "button",
-  buttonStyle = "btn-primary",
+  buttonStyle = "btn-outline",
   buttonSize = "btn-xs",
   buttonSpace = "btn-cmn-p",
   disabled = false,
   id = "",
+  active = false,
+  ripple = false
 }) => {
   return (
     <button
       onClick={(ev) => {
-        createRipple(ev);
+        ripple && createRipple(ev);
         onClick(ev);
       }}
       type={type}
-      className={`common-btn ${buttonStyle} ${buttonSize} ${buttonSpace} ${className}`}
+      className={`common-btn ${buttonStyle} ${buttonSize} ${buttonSpace} ${className} ${active ? 'btn-active' : ''}`}
       id={id}
       disabled={disabled}
     >

@@ -34,3 +34,7 @@
 .btn-cmn-p {
   padding: 4px 18px;
 }
+
+.btn-active {
+  background-color: var(--primary-color);
+}

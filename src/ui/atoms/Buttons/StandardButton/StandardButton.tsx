@@ -1,3 +1,4 @@
+import './standarButton.css'
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { ReactElement, cloneElement, MouseEvent } from 'react'
 import styled from 'styled-components';
@@ -10,33 +11,36 @@ type Props = {
     iconSize?: IconsSize;
     textStyle?: string;
     buttonStyle?: BtnStyles;
+    active?: boolean;
+    disabled?: boolean;
+    ripple?: boolean;
 }
 
 export const StandardButton = ({
     icon,
     text,
-    textStyle,
+    textStyle = '',
     iconSize = IconsSize.medium,
     buttonStyle = 'btn-outline',
+    active = false,
+    ripple = false,
+    disabled = false,
     onClick,
 }: Props) => {
 
+    const cssClassForActive = active ? 'standard-btn-active' : ''
+
     const Icon = icon && cloneElement(icon, {
-        className: `main-text-color ${iconSize} ${icon.props.className}`
+        className: `standard-btn-icon-color ${cssClassForActive} ${iconSize} ${icon.props.className ? icon.props.className : ''}`
     })
 
     return (
-        <CustomButton onClick={onClick} buttonStyle={buttonStyle}>
+        <CustomButton onClick={onClick} buttonStyle={buttonStyle} active={active} disabled={disabled} ripple={ripple}>
             {Icon}
             {text &&
-                <TextCustomButton className={`${textStyle}`}>
+                <span className={`standard-btn-text ${textStyle} ${cssClassForActive}`}>
                     {text}
-                </TextCustomButton>}
+                </span>}
         </CustomButton>
     )
 }
-
-const TextCustomButton = styled.span`
-    color: var(--main-text-color);
-    padding-left: 4px;
-`

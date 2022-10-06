@@ -1,0 +1,12 @@
+.standard-btn-text {
+  color: var(--main-text-color);
+  padding-left: 4px;
+}
+
+.standard-btn-icon-color {
+  color: var(--main-text-color);
+}
+
+.standard-btn-active {
+  color: var(--white);
+}
