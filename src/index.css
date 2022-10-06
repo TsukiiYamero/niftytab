@@ -47,6 +47,7 @@
 
   --border-color-primary: #cdcdcd;
   --border-color-secondary: #b8b1b1;
+  --border-color-third: #DFDFDF;
 
   --bg-color-dark: #13131a;
   --bg-color-light: #fdfdfd;
@@ -167,4 +168,10 @@ body {
 .small-icons-size {
   width: var(--icons-size-third);
   height: var(--icons-size-third);
+}
+
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

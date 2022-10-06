@@ -7,6 +7,7 @@ padding: 0;
 background-color: transparent;
 height: max-content;
 display: flex;
+cursor: pointer;
 :focus {
     outline: 0;
 }

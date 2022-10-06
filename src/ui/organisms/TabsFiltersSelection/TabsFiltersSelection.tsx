@@ -11,8 +11,8 @@ const TabsFiltersSelection = (props: Props) => {
             {/*            <IconButtonTab>
                 <FilterIcon />
             </IconButtonTab> */}
-            <StandardButton text={""} icon={<BarsIcon />} iconSize={IconsSize.small} onClick={() => { }} />
-            <StandardButton text={""} icon={<FilterIcon />} iconSize={IconsSize.small} onClick={() => { }} />
+            <StandardButton icon={<BarsIcon />} iconSize={IconsSize.small} onClick={() => { }} />
+            <StandardButton buttonStyle="btn-primary" icon={<FilterIcon />} iconSize={IconsSize.small} onClick={() => { }} />
         </TabsFiltersSelectionWrapper>
     )
 }

@@ -3,14 +3,12 @@ import TabsSelection from "../TabsSelection/TabsSelection"
 
 type Props = {}
 
-const TabNavbar = (props: Props) => {
+export const TabNavbar = (props: Props) => {
   return (
     <div>
       <TabsSelection />
-      <hr />
+      <span style={{ borderBottom: '1px solid var(--border-color-secondary)', display: 'flex', borderRadius: '6px'}}></span>
       <TabsFiltersSelection />
     </div>
   )
 }
-
-export default TabNavbar

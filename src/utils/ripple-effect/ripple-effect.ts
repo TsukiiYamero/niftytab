@@ -11,7 +11,7 @@ import { MouseEvent } from "react";
  * @param MouseEvent
  */
 export const createRipple = (
-  event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  event: MouseEvent<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>
 ) => {
   const button = event.currentTarget;
   const circle = document.createElement("span");

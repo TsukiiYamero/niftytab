@@ -8,7 +8,7 @@ type Props = {}
 const TabsSelection = (props: Props) => {
     return (
         <TabsSelectionWrapper>
-            <StandardButton text="Tabs" icon={<TabsIcon />} onClick={() => { }} />
+            <StandardButton text="Tabs" buttonStyle="btn-primary" icon={<TabsIcon />} onClick={() => { }} />
             <StandardButton text="GroupTabs" icon={<FoldersIcon />} onClick={() => { }} />
             <StandardButton text="Sessions" icon={<SessionIcon />} onClick={() => { }} />
         </TabsSelectionWrapper>
