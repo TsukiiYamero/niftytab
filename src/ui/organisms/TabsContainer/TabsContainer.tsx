@@ -39,7 +39,7 @@ export const TabsContainer = () => {
 
 
     return (
-        <div style={{ display: 'flex', gap: '9px', paddingBlock: '10px', flexWrap: 'wrap', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '9px', padding: '10px 1px', flexWrap: 'wrap', overflow: 'hidden' }}>
             {
                 tabs && tabs.map((tab) => (<TabSmallView
                     key={tab.id}

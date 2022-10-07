@@ -1,15 +1,13 @@
 import { TabNavbar } from "@/ui/organisms/TabNavbar"
 import { TabsPresentational } from "@/ui/organisms/TabsPresentational"
+import { TabsSectionWrapper } from "./TabsSectionWrapper.styled"
 
-
-type Props = {}
-
-const TabsSection = (props: Props) => {
+const TabsSection = () => {
   return (
-    <div>
+    <TabsSectionWrapper>
       <TabNavbar />
       <TabsPresentational />
-    </div>
+    </TabsSectionWrapper>
   )
 }
 
