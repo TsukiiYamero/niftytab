@@ -1,12 +1,12 @@
 import { TabNavbar } from "@/ui/organisms/TabNavbar"
-import { TabsPresentational } from "@/ui/organisms/TabsPresentational"
+import { TabsListingsContainer } from "@/ui/organisms/TabsListings"
 import { TabsSectionWrapper } from "./TabsSectionWrapper.styled"
 
 const TabsSection = () => {
   return (
     <TabsSectionWrapper>
       <TabNavbar />
-      <TabsPresentational />
+      < TabsListingsContainer />
     </TabsSectionWrapper>
   )
 }
