@@ -1,7 +1,6 @@
 import './standarButton.css'
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { ReactElement, cloneElement, MouseEvent } from 'react'
-import styled from 'styled-components';
 import { CustomButton, BtnStyles } from '../CustomButton';
 
 type Props = {
@@ -25,7 +24,7 @@ export const StandardButton = ({
     active = false,
     ripple = false,
     disabled = false,
-    onClick,
+    onClick,    
 }: Props) => {
 
     const cssClassForActive = active ? 'standard-btn-active' : ''
