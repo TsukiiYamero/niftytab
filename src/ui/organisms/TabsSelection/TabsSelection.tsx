@@ -1,6 +1,7 @@
 
 import { StandardButton } from "@/ui/atoms/Buttons"
 import { FoldersIcon, SessionIcon, TabsIcon } from "@/ui/atoms/icons"
+import { AddTabs } from "@/ui/organisms/AddTabs"
 import { useState } from "react";
 import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.styled';
 
@@ -36,6 +37,10 @@ const TabsSelection = () => {
 
             <StandardButton active={active.sessions} text="Sessions" icon={<SessionIcon />}
                 onClick={() => changeActiveTab(TabSelectionOpts.sessions)} />
+
+            <div>
+                <AddTabs />
+            </div>
         </TabsSelectionWrapper>
     )
 }
