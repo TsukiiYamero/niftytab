@@ -47,7 +47,7 @@
 
   --border-color-primary: #cdcdcd;
   --border-color-secondary: #b8b1b1;
-  --border-color-third: #DFDFDF;
+  --border-color-third: #dfdfdf;
 
   --bg-color-dark: #13131a;
   --bg-color-light: #fdfdfd;
@@ -174,4 +174,13 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.close-icon {
+  color: var(--neutral-color-primary);
+  width: var(--icons-size-primary);
+  height: var(--icons-size-primary);
+}
+.close-icon:hover {
+  color: var(--error-color-primary-100);
 }
