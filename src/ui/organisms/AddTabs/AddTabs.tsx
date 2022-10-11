@@ -23,8 +23,13 @@ export const AddTabs = (props: Props) => {
         iconSize: IconsSize.medium
     }
 
-    const handleTabCreation = (ev: MouseEvent<HTMLDivElement>) => {
-        console.log("click", ev)
+    const handleTabCreation = async (ev: MouseEvent<HTMLDivElement>) => {
+
+        const [tab] = await chrome.tabs.query({
+            active: true,
+            currentWindow: true,
+        });
+        console.log(tab);
     }
 
     const handleGroupCreation = (ev: MouseEvent<HTMLDivElement>) => {

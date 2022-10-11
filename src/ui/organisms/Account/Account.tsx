@@ -1,4 +1,4 @@
-import { CustomButton, IconButtonSimple, StandardButton } from "@/ui/atoms/Buttons";
+import { IconButtonSimple } from "@/ui/atoms/Buttons";
 import { UserIcon } from "@/ui/atoms/icons"
 import { Modal, useModal } from "@/ui/molecules/Modal"
 import { useState } from "react";
@@ -36,6 +36,7 @@ export const Account = () => {
                     <span onClick={onChangeSign}>
                         doesn't have an account yet?
                     </span>
+                    <LogOut />
                 </div>
             </Modal>
 
