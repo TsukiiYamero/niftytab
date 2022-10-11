@@ -1,4 +1,4 @@
-import { signOut } from '@/services/auth/auth'
+import { signOut } from '@/services/authProviders'
 import { CustomButton, StandardButton } from '@/ui/atoms/Buttons'
 import { MouseEvent } from 'react'
 

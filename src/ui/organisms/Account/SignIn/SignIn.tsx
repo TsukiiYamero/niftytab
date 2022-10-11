@@ -1,4 +1,4 @@
-import { signInWithEmail, signInWithGoogle } from '@/services/auth/auth';
+import { signInWithEmail, signInWithGoogle } from '@/services/authProviders';
 import { StandardButton } from '@/ui/atoms/Buttons'
 import { useRef } from 'react'
 
