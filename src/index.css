@@ -177,10 +177,11 @@ body {
 }
 
 .close-icon {
-  color: var(--neutral-color-primary);
+  color: var(--main-text-color);
   width: var(--icons-size-primary);
   height: var(--icons-size-primary);
 }
+
 .close-icon:hover {
   color: var(--error-color-primary-100);
 }

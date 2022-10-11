@@ -7,14 +7,14 @@ import { CloseIcon } from '@/ui/atoms/icons';
 
 export interface PropsModal {
   isOpen: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   closeByClickOutside?: boolean;
   closeByIcon?: boolean;
   children?: any;
   bgColorClass?: string;
   modalAnimationClass?: string;
   position?: "centered" | "custom";
-  typeSize?: "default" | "custom";
+  modalClassSize?: string;
   animationWrapper?: boolean;
   animationBgColor?: string;
   topModal?: number;
@@ -37,7 +37,7 @@ export const Modal = memo(
     animationWrapper = true,
     modalAnimationClass = "",
     position = "centered",
-    typeSize = "default",
+    modalClassSize = "",
     topModal = 0,
     leftModal = 0,
     posAnimationWrapper = { top: 0, left: 0 },
@@ -82,8 +82,7 @@ export const Modal = memo(
               <div
                 className={`${bgColorClass} ${modalAnimationClass} 
                 ${position === "centered" && "modal__place-self-center"} 
-                ${typeSize === "default" && "modal__layout-default-sizes"
-                  }              
+                modal__layout-default-sizes ${modalClassSize}       
             `}
                 style={position === "custom" ? positionModal : {}}
                 onClick={handleClosePropagation}

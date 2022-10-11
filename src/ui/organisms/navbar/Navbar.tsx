@@ -1,6 +1,7 @@
 import { ToggleTheme } from "@/theme/components/ToggleTheme/ToggleTheme"
 import SearchBar from "@/ui/molecules/SearchBar/SearchBar"
 import { UserIcon } from "../../atoms/icons/userIcon/userIcon.styles"
+import { Account } from "../Account"
 import Notification from "../Notifications/Notification"
 import { Nav } from "./styledComponents/navbar.styled"
 import { NavbarActionWrapper } from "./styledComponents/navbarActionsWrapper.styled"
@@ -15,7 +16,7 @@ const Navbar = (props: Props) => {
             <NavbarActionWrapper>
                 <ToggleTheme />
                 <Notification />
-                <UserIcon></UserIcon>
+                <Account />
             </NavbarActionWrapper>
         </Nav>
     )

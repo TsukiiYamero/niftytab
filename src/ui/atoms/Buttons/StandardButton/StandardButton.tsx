@@ -20,11 +20,11 @@ export const StandardButton = ({
     text,
     textStyle = '',
     iconSize = IconsSize.medium,
-    buttonStyle = 'btn-outline',
+    buttonStyle = 'btn-normal',
     active = false,
     ripple = false,
     disabled = false,
-    onClick,    
+    onClick,
 }: Props) => {
 
     const cssClassForActive = active ? 'standard-btn-active' : ''

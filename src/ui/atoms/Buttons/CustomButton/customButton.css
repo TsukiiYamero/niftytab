@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   background-color: transparent;
+  border-radius: var(--border-radius-secondary);
 }
 
 .common-btn:focus {
@@ -20,9 +21,12 @@
   border-radius: var(--border-radius-secondary);
 }
 
+.btn-primary span {
+  color: var(--white);
+}
+
 .btn-outline {
-  outline: var(--primary-color);
-  border-radius: var(--border-radius-secondary);
+  outline: 2px solid var(--main-text-color);
 }
 
 /* 16px */

@@ -1,0 +1,27 @@
+.standard-btn-text {
+  color: var(--main-text-color);
+  padding-left: 4px;
+}
+
+.standard-btn-icon-color {
+  color: var(--main-text-color);
+}
+
+.tab-creation-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 8px 14px;
+  position: relative;
+  transition: background 400ms;
+  overflow: hidden;
+  outline: 2px solid var(--main-text-color);
+  border-radius: var(--border-radius-primary);
+  cursor: pointer;
+}
+
+.tab-creation-container > span {
+  color: var(--main-text-color);
+  font-size: var(--font-size-semi-title);
+  padding-left: 10px;
+}

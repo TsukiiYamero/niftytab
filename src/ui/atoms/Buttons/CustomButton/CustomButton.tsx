@@ -27,7 +27,7 @@ export const CustomButton: FC<Props> = ({
   children,
   className = "",
   type = "button",
-  buttonStyle = "btn-outline",
+  buttonStyle = "btn-normal",
   buttonSize = "btn-xs",
   buttonSpace = "btn-cmn-p",
   disabled = false,

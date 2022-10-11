@@ -1,5 +1,5 @@
 .modal__bg-color {
-  background-color: #fff;
+  background-color: var(--bg-color);
 }
 
 .modal__container-grid-layout {

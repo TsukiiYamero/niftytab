@@ -3,6 +3,7 @@ export declare type BtnStyles =
   | "btn-inverted"
   | "btn-success"
   | "btn-filled"
+  | "btn-normal"
   | "btn-outline"
   | "btn-outline-inverted"
   | "btn-outline-success"
