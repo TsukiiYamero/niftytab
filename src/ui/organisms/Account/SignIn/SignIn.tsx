@@ -1,3 +1,5 @@
+import { useAuthDispatch } from '@/contexts/auth/authContexts';
+import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
 import { signInWithEmail, signInWithGoogle } from '@/services/authProviders';
 import { StandardButton } from '@/ui/atoms/Buttons'
 import { useRef } from 'react'
@@ -22,6 +24,7 @@ const SignIn = (props: Props) => {
     }
 
     const onSignInWithGoogle = async () => {
+        startSignInWithEmail();
         const result = await signInWithGoogle();
         console.log(result);
     }
