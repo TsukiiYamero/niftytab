@@ -1,8 +1,10 @@
-import { createContext } from "react";
-import { Themes } from "../theme.types";
+import { createContext } from 'react';
+import { Themes } from '../theme.types';
 
-type ThemeContext = {
-    userTheme: Themes
-}
+type ThemeContextType = {
+    userTheme: Themes;
+};
 
-export const ThemeContext = createContext<ThemeContext>({ userTheme: Themes.dark })
+export const ThemeContext = createContext<ThemeContextType>({
+    userTheme: Themes.dark
+});

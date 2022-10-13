@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TabsSectionWrapper = styled.div`
-display: contents;
-
-`
+    display: contents;
+`;

@@ -1,7 +1,9 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 type TSearchValueContext = {
     searchValue: string;
-}
+};
 
-export const SearchValueContext = createContext<TSearchValueContext>({ searchValue: '' });
+export const SearchValueContext = createContext<TSearchValueContext>({
+    searchValue: ''
+});

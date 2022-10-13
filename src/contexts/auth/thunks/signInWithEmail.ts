@@ -1,14 +1,7 @@
-import { AuthActions, AuthActionType } from "../auth.types";
 import { Dispatch } from 'react';
-import { useAuthDispatch } from "../authContexts";
+import { AuthActions, AuthActionType } from '../auth.types';
 
-export const startSignInWithEmail = () => {
-    const dispatch = useAuthDispatch();
-    return async (dispatch: Dispatch<AuthActionType>) => {
-
-        // start loading
-        dispatch({ type: AuthActions.requestLogin });
-        console.log('nice')
-
-    }
-}
+export const startSignInWithEmail = (dispatch: Dispatch<AuthActionType>) => {
+    dispatch({ type: AuthActions.requestLogin });
+    console.log('nice');
+};

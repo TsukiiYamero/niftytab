@@ -1,17 +1,15 @@
-import chrome from "@/avoidChromeErrors/chrome";
-import { useEffect, useState } from "react"
-import { getThemeFromStorage } from "../helpers/getThemeFromStorage";
-import { setThemeInStorage } from "../helpers/setThemeInStorage";
-import { Themes } from "../theme.types";
-import { usePrefersColorScheme } from "./usePrefersColorScheme";
-
+import chrome from '@/avoidChromeErrors/chrome';
+import { useEffect, useState } from 'react';
+import { getThemeFromStorage } from '../helpers/getThemeFromStorage';
+import { setThemeInStorage } from '../helpers/setThemeInStorage';
+import { Themes } from '../theme.types';
+import { usePrefersColorScheme } from './usePrefersColorScheme';
 
 export const useGetTheme = () => {
     const themePrefer = usePrefersColorScheme();
     const [theme, setTheme] = useState<Themes>(Themes.dark);
 
     useEffect(() => {
-
         const getThemeFromSync = async () => {
             if (!chrome.storage) return;
 
@@ -25,11 +23,10 @@ export const useGetTheme = () => {
             if (!themeStored) {
                 setThemeInStorage(themePrefer);
             }
-        }
+        };
 
         getThemeFromSync();
-
-    }, [])
+    }, [themePrefer]);
 
     return theme;
-}
+};

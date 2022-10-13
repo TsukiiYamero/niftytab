@@ -1,4 +1,6 @@
-import { IconBaseProps } from 'react-icons'
-import { IoIosArrowForward } from 'react-icons/io'
+import { IconBaseProps } from 'react-icons';
+import { IoIosArrowForward } from 'react-icons/io';
 
-export const ArrowForward = (props: IconBaseProps) => <IoIosArrowForward {...props} />;
+export const ArrowForward = (props: IconBaseProps) => (
+    <IoIosArrowForward {...props} />
+);

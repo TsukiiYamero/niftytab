@@ -1,6 +1,6 @@
-import TabsSection from "@/templates/TabsSection/TabsSection";
-import Navbar from "@/ui/organisms/Navbar/Navbar";
-import { MainPageWrapper } from "./MainPageWrapper.styled";
+import TabsSection from '@/templates/TabsSection/TabsSection';
+import Navbar from '@/ui/organisms/Navbar/Navbar';
+import { MainPageWrapper } from './MainPageWrapper.styled';
 
 const MainPage = () => {
     return (
@@ -8,7 +8,7 @@ const MainPage = () => {
             <Navbar />
             <TabsSection />
         </MainPageWrapper>
-    )
-}
+    );
+};
 
 export default MainPage;

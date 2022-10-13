@@ -18,4 +18,4 @@ export type ChromeTabs = {
     incognito?: boolean;
     width?: number;
     windowId?: number;
-}
+};

@@ -1,2 +1,2 @@
-export * from './CustomButton'
-export * from './customButton.types'
+export * from './CustomButton';
+export * from './customButton.types';

@@ -5,4 +5,4 @@ export enum Themes {
 
 export const AttrThemeName = 'data-theme';
 
-export const ChromeStoredTheme = 'theme'; 
+export const ChromeStoredTheme = 'theme';

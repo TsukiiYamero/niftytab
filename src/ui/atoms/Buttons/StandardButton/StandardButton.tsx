@@ -1,6 +1,6 @@
-import './standarButton.css'
+import './standarButton.css';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
-import { ReactElement, cloneElement, MouseEvent } from 'react'
+import { ReactElement, cloneElement, MouseEvent } from 'react';
 import { CustomButton, BtnStyles } from '../CustomButton';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
     active?: boolean;
     disabled?: boolean;
     ripple?: boolean;
-}
+};
 
 export const StandardButton = ({
     icon,
@@ -24,22 +24,34 @@ export const StandardButton = ({
     active = false,
     ripple = false,
     disabled = false,
-    onClick,
+    onClick
 }: Props) => {
+    const cssClassForActive = active ? 'standard-btn-active' : '';
 
-    const cssClassForActive = active ? 'standard-btn-active' : ''
-
-    const Icon = icon && cloneElement(icon, {
-        className: `standard-btn-icon-color ${cssClassForActive} ${iconSize} ${icon.props.className ? icon.props.className : ''}`
-    })
+    const Icon =
+        icon &&
+        cloneElement(icon, {
+            className: `standard-btn-icon-color ${cssClassForActive} ${iconSize} ${
+                icon.props.className ? icon.props.className : ''
+            }`
+        });
 
     return (
-        <CustomButton onClick={onClick} buttonStyle={buttonStyle} active={active} disabled={disabled} ripple={ripple}>
+        <CustomButton
+            onClick={onClick}
+            buttonStyle={buttonStyle}
+            active={active}
+            disabled={disabled}
+            ripple={ripple}
+        >
             {Icon}
-            {text &&
-                <span className={`standard-btn-text ${textStyle} ${cssClassForActive}`}>
+            {text && (
+                <span
+                    className={`standard-btn-text ${textStyle} ${cssClassForActive}`}
+                >
                     {text}
-                </span>}
+                </span>
+            )}
         </CustomButton>
-    )
-}
+    );
+};

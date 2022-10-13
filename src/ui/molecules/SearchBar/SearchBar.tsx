@@ -1,28 +1,33 @@
+import { useRef } from 'react';
+import SearchIcon from '@/ui/atoms/icons/SearchIcon/SearchIcon';
+import { IconButtonSimple } from '@/ui/atoms/Buttons';
+import { SearchBarWrapper } from './searchBarWrapper.styled';
+import { SearchInput } from './SearchInput.styled';
 
-import { useRef } from "react"
-import SearchIcon from "@/ui/atoms/icons/SearchIcon/SearchIcon"
-import { IconButtonSimple } from "@/ui/atoms/Buttons"
-import { SearchBarWrapper } from "./searchBarWrapper.styled"
-import { SearchInput } from "./SearchInput.styled"
-
-type Props = {}
+type Props = {};
 
 const SearchBar = (props: Props) => {
-
     const ref = useRef<HTMLInputElement>(null);
 
     const onClickSearchIcon = () => {
-        ref.current && ref.current.focus();
-    }
+        ref.current?.focus();
+    };
 
     return (
         <SearchBarWrapper>
-            <SearchInput ref={ref} type="text" placeholder="Search tab, group, session" />
+            <SearchInput
+                ref={ref}
+                type="text"
+                placeholder="Search tab, group, session"
+            />
             <IconButtonSimple onClick={onClickSearchIcon}>
-                <SearchIcon size={"24px"} color={'var(--border-color-secondary)'} />
+                <SearchIcon
+                    size={'24px'}
+                    color={'var(--border-color-secondary)'}
+                />
             </IconButtonSimple>
-        </SearchBarWrapper >
-    )
-}
+        </SearchBarWrapper>
+    );
+};
 
-export default SearchBar
+export default SearchBar;

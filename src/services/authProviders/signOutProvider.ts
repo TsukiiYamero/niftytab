@@ -1,5 +1,5 @@
-import { supabase } from "@/api/config";
-import { AuthError } from "@supabase/supabase-js";
+import { supabase } from '@/api/config';
+import { AuthError } from '@supabase/supabase-js';
 
 export const signOut = async () => {
     let errorSignOut: { error: AuthError | null } = {
@@ -14,4 +14,4 @@ export const signOut = async () => {
     }
 
     return errorSignOut;
-}
+};

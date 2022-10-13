@@ -1,8 +1,7 @@
-import { supabase } from "@/api/config";
-import { AuthResponse } from "@supabase/supabase-js";
+import { supabase } from '@/api/config';
+import { AuthResponse } from '@supabase/supabase-js';
 
 export const signUpWithEmail = async (data: any) => {
-
     let result: AuthResponse = {
         data: {
             session: null,
@@ -12,16 +11,15 @@ export const signUpWithEmail = async (data: any) => {
     };
 
     try {
-        result = await supabase.auth.signUp(data)
+        result = await supabase.auth.signUp(data);
     } catch (error) {
         console.error(error);
     }
 
     return result;
-}
+};
 
 export const signInWithEmail = async (data: any) => {
-
     let result: AuthResponse = {
         data: {
             session: null,
@@ -37,5 +35,4 @@ export const signInWithEmail = async (data: any) => {
     }
 
     return result;
-}
-
+};
