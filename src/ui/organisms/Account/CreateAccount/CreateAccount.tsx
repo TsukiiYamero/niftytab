@@ -52,7 +52,7 @@ const CreateAccount = () => {
 
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
-        const passwordRepeat = passwordRepeatRef.current?.value
+        const passwordRepeat = passwordRepeatRef.current?.value;
 
         handelSetData({
             email, password, passwordRepeat

@@ -21,17 +21,20 @@ export const authReducer = (
             return {
                 ...state,
                 user: action.payload.user,
-                token: action.payload.token
+                token: action.payload.token,
+                loading: false
             };
         case AuthActions.logout:
             return {
-                ...authInitialState
+                ...authInitialState,
+                loading: false
             };
 
         case AuthActions.loginError:
             return {
                 ...state,
-                errorMessage: action.payload
+                errorMessage: action.payload,
+                loading: false
             };
 
         default:
