@@ -35,3 +35,8 @@ export interface AuthData {
     refreshToken: string;
     user: AuthUser;
 }
+
+export interface UserCredentials {
+    email: string;
+    password: string;
+}

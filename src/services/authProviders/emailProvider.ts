@@ -1,7 +1,8 @@
 import { supabase } from '@/api/config';
+import { UserCredentials } from '@/contexts/auth';
 import { AuthResponse } from '@supabase/supabase-js';
 
-export const signUpWithEmail = async (data: any) => {
+export const signUpWithEmail = async (data: UserCredentials) => {
     let result: AuthResponse = {
         data: {
             session: null,

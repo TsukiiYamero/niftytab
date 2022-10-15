@@ -13,6 +13,7 @@ type Props = {
     active?: boolean;
     disabled?: boolean;
     ripple?: boolean;
+    type?: 'button' | 'submit';
 };
 
 export const StandardButton = ({
@@ -24,6 +25,7 @@ export const StandardButton = ({
     active = false,
     ripple = false,
     disabled = false,
+    type = 'button',
     onClick
 }: Props) => {
     const cssClassForActive = active ? 'standard-btn-active' : '';
@@ -31,9 +33,8 @@ export const StandardButton = ({
     const Icon =
         icon &&
         cloneElement(icon, {
-            className: `standard-btn-icon-color ${cssClassForActive} ${iconSize} ${
-                icon.props.className ? icon.props.className : ''
-            }`
+            className: `standard-btn-icon-color ${cssClassForActive} ${iconSize} ${icon.props.className ? icon.props.className : ''
+                }`
         });
 
     return (
@@ -43,6 +44,7 @@ export const StandardButton = ({
             active={active}
             disabled={disabled}
             ripple={ripple}
+            type={type}
         >
             {Icon}
             {text && (

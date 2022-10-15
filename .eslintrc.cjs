@@ -22,7 +22,8 @@ module.exports = {
     rules: {
         'react-hooks/rules-of-hooks': 'error',
         semi: [1, 'always'],
-        indent: ['error', 4, { SwitchCase: 1 }],
+        // indent: ['error', 4, { SwitchCase: 1 }],
+        indent: 'off',
         quotes: ['error', 'single'],
         curly: 'off',
         '@typescript-eslint/semi': 'off',
