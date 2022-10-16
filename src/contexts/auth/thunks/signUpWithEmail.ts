@@ -1,7 +1,9 @@
 import { signUpWithEmail } from '@/services/authProviders';
 import { AuthResponse } from '@supabase/supabase-js';
 import { Dispatch } from 'react';
-import { AuthActions, AuthActionType, AuthLoginData, UserCredentials } from '../auth.types';
+import { AuthActions, AuthActionType, UserCredentials } from '../auth.types';
+import { supabase } from '@/api/config';
+import { startSetSession } from './setSession';
 
 /**
  * Sign up a user with email and password, and if successful, it will dispatch
@@ -21,31 +23,15 @@ export const startSignUpWithEmail = async (
         result = await signUpWithEmail(userCredentials);
     } catch (error) {
         dispatch({ type: AuthActions.loginError, payload: 'Something went wrong, please try again later.' });
-        return;
+        return false;
     }
 
     if (result.error) {
         dispatch({ type: AuthActions.loginError, payload: result.error.message });
-        return;
+        return false;
     }
 
-    const userData = result.data.user;
-    const sessionData = result.data.session;
+    const resultSession = await supabase.auth.getSession();
 
-    if (!userData || !sessionData) {
-        dispatch({ type: AuthActions.loginError, payload: 'Credentials not found.' });
-        return;
-    }
-
-    const authLoginData: AuthLoginData = {
-        user: {
-            avatarUrl: userData?.user_metadata?.avatar_url ?? '',
-            email: userData?.email ?? '',
-            fullName: userData?.user_metadata?.full_name ?? '',
-            id: userData?.id
-        },
-        token: sessionData.access_token
-    };
-
-    dispatch({ type: AuthActions.loginSuccess, payload: authLoginData });
+    return await startSetSession(dispatch, resultSession);
 };

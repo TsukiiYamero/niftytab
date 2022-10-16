@@ -14,7 +14,7 @@ export const authReducer = (
     switch (action.type) {
         case AuthActions.requestLogin:
             return {
-                ...state,
+                ...authInitialState,
                 loading: true
             };
         case AuthActions.loginSuccess:
@@ -22,6 +22,7 @@ export const authReducer = (
                 ...state,
                 user: action.payload.user,
                 token: action.payload.token,
+                errorMessage: '',
                 loading: false
             };
         case AuthActions.logout:

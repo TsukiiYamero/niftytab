@@ -1,35 +1,10 @@
-import { useAuthDispatch, useAuthState } from '@/contexts/auth';
-import { startSignUpWithEmail } from '@/contexts/auth/thunks/signUpWithEmail';
+import { startSignUpWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { StandardButton } from '@/ui/atoms/Buttons';
+import { authValidations } from '@/utils/authValidations';
 import { FormEvent, useEffect, useRef } from 'react';
 
 type SignUpForm = { email: string, password: string, passwordRepeat: string }
-
-const validations = {
-    validations: {
-        email: {
-            pattern: {
-                // eslint-disable-next-line
-                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                message: 'Please enter a valid email address.'
-            }
-        },
-        password: {
-            pattern: {
-                // eslint-disable-next-line
-                value: /^(?=.*[A-Za-z])(?=.*\d){8,}/,
-                message: 'Password must be at least 8 characters long & contain one letter & one number'
-            }
-        },
-        passwordRepeat: {
-            custom: {
-                isValid: (value: SignUpForm) => value.password === value.passwordRepeat,
-                message: 'Both password should be the same.'
-            }
-        }
-    }
-};
 
 const CreateAccount = () => {
     const dispatch = useAuthDispatch();
@@ -39,13 +14,29 @@ const CreateAccount = () => {
     const passwordRepeatRef = useRef<HTMLInputElement>(null);
 
     const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<SignUpForm>({
-        ...validations,
+        ...authValidations,
         initialValues: {
             email: emailRef.current?.value ?? '',
             password: passwordRef.current?.value ?? '',
             passwordRepeat: passwordRepeatRef.current?.value ?? ''
         }
     });
+
+    useEffect(() => {
+        const signUp = async () => {
+            if (!isValid) return;
+
+            if (!data?.email || !data?.password) return;
+
+            const userCredentials = {
+                email: data?.email,
+                password: data?.password
+            };
+
+            await startSignUpWithEmail(dispatch, userCredentials);
+        };
+        signUp();
+    }, [isValid, data, dispatch]);
 
     const onHandleSubmit = (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
@@ -58,19 +49,6 @@ const CreateAccount = () => {
             email, password, passwordRepeat
         });
     };
-
-    useEffect(() => {
-        if (!isValid) return;
-
-        if (!data?.email || !data?.password) return;
-
-        const userCredentials = {
-            email: data?.email,
-            password: data?.password
-        };
-
-        startSignUpWithEmail(dispatch, userCredentials);
-    }, [isValid, data, dispatch]);
 
     return (
         <div>

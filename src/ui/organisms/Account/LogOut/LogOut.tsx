@@ -1,12 +1,15 @@
-import { signOut } from '@/services/authProviders';
+import { useAuthDispatch } from '@/contexts/auth';
+import { startSignOut } from '@/contexts/auth/thunks/signOut';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { MouseEvent } from 'react';
 
 export const LogOut = () => {
+    const dispatch = useAuthDispatch();
+
     const onLogout = async (
-        ev: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+        _: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
     ) => {
-        await signOut();
+        await startSignOut(dispatch);
     };
 
     return (

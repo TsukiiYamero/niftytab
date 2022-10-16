@@ -1,3 +1,4 @@
+import { useAuthState } from '@/contexts/auth';
 import { IconButtonSimple } from '@/ui/atoms/Buttons';
 import { UserIcon } from '@/ui/atoms/icons';
 import { Modal, useModal } from '@/ui/molecules/Modal';
@@ -7,6 +8,7 @@ import { LogOut } from './LogOut/LogOut';
 import SignIn from './SignIn/SignIn';
 
 export const Account = () => {
+    const { user } = useAuthState();
     const { isOpen, openModal, closeModal } = useModal();
     const {
         isOpen: isOpen2,
@@ -15,16 +17,18 @@ export const Account = () => {
     } = useModal();
 
     const [signIn, setSignIn] = useState(true);
-    const [logged, setLogged] = useState(false);
 
     const onUserClick = () => {
-        !logged ? openModal() : openModal2();
+        !user ? openModal() : openModal2();
     };
 
     const onChangeSign = () => {
         setSignIn(!signIn);
-        setLogged(!logged);
     };
+
+    /*     const onCloseModal = useCallback(() => {
+            closeModal();
+        }, [closeModal]); */
 
     return (
         <div>
@@ -37,7 +41,6 @@ export const Account = () => {
                     {signIn ? <SignIn /> : <CreateAccount />}
 
                     <span onClick={onChangeSign}>dot have an account yet?</span>
-                    <LogOut />
                 </div>
             </Modal>
 

@@ -1,6 +1,6 @@
 import { supabase } from '@/api/config';
-import { signInWithEmail } from '@/services/authProviders';
-import { AuthResponse } from '@supabase/supabase-js';
+import { signInWithGoogle } from '@/services/authProviders';
+import { OAuthResponse } from '@supabase/supabase-js';
 import { Dispatch } from 'react';
 import { AuthActions, AuthActionType, UserCredentials } from '../auth.types';
 import { startSetSession } from './setSession';
@@ -11,24 +11,22 @@ import { startSetSession } from './setSession';
  * @param dispatch - Dispatch<AuthActionType>
  * @param {UserCredentials} userCredentials - UserCredentials
  */
-export const startSignInWithEmail = async (dispatch: Dispatch<AuthActionType>, userCredentials: UserCredentials) => {
+export const startSignInWithGoogle = async (dispatch: Dispatch<AuthActionType>, userCredentials: UserCredentials) => {
     dispatch({ type: AuthActions.requestLogin });
 
-    let result: AuthResponse;
+    let resultOAuth: OAuthResponse;
 
     try {
-        result = await signInWithEmail(userCredentials);
+        resultOAuth = await signInWithGoogle();
     } catch (error) {
         dispatch({ type: AuthActions.loginError, payload: 'Something went wrong, please try again later.' });
-        return false;
+        return;
     }
 
-    if (result.error) {
-        dispatch({ type: AuthActions.loginError, payload: result.error.message });
-        return false;
-    }
+    if (resultOAuth.error) return;
 
     const resultSession = await supabase.auth.getSession();
 
-    return await startSetSession(dispatch, resultSession);
+    if (!resultSession.data || !resultSession.data.session)
+        startSetSession(dispatch, resultSession);
 };

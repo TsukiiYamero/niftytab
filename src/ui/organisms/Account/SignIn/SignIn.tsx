@@ -1,53 +1,87 @@
 // import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
-import { signInWithEmail, signInWithGoogle } from '@/services/authProviders';
+import { startSignInWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
+import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
+import { signInWithGoogle } from '@/services/authProviders';
 import { StandardButton } from '@/ui/atoms/Buttons';
-import { useRef } from 'react';
+import { authValidationsBasic } from '@/utils/authValidations';
+import { useEffect, useRef } from 'react';
 
-type Props = {};
+type SignUpForm = { email: string, password: string }
 
-const SignIn = (props: Props) => {
+const SignIn = () => {
+    const dispatch = useAuthDispatch();
+    const { loading, errorMessage } = useAuthState();
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const passwordRepeatRef = useRef<HTMLInputElement>(null);
+
+    const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<SignUpForm>({
+        ...authValidationsBasic,
+        initialValues: {
+            email: emailRef.current?.value ?? '',
+            password: passwordRef.current?.value ?? ''
+        }
+    });
+
+    useEffect(() => {
+        const signIn = async () => {
+            if (!isValid) return;
+
+            if (!data?.email || !data?.password) return;
+
+            const userCredentials = {
+                email: data?.email,
+                password: data?.password
+            };
+
+            await startSignInWithEmail(dispatch, userCredentials);
+        };
+
+        signIn();
+    }, [isValid, data, dispatch]);
 
     const onSignIn = async () => {
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
 
-        if (!email || !password || !passwordRepeatRef) return null;
-
-        const result = await signInWithEmail({ email, password });
-        console.log(result);
+        handelSetData({ email, password });
     };
 
     const onSignInWithGoogle = async () => {
-        // startSignInWithEmail();
-        const result = await signInWithGoogle();
-        console.log(result);
+        await signInWithGoogle();
     };
 
     return (
         <div>
+
+            {loading && <h1>Loading...</h1>}
+            {errorMessage && <p>{errorMessage}</p>}
+
             <h2>Sign In</h2>
 
-            <input
-                ref={emailRef}
-                type="text"
-                name="email"
-                placeholder="example@gmail.com"
-            />
-            <input
-                ref={passwordRef}
-                type="text"
-                name="password"
-                placeholder="*******"
-            />
+            {!pristine && errors.email && <span>{errors.email}</span>}
+            {!pristine && errors.password && <span>{errors.password}</span>}
 
-            <StandardButton
-                buttonStyle="btn-primary"
-                text={'Sign In'}
-                onClick={onSignIn}
-            />
+            <form action="">
+                <input
+                    ref={emailRef}
+                    type="text"
+                    name="email"
+                    placeholder="example@gmail.com"
+                />
+                <input
+                    ref={passwordRef}
+                    type="password"
+                    name="password"
+                    placeholder="*******"
+                />
+
+                <StandardButton
+                    buttonStyle="btn-primary"
+                    text={'Sign In'}
+                    onClick={onSignIn}
+                />
+            </form>
+
             <StandardButton
                 buttonStyle="btn-primary"
                 text={'Sign In With Google'}
