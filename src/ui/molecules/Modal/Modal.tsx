@@ -1,13 +1,15 @@
 import './modal.css';
-import { memo, MouseEvent } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { WrapperAnimation } from './WrapperAnimation';
 import { IconButtonSimple } from '@/ui/atoms/Buttons';
 import { CloseIcon } from '@/ui/atoms/icons';
+import { ModalProvider } from './context/provider/ModalProvider';
 
 export interface PropsModal {
     isOpen: boolean;
     onClose: () => void;
+    closable?: boolean;
     closeByClickOutside?: boolean;
     closeByIcon?: boolean;
     children?: any;
@@ -29,6 +31,7 @@ export const Modal = memo(
     ({
         isOpen,
         children,
+        closable = true,
         onClose,
         closeByClickOutside = true,
         closeByIcon = true,
@@ -55,12 +58,19 @@ export const Modal = memo(
             left: `${leftModal}px`
         };
 
+        const closableModal = useCallback(
+            () => {
+                closable && onClose();
+            },
+            [closable, onClose]
+        );
+
         const handleCloseModal = () => {
-            onClose && closeByIcon && onClose();
+            closeByIcon && closableModal();
         };
 
         const handleCloseModalClickOutsider = () => {
-            onClose && closeByClickOutside && onClose();
+            closeByClickOutside && closableModal();
         };
 
         const handleClosePropagation = (ev: MouseEvent<HTMLDivElement>) => {
@@ -68,7 +78,7 @@ export const Modal = memo(
         };
 
         return createPortal(
-            <>
+            <ModalProvider CloseFn={closableModal} isOpen closable>
                 {isOpen && (
                     <div className="modal__container">
                         <WrapperAnimation {...wrapperAnimationProps} />
@@ -80,9 +90,9 @@ export const Modal = memo(
                         >
                             <div
                                 className={`${bgColorClass} ${modalAnimationClass} 
-                ${position === 'centered' && 'modal__place-self-center'} 
-                modal__layout-default-sizes ${modalClassSize}       
-            `}
+                                    ${position === 'centered' && 'modal__place-self-center'} 
+                                    modal__layout-default-sizes ${modalClassSize}       
+                                `}
                                 style={
                                     position === 'custom' ? positionModal : {}
                                 }
@@ -94,9 +104,7 @@ export const Modal = memo(
                                         onClick={handleCloseModal}
                                     >
                                         <IconButtonSimple>
-                                            <CloseIcon
-                                                className={'close-icon'}
-                                            />
+                                            <CloseIcon className={'close-icon'} />
                                         </IconButtonSimple>
                                     </div>
                                 )}
@@ -106,7 +114,7 @@ export const Modal = memo(
                         </div>
                     </div>
                 )}
-            </>,
+            </ModalProvider>,
             document.querySelector('#root') as HTMLBodyElement
         );
     }

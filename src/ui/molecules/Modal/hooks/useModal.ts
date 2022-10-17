@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useCallback, useState } from 'react';
 
 interface ModalOpen {
     topModal?: number;
@@ -36,7 +36,13 @@ export const useModal = (initialState = false) => {
             setPositionsAnimation(animations);
         }
     };
-    const closeModal = () => setIsOpen(false);
+
+    const closeModal = useCallback(
+        () => {
+            setIsOpen(false);
+        },
+        []
+    );
 
     return {
         isOpen,

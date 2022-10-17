@@ -12,4 +12,5 @@ export const startSignOut = async (dispatch: Dispatch<AuthActionType>) => {
     }
 
     dispatch({ type: AuthActions.logout });
+    return true;
 };

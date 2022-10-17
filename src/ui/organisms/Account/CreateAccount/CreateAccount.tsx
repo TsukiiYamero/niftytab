@@ -1,6 +1,7 @@
 import { startSignUpWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { StandardButton } from '@/ui/atoms/Buttons';
+import { useModalContext } from '@/ui/molecules/Modal';
 import { authValidations } from '@/utils/authValidations';
 import { FormEvent, useEffect, useRef } from 'react';
 
@@ -9,6 +10,7 @@ type SignUpForm = { email: string, password: string, passwordRepeat: string }
 const CreateAccount = () => {
     const dispatch = useAuthDispatch();
     const { loading, errorMessage } = useAuthState();
+    const { closeModal } = useModalContext();
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordRepeatRef = useRef<HTMLInputElement>(null);
@@ -33,10 +35,11 @@ const CreateAccount = () => {
                 password: data?.password
             };
 
-            await startSignUpWithEmail(dispatch, userCredentials);
+            const isOk = await startSignUpWithEmail(dispatch, userCredentials);
+            isOk && closeModal();
         };
         signUp();
-    }, [isValid, data, dispatch]);
+    }, [isValid, data, dispatch, closeModal]);
 
     const onHandleSubmit = (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
