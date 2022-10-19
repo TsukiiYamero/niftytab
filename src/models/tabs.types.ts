@@ -19,3 +19,30 @@ export type ChromeTabs = {
     width?: number;
     windowId?: number;
 };
+
+export type TabsSupabase = {
+    url: string;
+    pinned: boolean;
+    active: boolean;
+    discarded: boolean;
+    session_id: number;
+    group_id: number;
+    user_id: string;
+    favicon_url: string;
+    title: string;
+    index: number;
+}
+
+export type GroupsTabsSupabase = {
+    user_id: string;
+    collapsed: boolean;
+    id?: number;
+    color?: string;
+    title?: string;
+}
+
+export type SessionTabsSupabase = {
+    user_id: string;
+    id?: number;
+    browser_name?: string;
+}

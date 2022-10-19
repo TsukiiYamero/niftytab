@@ -1,3 +1,12 @@
+
+// innerType
+export interface AuthUser {
+    email: string;
+    id: string;
+    avatarUrl: string;
+    fullName: string;
+}
+
 export type AuthInitialState = {
     token: string;
     user: AuthUser | undefined;
@@ -21,13 +30,6 @@ export enum AuthActions {
 export interface AuthLoginData {
     user: AuthUser;
     token: string;
-}
-
-export interface AuthUser {
-    email: string;
-    id: string;
-    avatarUrl: string;
-    fullName: string;
 }
 
 export interface AuthData {

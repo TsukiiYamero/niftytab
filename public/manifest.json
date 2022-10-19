@@ -7,11 +7,13 @@
         "service_worker": "./workers/background.js"
     },
     "permissions": [
-        "storage", 
+        "storage",
         "activeTab",
-        "tabs"
+        "tabs",
+        "sessions",
+        "tabGroups"
     ],
     "action": {
         "default_popup": "index.html"
     }
-  }
+}

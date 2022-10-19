@@ -1,3 +1,5 @@
+import { useAuthState } from '@/contexts/auth';
+import { useGetChromeSession } from '@/customHooks/useGetChromeSession';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { TabCreationButton } from '@/ui/atoms/Buttons/TabCreationButton';
 import { AddIcon, ArrowForward } from '@/ui/atoms/icons';
@@ -6,11 +8,12 @@ import { Modal, useModal } from '@/ui/molecules/Modal';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { MouseEvent } from 'react';
 import './addTabs.css';
+import { handleCreateTab } from './handleCreateTab';
 
-type Props = {};
-
-export const AddTabs = (props: Props) => {
+export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
+    useGetChromeSession();
+    const { user } = useAuthState();
 
     const iconLeft = {
         icon: <AddTabIcon />,
@@ -23,11 +26,7 @@ export const AddTabs = (props: Props) => {
     };
 
     const handleTabCreation = async (ev: MouseEvent<HTMLDivElement>) => {
-        const [tab] = await chrome.tabs.query({
-            active: true,
-            currentWindow: true
-        });
-        console.log(tab);
+        handleCreateTab(user);
     };
 
     const handleGroupCreation = (ev: MouseEvent<HTMLDivElement>) => {
