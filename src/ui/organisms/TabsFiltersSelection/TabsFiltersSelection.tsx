@@ -2,6 +2,7 @@ import { StandardButton } from '@/ui/atoms/Buttons';
 import { BarsIcon, FilterIcon } from '@/ui/atoms/icons';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { useState } from 'react';
+import { TabStoreSelection } from '../TabStoreSelection';
 import { TabsFiltersSelectionWrapper } from './TabsFilterSelectionWrapper/TabsFilterSelectionWrapper';
 
 type TabsSelection = {
@@ -24,22 +25,25 @@ const TabsFiltersSelection = () => {
     };
 
     return (
-        <TabsFiltersSelectionWrapper>
-            <StandardButton
-                active={filter.smallView}
-                disabled={false}
-                icon={<BarsIcon />}
-                iconSize={IconsSize.small}
-                onClick={() => changeActiveFilter(TabSelectionOpts.smallView)}
-            />
+        <>
+            <TabStoreSelection />
+            <TabsFiltersSelectionWrapper>
+                <StandardButton
+                    active={filter.smallView}
+                    disabled={false}
+                    icon={<BarsIcon />}
+                    iconSize={IconsSize.small}
+                    onClick={() => changeActiveFilter(TabSelectionOpts.smallView)}
+                />
 
-            <StandardButton
-                active={filter.normalView}
-                icon={<FilterIcon />}
-                iconSize={IconsSize.small}
-                onClick={() => changeActiveFilter(TabSelectionOpts.normalView)}
-            />
-        </TabsFiltersSelectionWrapper>
+                <StandardButton
+                    active={filter.normalView}
+                    icon={<FilterIcon />}
+                    iconSize={IconsSize.small}
+                    onClick={() => changeActiveFilter(TabSelectionOpts.normalView)}
+                />
+            </TabsFiltersSelectionWrapper>
+        </>
     );
 };
 

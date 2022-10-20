@@ -10,7 +10,7 @@ const TabsSelection = () => {
     const dispatch = useGetTabsDispatchContext();
 
     const changeActiveTab = (ev: TabSectionFilter) => {
-        dispatch({ type: TabsActions.tabsSection, payload: ev });
+        dispatch({ type: TabsActions.changeTabsSection, payload: ev });
     };
 
     return (

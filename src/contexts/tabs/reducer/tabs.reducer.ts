@@ -1,9 +1,10 @@
-import { TabsActions, TabsActionType, TabSectionFilter, TabsStore } from '../tabsContext.types';
+import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TabsStoredType } from '../tabsContext.types';
 
 export const tabsInitialState: TabsStore = {
     local: [],
     saved: [],
     tabSection: TabSectionFilter.tabs,
+    typeOfStore: TabsStoredType.local,
     loading: false
 };
 
@@ -27,10 +28,16 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType) =>
                 saved: action.payload,
                 loading: false
             };
-        case TabsActions.tabsSection:
+        case TabsActions.changeTabsSection:
             return {
                 ...state,
                 tabSection: action.payload,
+                loading: false
+            };
+        case TabsActions.changeTypeOfStore:
+            return {
+                ...state,
+                typeOfStore: action.payload,
                 loading: false
             };
         default:
