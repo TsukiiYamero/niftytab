@@ -1,10 +1,10 @@
 import { createContext, Dispatch } from 'react';
-import { TabsActionType, TabsStore } from './tabsContext.types';
+import { TabsActionType, TabSectionFilter, TabsStore } from './tabsContext.types';
 
 export const TabsStoreContext = createContext<TabsStore>({
     local: [],
     saved: [],
-    tabSection: 'tabs',
+    tabSection: TabSectionFilter.tabs,
     loading: false
 });
 

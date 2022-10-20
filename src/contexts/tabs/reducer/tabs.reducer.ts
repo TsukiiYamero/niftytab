@@ -1,9 +1,9 @@
-import { TabsActions, TabsActionType, TabsStore } from '../tabsContext.types';
+import { TabsActions, TabsActionType, TabSectionFilter, TabsStore } from '../tabsContext.types';
 
 export const tabsInitialState: TabsStore = {
     local: [],
     saved: [],
-    tabSection: 'tabs',
+    tabSection: TabSectionFilter.tabs,
     loading: false
 };
 

@@ -1,51 +1,42 @@
+import { TabsActions, TabSectionFilter } from '@/contexts/tabs';
+import { useGetTabsContext, useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { FoldersIcon, SessionIcon, TabsIcon } from '@/ui/atoms/icons';
 import { AddTabs } from '@/ui/organisms/AddTabs';
-import { useState } from 'react';
 import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.styled';
 
-type TabsSelectionType = {
-    tabs?: boolean;
-    groups?: boolean;
-    sessions?: boolean;
-};
-
-enum TabSelectionOpts {
-    tabs = 'tabs',
-    groups = 'groups',
-    sessions = 'sessions'
-}
-
 const TabsSelection = () => {
-    const [active, setActive] = useState<TabsSelectionType>({ tabs: true });
+    const { tabSection, loading } = useGetTabsContext();
+    const dispatch = useGetTabsDispatchContext();
 
-    const changeActiveTab = (ev: TabSelectionOpts) => {
-        setActive({
-            [ev]: true
-        });
+    const changeActiveTab = (ev: TabSectionFilter) => {
+        dispatch({ type: TabsActions.tabsSection, payload: ev });
     };
 
     return (
         <TabsSelectionWrapper>
             <StandardButton
-                active={active.tabs}
+                active={tabSection === TabSectionFilter.tabs}
+                disabled={loading}
                 text="Tabs"
                 icon={<TabsIcon />}
-                onClick={() => changeActiveTab(TabSelectionOpts.tabs)}
+                onClick={() => changeActiveTab(TabSectionFilter.tabs)}
             />
 
             <StandardButton
-                active={active.groups}
+                active={tabSection === TabSectionFilter.groups}
+                disabled={loading}
                 text="Groups"
                 icon={<FoldersIcon />}
-                onClick={() => changeActiveTab(TabSelectionOpts.groups)}
+                onClick={() => changeActiveTab(TabSectionFilter.groups)}
             />
 
             <StandardButton
-                active={active.sessions}
+                active={tabSection === TabSectionFilter.sessions}
+                disabled={loading}
                 text="Sessions"
                 icon={<SessionIcon />}
-                onClick={() => changeActiveTab(TabSelectionOpts.sessions)}
+                onClick={() => changeActiveTab(TabSectionFilter.sessions)}
             />
 
             <div>

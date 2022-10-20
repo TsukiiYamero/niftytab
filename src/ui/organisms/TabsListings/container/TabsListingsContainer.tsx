@@ -1,13 +1,17 @@
-import { ChromeTabs } from '@/models';
+import { TabsActions } from '@/contexts/tabs';
+import { useGetTabsContext, useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
 import { readTabs } from '@/services/tabs';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { TabsListings } from '../presentational/TabsListings';
 
 export const TabsListingsContainer = () => {
-    const [tabs, setTabs] = useState<ChromeTabs[]>([]);
+    const { loading, saved } = useGetTabsContext();
+    const dispatch = useGetTabsDispatchContext();
 
     useEffect(() => {
         const getTabs = async () => {
+            dispatch({ type: TabsActions.requestTabs });
+
             const resp = await readTabs();
 
             if (resp.error) {
@@ -16,10 +20,13 @@ export const TabsListingsContainer = () => {
             }
 
             const dataTabs = resp.data ?? [];
-            setTabs(dataTabs);
+
+            dispatch({ type: TabsActions.updatedSaved, payload: dataTabs });
         };
         getTabs();
-    }, []);
+    }, [dispatch]);
 
-    return <TabsListings tabs={tabs} />;
+    if (loading) return <p>Loading...</p>;
+
+    return <TabsListings tabs={saved as any} />;
 };

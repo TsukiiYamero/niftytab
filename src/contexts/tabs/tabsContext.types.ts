@@ -1,11 +1,15 @@
-import { TabsSupabase } from '@/models';
+import { ChromeTabs, TabsSupabase } from '@/models';
 
-export type TabSection = 'tabs' | 'groups' | 'sessions';
+export enum TabSectionFilter {
+    tabs = 'tabs',
+    groups = 'groups',
+    sessions = 'sessions'
+};
 
 export interface TabsStore {
-    local: TabsSupabase[];
+    local: ChromeTabs[];
     saved: TabsSupabase[];
-    tabSection: TabSection;
+    tabSection: TabSectionFilter;
     loading: boolean;
 }
 
@@ -18,6 +22,6 @@ export enum TabsActions {
 
 export type TabsActionType =
     | { type: TabsActions.requestTabs }
-    | { type: TabsActions.updatedLocal; payload: TabsSupabase[]; }
+    | { type: TabsActions.updatedLocal; payload: ChromeTabs[]; }
     | { type: TabsActions.updatedSaved; payload: TabsSupabase[]; }
-    | { type: TabsActions.tabsSection; payload: TabSection };
+    | { type: TabsActions.tabsSection; payload: TabSectionFilter };
