@@ -30,6 +30,7 @@ export const startSetSession = async (dispatch: Dispatch<AuthActionType>, result
         dispatch({ type: AuthActions.loginError, payload: result.error.message });
         return false;
     }
+
     const sessionData = result.data.session;
 
     if (!sessionData) {

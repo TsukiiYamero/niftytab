@@ -1,10 +1,10 @@
 import { supabase } from '@/api/config';
 import { GroupsTabsSupabase } from '@/models';
-import { DEFAULT_GROUP_NAME } from '../tabs.statics';
+import { DEFAULT_GROUP_NAME, SUPABASE_TABLE_GROUPS } from '../tabs.statics';
 
 export const createGroup = async (group: GroupsTabsSupabase) => {
     const { data, error } = await supabase
-        .from('groups')
+        .from(SUPABASE_TABLE_GROUPS)
         .insert([group]);
 
     return { data, error };

@@ -1,10 +1,11 @@
 import { supabase } from '@/api/config';
-import { DEFAULT_GROUP_NAME } from '../tabs.statics';
+import { GroupsTabsSupabase } from '@/models';
+import { DEFAULT_GROUP_NAME, SUPABASE_TABLE_GROUPS } from '../tabs.statics';
 import { ReadGroupsWithFiltering2 } from '../tabs.types';
 
 export const ReadGroups = async () => {
     const { data: groups, error } = await supabase
-        .from('groups')
+        .from(SUPABASE_TABLE_GROUPS)
         .select('*');
 
     return { data: groups, error };
@@ -12,17 +13,17 @@ export const ReadGroups = async () => {
 
 export const ReadGroupsWithFilter = async (filter: ReadGroupsWithFiltering2) => {
     const { data: groups, error } = await supabase
-        .from('groups')
-        .select('*').eq(filter.eq.column ?? '', filter.eq.EqualTo ?? '');
+        .from(SUPABASE_TABLE_GROUPS)
+        .select('*').eq(filter.eq.column ?? '', filter.eq.equalTo ?? '');
 
-    return { data: groups, error };
+    return { data: groups as GroupsTabsSupabase[], error };
 };
 
 export const readDefaultGroup = async () => {
     return await ReadGroupsWithFilter({
         eq: {
             column: 'title',
-            EqualTo: DEFAULT_GROUP_NAME
+            equalTo: DEFAULT_GROUP_NAME
         }
     });
 };

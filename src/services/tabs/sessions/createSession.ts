@@ -8,10 +8,10 @@ export const createSession = async (session: SessionTabsSupabase) => {
 };
 
 export const createDefaultSession = async (userId: string) => {
-    const defaultGroup: SessionTabsSupabase = {
+    const defaultSession: SessionTabsSupabase = {
         user_id: userId,
         browser_name: DEFAULT_SESSION_NAME
     };
 
-    createSession(defaultGroup);
+    createSession(defaultSession);
 };

@@ -10,6 +10,6 @@ export type ReadGroupsWithFiltering = {
 export type ReadGroupsWithFiltering2 = {
     eq: {
         column: string;
-        EqualTo: any;
+        equalTo: any;
     }
 };

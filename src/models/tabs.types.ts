@@ -21,6 +21,7 @@ export type ChromeTabs = {
 };
 
 export type TabsSupabase = {
+    id?: number;
     url: string;
     pinned: boolean;
     active: boolean;

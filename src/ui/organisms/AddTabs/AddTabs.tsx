@@ -8,7 +8,7 @@ import { Modal, useModal } from '@/ui/molecules/Modal';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { MouseEvent } from 'react';
 import './addTabs.css';
-import { handleCreateTab } from './handleCreateTab';
+import { handleCreateQuickTab } from './handleCreateQuickTab';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
@@ -26,7 +26,7 @@ export const AddTabs = () => {
     };
 
     const handleTabCreation = async (ev: MouseEvent<HTMLDivElement>) => {
-        handleCreateTab(user);
+        handleCreateQuickTab(user);
     };
 
     const handleGroupCreation = (ev: MouseEvent<HTMLDivElement>) => {
