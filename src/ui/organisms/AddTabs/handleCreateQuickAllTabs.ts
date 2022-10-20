@@ -1,13 +1,12 @@
 import { AuthUser } from '@/contexts/auth';
-import { readDefaultGroup, readDefaultSession } from '@/services/tabs';
-import { createTab } from '@/services/tabs/tab/createTab';
-import { getActiveTab } from '@/utils/chrome/getActiveTab';
+import { createAllTabs, readDefaultGroup, readDefaultSession } from '@/services/tabs';
+import { getAllTabs } from '@/utils/chrome';
 import { createTabsSupabase } from '@/utils/tabs/createTabsSupabase';
 
-export const handleCreateQuickTab = async (user: AuthUser | undefined) => {
-    const activeTab = await getActiveTab();
+export const handleCreateQuickTabs = async (user: AuthUser | undefined) => {
+    const activeTabs = await getAllTabs();
 
-    if (!activeTab || !user) return;
+    if (!activeTabs || !user) return;
 
     const groupDefault = await readDefaultGroup();
     const sessionDefault = await readDefaultSession();
@@ -22,14 +21,16 @@ export const handleCreateQuickTab = async (user: AuthUser | undefined) => {
         return;
     }
 
+    console.log(activeTabs);
+
     const defaults = {
         groupId: groupDefault.data[0]?.id ?? 1,
         sessionId: sessionDefault.data[0]?.id ?? 1
     };
 
-    const tabs = createTabsSupabase([activeTab], user, defaults);
+    const tabs = createTabsSupabase(activeTabs, user, defaults);
 
-    const { error } = await createTab(tabs);
+    const { error } = await createAllTabs(tabs);
 
     if (error) {
         console.log(error.code === '23505' ? 'Tab is already saved.' : error.message);

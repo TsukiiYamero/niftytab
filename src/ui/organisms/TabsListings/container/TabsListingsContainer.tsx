@@ -1,4 +1,5 @@
 import { ChromeTabs } from '@/models';
+import { readTabs } from '@/services/tabs';
 import { useEffect, useState } from 'react';
 import { TabsListings } from '../presentational/TabsListings';
 
@@ -7,10 +8,14 @@ export const TabsListingsContainer = () => {
 
     useEffect(() => {
         const getTabs = async () => {
-            const resp = await fetch(
-                'https://run.mocky.io/v3/bc8a8ae6-323e-4fac-bfcb-37f9d27713e9'
-            );
-            const dataTabs = await resp.json();
+            const resp = await readTabs();
+
+            if (resp.error) {
+                console.log(resp.error.message);
+                return;
+            }
+
+            const dataTabs = resp.data ?? [];
             setTabs(dataTabs);
         };
         getTabs();

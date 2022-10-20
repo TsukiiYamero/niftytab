@@ -3,6 +3,7 @@ import { ThemeContext } from './theme/context/themeContext';
 import { useSetInitialTheme } from './theme/hooks/useSetInitialTheme';
 import MainPage from './pages/mainPage/MainPage';
 import { AuthProvider } from './contexts/auth';
+import { TabsProvider } from './contexts/tabs';
 
 export const App = () => {
     const userTheme = useSetInitialTheme();
@@ -10,7 +11,9 @@ export const App = () => {
     return (
         <AuthProvider>
             <ThemeContext.Provider value={{ userTheme }}>
-                <MainPage />
+                <TabsProvider>
+                    <MainPage />
+                </TabsProvider>
             </ThemeContext.Provider>
         </AuthProvider>
     );

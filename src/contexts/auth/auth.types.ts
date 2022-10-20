@@ -13,19 +13,18 @@ export type AuthInitialState = {
     loading: boolean;
     errorMessage: string;
 };
-
-export type AuthActionType =
-    | { type: AuthActions.requestLogin }
-    | { type: AuthActions.loginSuccess; payload: AuthLoginData }
-    | { type: AuthActions.logout }
-    | { type: AuthActions.loginError; payload: string };
-
 export enum AuthActions {
     requestLogin = 'request_login',
     loginSuccess = 'login_success',
     logout = 'logout',
     loginError = 'login_error'
 }
+
+export type AuthActionType =
+    | { type: AuthActions.requestLogin }
+    | { type: AuthActions.loginSuccess; payload: AuthLoginData }
+    | { type: AuthActions.logout }
+    | { type: AuthActions.loginError; payload: string };
 
 export interface AuthLoginData {
     user: AuthUser;

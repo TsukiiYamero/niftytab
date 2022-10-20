@@ -1,5 +1,4 @@
 import { useAuthState } from '@/contexts/auth';
-import { useGetChromeSession } from '@/customHooks/useGetChromeSession';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { TabCreationButton } from '@/ui/atoms/Buttons/TabCreationButton';
 import { AddIcon, ArrowForward } from '@/ui/atoms/icons';
@@ -8,11 +7,11 @@ import { Modal, useModal } from '@/ui/molecules/Modal';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { MouseEvent } from 'react';
 import './addTabs.css';
+import { handleCreateQuickTabs } from './handleCreateQuickAllTabs';
 import { handleCreateQuickTab } from './handleCreateQuickTab';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
-    useGetChromeSession();
     const { user } = useAuthState();
 
     const iconLeft = {
@@ -29,8 +28,8 @@ export const AddTabs = () => {
         handleCreateQuickTab(user);
     };
 
-    const handleGroupCreation = (ev: MouseEvent<HTMLDivElement>) => {
-        console.log('click', ev);
+    const handleAllTabsCreation = (ev: MouseEvent<HTMLDivElement>) => {
+        handleCreateQuickTabs(user);
     };
 
     const handleSessionCreation = (ev: MouseEvent<HTMLDivElement>) => {
@@ -67,8 +66,8 @@ export const AddTabs = () => {
                         iconRight={iconRight}
                     />
                     <TabCreationButton
-                        onClick={handleGroupCreation}
-                        text="Save Group"
+                        onClick={handleAllTabsCreation}
+                        text="Save all Tabs"
                         iconLeft={iconLeft}
                         iconRight={iconRight}
                     />
