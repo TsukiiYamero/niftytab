@@ -1,32 +1,19 @@
-import { TabsActions } from '@/contexts/tabs';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { TabsStoredType } from '@/contexts/tabs';
 import { useGetTabsContext, useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
-import { readTabs } from '@/services/tabs';
-import { useEffect } from 'react';
-import { TabsListings } from '../presentational/TabsListings';
+import { useCallback } from 'react';
+import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
+import { MemoizedTabsListingsSaved, TabsListingsSaved } from './TabsListingsSaved';
 
 export const TabsListingsContainer = () => {
-    const { loading, saved } = useGetTabsContext();
+    const { typeOfStore, local, saved, loading } = useGetTabsContext();
     const dispatch = useGetTabsDispatchContext();
 
-    useEffect(() => {
-        const getTabs = async () => {
-            dispatch({ type: TabsActions.requestTabs });
+    console.log('Container loaded', loading);
 
-            const resp = await readTabs();
-
-            if (resp.error) {
-                console.log(resp.error.message);
-                return;
-            }
-
-            const dataTabs = resp.data ?? [];
-
-            dispatch({ type: TabsActions.updatedSaved, payload: dataTabs });
-        };
-        getTabs();
-    }, [dispatch]);
-
-    if (loading) return <p>Loading...</p>;
-
-    return <TabsListings tabs={saved as any} />;
+    return (<>
+        {typeOfStore === TabsStoredType.local
+            ? <MemoizedTabsListingsLocal local={local} dispatch={dispatch} loading={loading} />
+            : <MemoizedTabsListingsSaved saved={saved} dispatch={dispatch} loading={loading} />}
+    </>);
 };

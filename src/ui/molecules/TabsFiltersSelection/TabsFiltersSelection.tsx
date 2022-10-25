@@ -1,14 +1,14 @@
+import './tabsFilterSelection.css';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { BarsIcon, FilterIcon } from '@/ui/atoms/icons';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { useState } from 'react';
 import { TabStoreSelection } from '../TabStoreSelection';
-import { TabsFiltersSelectionWrapper } from './TabsFilterSelectionWrapper/TabsFilterSelectionWrapper';
 
 type TabsSelection = {
     smallView?: boolean;
     normalView?: boolean;
-};
+}
 
 enum TabSelectionOpts {
     smallView = 'smallView',
@@ -25,9 +25,9 @@ const TabsFiltersSelection = () => {
     };
 
     return (
-        <>
+        <div className="tab-store-selection-container">
             <TabStoreSelection />
-            <TabsFiltersSelectionWrapper>
+            <div className="tab-store-selection-filter-view">
                 <StandardButton
                     active={filter.smallView}
                     disabled={false}
@@ -42,8 +42,8 @@ const TabsFiltersSelection = () => {
                     iconSize={IconsSize.small}
                     onClick={() => changeActiveFilter(TabSelectionOpts.normalView)}
                 />
-            </TabsFiltersSelectionWrapper>
-        </>
+            </div>
+        </div>
     );
 };
 

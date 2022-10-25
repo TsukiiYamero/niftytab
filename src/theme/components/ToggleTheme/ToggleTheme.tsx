@@ -7,7 +7,6 @@ import './toggleTheme.css';
  */
 export const ToggleTheme = () => {
     const { changeTheme, darkTheme } = useChangeTheme();
-    console.log(darkTheme);
 
     return (
         <label className="switch">

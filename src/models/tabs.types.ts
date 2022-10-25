@@ -1,3 +1,5 @@
+import { PostgrestError } from '@supabase/supabase-js';
+
 export type ChromeTabs = {
     active: boolean;
     url: string;
@@ -21,7 +23,7 @@ export type ChromeTabs = {
 };
 
 export type TabsSupabase = {
-    id?: number;
+    id: number;
     url: string;
     pinned: boolean;
     active: boolean;
@@ -46,4 +48,22 @@ export type SessionTabsSupabase = {
     user_id: string;
     id?: number;
     browser_name?: string;
+}
+
+export type NiftyTab = {
+    id: number;
+    url: string;
+    pinned: boolean;
+    active: boolean;
+    discarded: boolean;
+    sessionId: number;
+    groupId: number;
+    favIconUrl: string;
+    title: string;
+    index: number;
+}
+
+export type SupabaseCommonResponse = {
+    data: any[],
+    error: PostgrestError | null
 }

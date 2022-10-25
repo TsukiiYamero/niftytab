@@ -1,16 +1,16 @@
-import { ChromeTabs } from '@/models';
+import { NiftyTab } from '@/models';
 import { TabSmallView } from '@/ui/atoms/TabSmallView';
 
 type Props = {
-    tab: ChromeTabs;
+    tab: NiftyTab;
 };
 
 export const TabsListing = ({ tab }: Props) => {
     return (
         <TabSmallView
-            title={tab.title}
-            urlText={tab.url}
-            imgSrc={tab.favIconUrl}
+            title={tab.title ?? ''}
+            urlText={tab.url ?? ''}
+            imgSrc={tab.favIconUrl ?? ''}
         />
     );
 };

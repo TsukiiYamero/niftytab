@@ -1,5 +1,5 @@
-import TabsFiltersSelection from '../TabsFiltersSelection/TabsFiltersSelection';
-import TabsSelection from '../TabsSelection/TabsSelection';
+import TabsFiltersSelection from '../../molecules/TabsFiltersSelection/TabsFiltersSelection';
+import TabsSelection from '../../molecules/TabsSelection/TabsSelection';
 
 type Props = {};
 

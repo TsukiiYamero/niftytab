@@ -1,10 +1,10 @@
 import { AuthUser } from '@/contexts/auth';
 import { createAllTabs, readDefaultGroup, readDefaultSession } from '@/services/tabs';
-import { getAllTabs } from '@/utils/chrome';
+import { getAllChromeTabs } from '@/utils/chrome';
 import { createTabsSupabase } from '@/utils/tabs/createTabsSupabase';
 
 export const handleCreateQuickTabs = async (user: AuthUser | undefined) => {
-    const activeTabs = await getAllTabs();
+    const activeTabs = await getAllChromeTabs();
 
     if (!activeTabs || !user) return;
 

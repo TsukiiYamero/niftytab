@@ -1,9 +1,9 @@
-import { ChromeTabs } from '@/models';
+import { NiftyTab } from '@/models';
 import { TabsListing } from './TabsListing';
 import { TabsListingsGrid } from './TabsListingsGrid.styled';
 
 type Props = {
-    tabs: ChromeTabs[];
+    tabs: NiftyTab[];
 };
 
 export const TabsListings = ({ tabs = [] }: Props) => {

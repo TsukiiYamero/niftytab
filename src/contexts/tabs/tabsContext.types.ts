@@ -1,4 +1,4 @@
-import { ChromeTabs, TabsSupabase } from '@/models';
+import { NiftyTab } from '@/models';
 
 export enum TabSectionFilter {
     tabs = 'tabs',
@@ -12,8 +12,8 @@ export enum TabsStoredType {
 }
 
 export interface TabsStore {
-    local: ChromeTabs[];
-    saved: TabsSupabase[];
+    local: NiftyTab[];
+    saved: NiftyTab[];
     tabSection: TabSectionFilter;
     typeOfStore: TabsStoredType;
     loading: boolean;
@@ -28,8 +28,8 @@ export enum TabsActions {
 }
 
 export type TabsActionType =
-    | { type: TabsActions.requestTabs }
-    | { type: TabsActions.updatedLocal; payload: ChromeTabs[]; }
-    | { type: TabsActions.updatedSaved; payload: TabsSupabase[]; }
+    | { type: TabsActions.requestTabs; }
+    | { type: TabsActions.updatedLocal; payload: NiftyTab[]; }
+    | { type: TabsActions.updatedSaved; payload: NiftyTab[]; }
     | { type: TabsActions.changeTabsSection; payload: TabSectionFilter }
     | { type: TabsActions.changeTypeOfStore; payload: TabsStoredType };
