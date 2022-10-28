@@ -1,36 +1,18 @@
 import { supabase } from '@/api/config';
-import { abortController } from '@/utils/abortController';
-import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { SUPABASE_TABLE_TABS } from '../tabs.statics';
 import { ReadGroupsWithFiltering2 } from '../tabs.types';
 
-/* export const readTabs = async () => {
-    const controller = abortController();
-
-    const { data, error } = await supabase
-        .from(SUPABASE_TABLE_TABS)
-        .select('*')
-        .abortSignal(controller.signal);
-
-    const tabs = supabaseTabsToNiftyTabs(data ?? []);
-
-    return { tabs, error };
-};
- */
 export const readTabs = () => {
-    const controller = abortController();
-
-    const apiCallFunc = async () => {
+    const fetchFunc = async (controller: AbortController) => {
         const { data, error } = await supabase
             .from(SUPABASE_TABLE_TABS)
             .select('*')
             .abortSignal(controller.signal);
 
-        const tabs = supabaseTabsToNiftyTabs(data ?? []);
-        return { data: tabs, error };
+        return { data: data ?? [], error };
     };
 
-    return { apiCallFunc, controller };
+    return { fetchFunc };
 };
 
 export const readTabsWithFilter = async (filter: ReadGroupsWithFiltering2) => {

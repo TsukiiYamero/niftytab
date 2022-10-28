@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { supabase } from '@/api/config';
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
-import { useFetch } from '@/customHooks/useFetch';
+import { useFetchInSupabase } from '@/customHooks/useFetchInSupabase';
 import { NiftyTab } from '@/models';
-import { readTabs, SUPABASE_TABLE_TABS } from '@/services/tabs';
-import { abortController } from '@/utils/abortController';
+import { readTabs } from '@/services/tabs';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
 import { TabsListings } from '../presentational';
@@ -16,31 +13,22 @@ type props = {
 }
 
 export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
-    // const { callApi } = useFetch({ apiFunc: readTabs });
-    console.log('TabsListingsSaved loaded', saved);
+    const { callApi } = useFetchInSupabase();
 
     useEffect(() => {
-        console.log('useEffect Fetch');
-        const controller = abortController();
-        const getTabs = async () => {
+        const fetchData = async () => {
             dispatch({ type: TabsActions.requestTabs });
-            const { data, error } = await supabase
-                .from(SUPABASE_TABLE_TABS)
-                .select('*')
-                .abortSignal(controller.signal);
-
-            const tabs = supabaseTabsToNiftyTabs(data ?? []);
-            dispatch({ type: TabsActions.updatedSaved, payload: tabs });
+            const data = await callApi(readTabs());
+            dispatch({ type: TabsActions.updatedSaved, payload: supabaseTabsToNiftyTabs(data) });
         };
-        getTabs();
 
-        return () => {
-            controller?.abort();
-        };
-    }, [dispatch]);
+        fetchData();
+    }, [dispatch, callApi]);
 
     return (
-        <TabsListings tabs={saved} />
+        <>
+            {loading ? <p>Loading...</p> : <TabsListings tabs={saved} />}
+        </>
     );
 };
 
