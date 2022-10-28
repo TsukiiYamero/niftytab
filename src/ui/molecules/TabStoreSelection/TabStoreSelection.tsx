@@ -4,7 +4,7 @@ import { StandardButton } from '@/ui/atoms/Buttons';
 import { CloudIcon, LaptopIcon } from '@/ui/atoms/icons';
 
 export const TabStoreSelection = () => {
-    const { typeOfStore } = useGetTabsContext();
+    const { loading, typeOfStore } = useGetTabsContext();
     const dispatch = useGetTabsDispatchContext();
 
     const changeTabStoredType = (storedType: TabsStoredType) => {
@@ -15,14 +15,14 @@ export const TabStoreSelection = () => {
         <div style={{ display: 'flex', paddingBlock: '8px' }}>
             <StandardButton
                 active={typeOfStore === TabsStoredType.local}
-
+                disabled={loading}
                 icon={<LaptopIcon />}
                 onClick={() => changeTabStoredType(TabsStoredType.local)}
             />
 
             <StandardButton
                 active={typeOfStore === TabsStoredType.saved}
-
+                disabled={loading}
                 icon={<CloudIcon />}
                 onClick={() => changeTabStoredType(TabsStoredType.saved)}
             />

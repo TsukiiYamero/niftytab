@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TabsStoredType } from '@/contexts/tabs';
 import { useGetTabsContext, useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
-import { useCallback } from 'react';
 import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
-import { MemoizedTabsListingsSaved, TabsListingsSaved } from './TabsListingsSaved';
+import { MemoizedTabsListingsSaved } from './TabsListingsSaved';
 
 export const TabsListingsContainer = () => {
     const { typeOfStore, local, saved, loading } = useGetTabsContext();

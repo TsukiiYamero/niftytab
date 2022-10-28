@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
 import { NiftyTab } from '@/models';
 import { getAllChromeTabs } from '@/utils/chrome';
