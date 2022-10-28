@@ -2,6 +2,7 @@ import { TabsActions, TabsActionType } from '@/contexts/tabs';
 import { useFetchInSupabase } from '@/customHooks/useFetchInSupabase';
 import { NiftyTab } from '@/models';
 import { readTabs } from '@/services/tabs';
+import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
 import { TabsListings } from '../presentational';
@@ -27,7 +28,7 @@ export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
 
     return (
         <>
-            {loading ? <p>Loading...</p> : <TabsListings tabs={saved} />}
+            {loading ? <SimpleLoading /> : <TabsListings tabs={saved} />}
         </>
     );
 };

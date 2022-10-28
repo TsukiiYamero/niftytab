@@ -1,5 +1,6 @@
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
 import { NiftyTab } from '@/models';
+import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { getAllChromeTabs } from '@/utils/chrome';
 import { chromeTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
@@ -27,7 +28,9 @@ export const TabsListingsLocal = ({ local, dispatch, loading }: props) => {
   }, [dispatch]);
 
   return (
-    <TabsListings tabs={local} />
+    <>
+      {loading ? <SimpleLoading /> : <TabsListings tabs={local} />}
+    </>
   );
 };
 
