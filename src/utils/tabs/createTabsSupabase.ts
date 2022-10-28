@@ -8,7 +8,7 @@ import { TabsSupabase } from '@/models';
  * @param defaults
  * @returns
  */
-export const createTabsSupabase = (tabs: chrome.tabs.Tab[], user: AuthUser | undefined, defaults: { groupId: number, sessionId: number }) => {
+export const createTabsForSupabase = (tabs: chrome.tabs.Tab[], user: AuthUser | undefined, defaults: { groupId: number, sessionId: number }) => {
     if (!tabs || !user) return [];
 
     const tabsForSave: TabsSupabase[] = [];
