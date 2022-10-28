@@ -1,8 +1,8 @@
 import { AuthUser } from '@/contexts/auth';
-import { readDefaultGroup, readDefaultSession } from '@/services/tabs';
 import { createTab } from '@/services/tabs/tab/createTab';
 import { getActiveTab } from '@/utils/chrome/getActiveTab';
 import { createTabsForSupabase } from '@/utils/tabs/createTabsSupabase';
+import { handleDefaultsIds } from './handleDefaultsIds';
 
 /**
  * It gets the active tab, gets the default group and session Ids, creates a tab object with the defaults,
@@ -15,22 +15,11 @@ export const handleCreateQuickTab = async (user: AuthUser | undefined) => {
 
     if (!activeTab || !user) return;
 
-    const groupDefault = await readDefaultGroup();
-    const sessionDefault = await readDefaultSession();
+    const { defaults, error: defaultIdsError } = await handleDefaultsIds();
 
-    if (groupDefault.error) {
-        console.error(groupDefault.error?.message);
+    if (defaultIdsError ?? !defaults) {
+        console.log(defaultIdsError);
         return;
-    }
-
-    if (sessionDefault.error) {
-        console.error(sessionDefault.error?.message);
-        return;
-    }
-
-    const defaults = {
-        groupId: groupDefault.data[0]?.id ?? 1,
-        sessionId: sessionDefault.data[0]?.id ?? 1
     };
 
     const tabs = createTabsForSupabase([activeTab], user, defaults);

@@ -7,7 +7,7 @@ import { Modal, useModal } from '@/ui/molecules/Modal';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { MouseEvent } from 'react';
 import './addTabs.css';
-import { handleCreateQuickTabs } from './handleCreateQuickAllTabs';
+import { handleCreateQuickAllTabs } from './handleCreateQuickAllTabs';
 import { handleCreateQuickTab } from './handleCreateQuickTab';
 
 export const AddTabs = () => {
@@ -29,7 +29,7 @@ export const AddTabs = () => {
     };
 
     const handleAllTabsCreation = (ev: MouseEvent<HTMLDivElement>) => {
-        handleCreateQuickTabs(user);
+        handleCreateQuickAllTabs(user);
     };
 
     const handleSessionCreation = (ev: MouseEvent<HTMLDivElement>) => {
