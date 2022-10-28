@@ -36,6 +36,10 @@ export const AddTabs = () => {
         console.log('click', ev);
     };
 
+    const handleGroupCreation = (ev: MouseEvent<HTMLDivElement>) => {
+        console.log('click', ev);
+    };
+
     return (
         <div>
             <StandardButton
@@ -58,22 +62,33 @@ export const AddTabs = () => {
                     }}
                 >
                     <h2>Add Tabs</h2>
+                    <span>Quick</span>
 
                     <TabCreationButton
                         onClick={handleTabCreation}
-                        text="Save Tab"
+                        text="Save current Tab"
                         iconLeft={iconLeft}
                         iconRight={iconRight}
                     />
                     <TabCreationButton
                         onClick={handleAllTabsCreation}
-                        text="Save all Tabs"
+                        text="Save All Tabs"
+                        iconLeft={iconLeft}
+                        iconRight={iconRight}
+                    />
+
+                    <hr />
+                    <span>Custom</span>
+
+                    <TabCreationButton
+                        onClick={handleGroupCreation}
+                        text="Save In Session"
                         iconLeft={iconLeft}
                         iconRight={iconRight}
                     />
                     <TabCreationButton
                         onClick={handleSessionCreation}
-                        text="Save Session"
+                        text="Save In Group"
                         iconLeft={iconLeft}
                         iconRight={iconRight}
                     />
