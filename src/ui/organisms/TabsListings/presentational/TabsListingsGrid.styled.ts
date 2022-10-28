@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const TabsListingsGrid = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(auto-fill, 40px);
     justify-content: center;
     gap: 9px;
     padding: 10px 1px;
-    flex-wrap: wrap;
     overflow: auto;
 `;
