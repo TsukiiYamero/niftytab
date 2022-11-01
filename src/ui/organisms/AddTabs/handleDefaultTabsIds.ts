@@ -5,7 +5,7 @@ import { readDefaultGroup, readDefaultSession } from '@/services/tabs';
  * and session ids.
  * @returns an object with a property called defaults.
  */
-export const handleDefaultsIds = async () => {
+export const handleDefaultTabsIds = async () => {
     const groupDefault = await readDefaultGroup();
     const sessionDefault = await readDefaultSession();
 

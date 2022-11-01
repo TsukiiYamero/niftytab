@@ -1,4 +1,6 @@
 import { useAuthState } from '@/contexts/auth';
+import { TabsActions } from '@/contexts/tabs';
+import { useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { TabCreationButton } from '@/ui/atoms/Buttons/TabCreationButton';
 import { AddIcon, ArrowForward } from '@/ui/atoms/icons';
@@ -7,11 +9,12 @@ import { Modal, useModal } from '@/ui/molecules/Modal';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { MouseEvent } from 'react';
 import './addTabs.css';
-import { handleCreateQuickAllTabs } from './handleCreateQuickAllTabs';
-import { handleCreateQuickTab } from './handleCreateQuickTab';
+import { saveAllTabs } from './saveAlltabs';
+import { saveSingleTab } from './saveSingleTab';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
+    const dispatch = useGetTabsDispatchContext();
     const { user } = useAuthState();
 
     const iconLeft = {
@@ -24,12 +27,16 @@ export const AddTabs = () => {
         iconSize: IconsSize.medium
     };
 
-    const handleTabCreation = async (ev: MouseEvent<HTMLDivElement>) => {
-        handleCreateQuickTab(user);
+    const handleSaveSingleTab = async (ev: MouseEvent<HTMLDivElement>) => {
+        saveSingleTab(user);
     };
 
-    const handleAllTabsCreation = (ev: MouseEvent<HTMLDivElement>) => {
-        handleCreateQuickAllTabs(user);
+    const handleSaveAllTabs = async (ev: MouseEvent<HTMLDivElement>) => {
+        dispatch({ type: TabsActions.requestTabs });
+        await saveAllTabs(user);
+        // if (existError) return;
+        // dispatch({ type: TabsActions.updatedSaved, payload: [] });
+        // volver a llamar los tabs saved
     };
 
     const handleSessionCreation = (ev: MouseEvent<HTMLDivElement>) => {
@@ -44,7 +51,7 @@ export const AddTabs = () => {
         <div>
             <StandardButton
                 icon={<AddIcon />}
-                text={'Add Tabs'}
+                text={'Save Tabs'}
                 onClick={() => openModal()}
             />
 
@@ -65,13 +72,13 @@ export const AddTabs = () => {
                     <span>Quick</span>
 
                     <TabCreationButton
-                        onClick={handleTabCreation}
+                        onClick={handleSaveSingleTab}
                         text="Save current Tab"
                         iconLeft={iconLeft}
                         iconRight={iconRight}
                     />
                     <TabCreationButton
-                        onClick={handleAllTabsCreation}
+                        onClick={handleSaveAllTabs}
                         text="Save All Tabs"
                         iconLeft={iconLeft}
                         iconRight={iconRight}

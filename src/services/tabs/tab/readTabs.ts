@@ -2,6 +2,12 @@ import { supabase } from '@/api/config';
 import { SUPABASE_TABLE_TABS } from '../tabs.statics';
 import { ReadGroupsWithFiltering2 } from '../tabs.types';
 
+/**
+ * Read Tabs in Supabase
+ * Expose a function to fetch tabs
+ * the fetch function takes a controller
+ * @returns An object with a fetchFunc property.
+ */
 export const readTabs = () => {
     const fetchFunc = async (controller: AbortController) => {
         const { data, error } = await supabase
