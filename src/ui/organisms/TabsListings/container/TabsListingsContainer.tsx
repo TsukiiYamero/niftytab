@@ -7,8 +7,6 @@ export const TabsListingsContainer = () => {
     const { typeOfStore, local, saved, loading } = useGetTabsContext();
     const dispatch = useGetTabsDispatchContext();
 
-    console.log('Container loaded', loading);
-
     return (<>
         {typeOfStore === TabsStoredType.local
             ? <MemoizedTabsListingsLocal local={local} dispatch={dispatch} loading={loading} />

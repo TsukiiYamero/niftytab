@@ -1,4 +1,3 @@
-export * from './tab/createTab';
 export * from './groups';
 export * from './sessions';
 export * from './tab';

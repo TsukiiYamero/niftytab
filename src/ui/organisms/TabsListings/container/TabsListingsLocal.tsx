@@ -13,15 +13,13 @@ type props = {
 }
 
 export const TabsListingsLocal = ({ local, dispatch, loading }: props) => {
-  console.log('TabsListingsLocal');
-
   useEffect(() => {
     const getTabs = async () => {
       dispatch({ type: TabsActions.requestTabs });
 
       const resp = await getAllChromeTabs();
       const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
-
+      console.log('Local', dataTabs);
       dispatch({ type: TabsActions.updatedLocal, payload: dataTabs });
     };
     getTabs();

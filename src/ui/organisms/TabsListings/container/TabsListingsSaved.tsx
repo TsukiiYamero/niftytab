@@ -20,6 +20,7 @@ export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
         const fetchData = async () => {
             dispatch({ type: TabsActions.requestTabs });
             const data = await callApi(readTabs());
+            console.log('Saved', supabaseTabsToNiftyTabs(data));
             dispatch({ type: TabsActions.updatedSaved, payload: supabaseTabsToNiftyTabs(data) });
         };
 

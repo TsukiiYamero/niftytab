@@ -1,3 +1,3 @@
-export * from './createAllTabs';
-export * from './createTab';
+export * from './createTabs';
 export * from './readTabs';
+export * from './updateTabs';

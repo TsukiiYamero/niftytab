@@ -3,34 +3,43 @@ import { readTabs } from '@/services/tabs';
 import { abortController } from '@/utils/abortController';
 
 /**
- * It filters the tabs that are already in the database `tabsInSupabase` with the `tabs`
+ * Filters the tabs that are already in the database `tabsInSupabase` with the `tabs` given,
+ * if there are tabs with different url then return in `tabsForOverWrite`
  * @param {chrome.tabs.Tab[]} tabs
  */
-export const filterUniqueTabsForSupabase = async (tabs: TabsSupabase[] = []) => {
+export const handleDuplicateTabs = async (tabs: TabsSupabase[] = []) => {
     const { data: tabsInSupabase, error: errorInReadTabs } = await readTabs().fetchFunc(abortController());
+    const tabsForOverWrite: TabsSupabase[] = [];
 
     if (errorInReadTabs) {
         return {
-            tabs: [],
+            tabsFiltered: [],
+            tabsForOverWrite: [],
             error: 'Something went wrong, please try again later.'
         };
     }
 
-    console.log(tabsInSupabase);
-    console.log(tabs);
-
     const tabsFiltered = tabs.filter(tab =>
-        !tabsInSupabase.find((tabSupabase: TabsSupabase) => tabSupabase.id === tab.id));
+        !tabsInSupabase.find((tabSupabase: TabsSupabase) => {
+            const isSameId = tabSupabase.id === tab.id;
+
+            if (isSameId && tabSupabase.url !== tab.url) {
+                tabsForOverWrite.push(tab);
+            }
+            return isSameId;
+        }));
 
     if (tabsFiltered.length === 0) {
         return {
-            tabs: [],
-            error: 'Ops... The Tabs selected already exist.'
+            tabsFiltered: [],
+            tabsForOverWrite,
+            error: ''
         };
     }
 
     return {
-        tabs: tabsFiltered,
+        tabsFiltered,
+        tabsForOverWrite,
         error: null
     };
 };

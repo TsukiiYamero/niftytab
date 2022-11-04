@@ -1,8 +1,8 @@
 import { AuthUser } from '@/contexts/auth';
-import { createTab } from '@/services/tabs/tab/createTab';
+import { createTabs, updateTabs } from '@/services/tabs';
 import { getActiveTab } from '@/utils/chrome/getActiveTab';
-import { createTabsForSupabase } from '@/utils/tabs/createTabsSupabase';
-import { filterUniqueTabsForSupabase } from './filterUniqueTabsForSupabase';
+import { chromeTabsToTabsSupabase } from '@/utils/tabs/createTabsSupabase';
+import { handleDuplicateTabs } from './filterUniqueTabsForSupabase';
 import { handleDefaultTabsIds } from './handleDefaultTabsIds';
 
 /**
@@ -23,18 +23,49 @@ export const saveSingleTab = async (user: AuthUser | undefined) => {
         return;
     };
 
-    const tabs = createTabsForSupabase([activeTab], user, defaults);
+    const tabs = chromeTabsToTabsSupabase([activeTab], user, defaults);
 
-    const { tabs: tabsFiltered, error: errorInFilteredTabs } = await filterUniqueTabsForSupabase(tabs);
+    const { tabsFiltered, tabsForOverWrite, error: errorInFilteredTabs } = await handleDuplicateTabs(tabs);
 
     if (errorInFilteredTabs) {
         console.log(errorInFilteredTabs);
-        return true;
+        return;
     }
 
-    const { error } = await createTab(tabsFiltered);
+    const supabaseActions: any[] = [];
+
+    if (tabsForOverWrite.length > 0) {
+        const confirmedOverWrite = confirm('Some Tabs already exist, do you want to overwrite them?.');
+        if (!confirmedOverWrite) return;
+
+        tabsForOverWrite.forEach(tab => {
+            supabaseActions.push({ fetch: updateTabs, data: tab });
+        });
+        console.log('supabaseActions: ', supabaseActions);
+
+        const requestForOverWrite: Array<Promise<any>> = supabaseActions.map((struc: { fetch: (data: any) => any, data: any }) => {
+            console.log('fetch: ', struc.data);
+            // eslint-disable-next-line @typescript-eslint/return-await
+            return struc.fetch(struc.data);
+        });
+
+        const results = await Promise.all(requestForOverWrite);
+
+        if (results[0].error) {
+            console.log('Ops... Something went wrong with update,', results[0].error);
+        }
+
+        return;
+    }
+
+    if (tabsFiltered.length === 0 && tabsForOverWrite.length === 0) {
+        console.log('Ops... The Tab/s selected already exist.');
+        return;
+    }
+
+    const { error } = await createTabs(tabsFiltered);
 
     if (error) {
-        console.log(error.code === '23505' ? 'Tab is already saved.' : error.message);
+        console.log(error.message);
     }
 };
