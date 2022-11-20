@@ -2,9 +2,7 @@ import { SupabaseCommonResponse } from '@/models';
 import { abortController } from '@/utils/abortController';
 import { useCallback, useEffect, useRef } from 'react';
 
-type CallApi = {
-    fetchFunc: (controller: AbortController) => Promise<SupabaseCommonResponse>
-}
+type fetchApi = (controller: AbortController, payload?: any) => any;
 
 /**
  * Custom hook that returns a function to call the fetch (callback that receive the fetch func)
@@ -14,7 +12,7 @@ export const useFetchWithCallback = () => {
     const refAbortController = useRef<AbortController>();
 
     // func that make the fetch call
-    const callApi = useCallback(async ({ fetchFunc }: CallApi) => {
+    const callApi = useCallback(async (fetchFunc: fetchApi, payload?: any): Promise<SupabaseCommonResponse> => {
         refAbortController.current = abortController();
 
         let result: SupabaseCommonResponse = {
@@ -23,7 +21,7 @@ export const useFetchWithCallback = () => {
         };
 
         try {
-            result = await fetchFunc(refAbortController.current);
+            result = await fetchFunc(refAbortController.current, payload || null);
 
             if (result.error) {
                 console.error(result.error.message);
@@ -32,7 +30,7 @@ export const useFetchWithCallback = () => {
             console.error(error);
         }
 
-        return result.data;
+        return result;
     }, []);
 
     useEffect(() => {
