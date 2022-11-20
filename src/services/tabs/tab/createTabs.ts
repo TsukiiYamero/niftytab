@@ -1,14 +1,13 @@
 import { supabase } from '@/api/config';
 import { TabsSupabase } from '@/models';
 
-export const createTabs = async (tabs: TabsSupabase[] = []) => {
+export const createTabs = (controller: AbortController, tabs: TabsSupabase[] = []) => {
     if (tabs.length === 0) return {
         data: [], error: null
     };
 
-    const { data, error } = await supabase
+    return supabase
         .from('tabs')
-        .insert<TabsSupabase>(tabs);
-
-    return { data, error };
+        .insert<TabsSupabase>(tabs)
+        .abortSignal(controller.signal);
 };

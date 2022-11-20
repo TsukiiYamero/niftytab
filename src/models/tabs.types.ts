@@ -1,5 +1,6 @@
 import { PostgrestError } from '@supabase/supabase-js';
 
+// Initial model of tabs
 export type ChromeTabs = {
     active: boolean;
     url: string;
@@ -22,6 +23,7 @@ export type ChromeTabs = {
     windowId?: number;
 };
 
+// Model for save in supabase
 export type TabsSupabase = {
     id: number;
     url: string;
@@ -50,6 +52,7 @@ export type SessionTabsSupabase = {
     browser_name?: string;
 }
 
+// Model for handle tabs in the app
 export type NiftyTab = {
     id: number;
     url: string;
@@ -63,6 +66,7 @@ export type NiftyTab = {
     index: number;
 }
 
+// Common response from supabase
 export type SupabaseCommonResponse = {
     data: any[],
     error: PostgrestError | null

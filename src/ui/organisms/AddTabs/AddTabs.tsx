@@ -1,21 +1,21 @@
-import { useAuthState } from '@/contexts/auth';
 import { TabsActions } from '@/contexts/tabs';
 import { useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
+import { useSaveTabs } from '@/customHooks/tabs/useSaveTabs';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { TabCreationButton } from '@/ui/atoms/Buttons/TabCreationButton';
 import { AddIcon, ArrowForward } from '@/ui/atoms/icons';
 import { AddTabIcon } from '@/ui/atoms/icons/AddTabIcon';
 import { Modal, useModal } from '@/ui/molecules/Modal';
+import { getActiveTab, getAllChromeTabs } from '@/utils/chrome';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import './addTabs.css';
-import { saveAllTabs } from './saveAlltabs';
-import { saveSingleTab } from './saveSingleTab';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
     const dispatch = useGetTabsDispatchContext();
-    const { user } = useAuthState();
+
+    const { saveTabs } = useSaveTabs();
 
     const iconLeft = {
         icon: <AddTabIcon />,
@@ -28,15 +28,15 @@ export const AddTabs = () => {
     };
 
     const handleSaveSingleTab = async (ev: MouseEvent<HTMLDivElement>) => {
-        saveSingleTab(user);
+        dispatch({ type: TabsActions.requestTabs });
+        const activeTab = await getActiveTab();
+        await saveTabs([activeTab]);
     };
 
     const handleSaveAllTabs = async (ev: MouseEvent<HTMLDivElement>) => {
         dispatch({ type: TabsActions.requestTabs });
-        await saveAllTabs(user);
-        // if (existError) return;
-        // dispatch({ type: TabsActions.updatedSaved, payload: [] });
-        // volver a llamar los tabs saved
+        const currentChromeTabs = await getAllChromeTabs();
+        await saveTabs(currentChromeTabs);
     };
 
     const handleSessionCreation = (ev: MouseEvent<HTMLDivElement>) => {
@@ -46,6 +46,10 @@ export const AddTabs = () => {
     const handleGroupCreation = (ev: MouseEvent<HTMLDivElement>) => {
         console.log('click', ev);
     };
+
+    useEffect(() => {
+        return () => console.log('c murio');
+    }, []);
 
     return (
         <div>

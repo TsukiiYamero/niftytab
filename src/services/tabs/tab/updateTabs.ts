@@ -1,7 +1,7 @@
 import { supabase } from '@/api/config';
 import { TabsSupabase } from '@/models';
 
-export const updateTabs = async (tab: TabsSupabase) => {
+export const updateTabs = (controller: AbortController, tab: TabsSupabase) => {
     if (!tab) return {
         data: [], error: null
     };
@@ -20,10 +20,9 @@ export const updateTabs = async (tab: TabsSupabase) => {
         user_id: tab.user_id
     };
 
-    const { data, error } = await supabase
+    return supabase
         .from('tabs')
         .update<TabsSupabase>(columnsToUpdate)
-        .eq('id', tab.id);
-
-    return { data, error };
+        .eq('id', tab.id)
+        .abortSignal(controller.signal);
 };

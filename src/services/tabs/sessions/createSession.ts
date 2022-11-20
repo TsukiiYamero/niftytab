@@ -2,16 +2,15 @@ import { supabase } from '@/api/config';
 import { SessionTabsSupabase } from '@/models';
 import { DEFAULT_SESSION_NAME } from '../tabs.statics';
 
-export const createSession = async (session: SessionTabsSupabase) => {
-    const { data, error } = await supabase.from('sessions').insert([session]);
-    return { data, error };
+export const createSession = (controller: AbortController, session: SessionTabsSupabase) => {
+    return supabase.from('sessions').insert([session]).abortSignal(controller.signal);
 };
 
-export const createDefaultSession = async (userId: string) => {
+export const createDefaultSession = (controller: AbortController, userId: string) => {
     const defaultSession: SessionTabsSupabase = {
         user_id: userId,
         browser_name: DEFAULT_SESSION_NAME
     };
 
-    createSession(defaultSession);
+    return createSession(controller, defaultSession);
 };

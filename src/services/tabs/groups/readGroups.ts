@@ -1,29 +1,24 @@
 import { supabase } from '@/api/config';
-import { GroupsTabsSupabase } from '@/models';
 import { DEFAULT_GROUP_NAME, SUPABASE_TABLE_GROUPS } from '../tabs.statics';
 import { ReadGroupsWithFiltering2 } from '../tabs.types';
 
-export const readGroups = async () => {
-    const { data: groups, error } = await supabase
+export const readGroups = (controller: AbortController) => {
+    return supabase
         .from(SUPABASE_TABLE_GROUPS)
-        .select('*');
-
-    return { data: groups, error };
+        .select('*')
+        .abortSignal(controller.signal);
 };
 
-export const readGroupsWithFilter = async (filter: ReadGroupsWithFiltering2) => {
-    const { data: groups, error } = await supabase
+export const readGroupsWithFilter = (controller: AbortController, filter: ReadGroupsWithFiltering2) => {
+    return supabase
         .from(SUPABASE_TABLE_GROUPS)
-        .select('*').eq(filter.eq.column ?? '', filter.eq.equalTo ?? '');
-
-    return { data: groups as GroupsTabsSupabase[], error };
+        .select('*').eq(filter.eq.column ?? '', filter.eq.equalTo ?? '')
+        .abortSignal(controller.signal);
 };
 
-export const readDefaultGroup = async () => {
-    return await readGroupsWithFilter({
-        eq: {
-            column: 'title',
-            equalTo: DEFAULT_GROUP_NAME
-        }
-    });
-};
+export const readDefaultGroup = (controller: AbortController) => readGroupsWithFilter(controller, {
+    eq: {
+        column: 'title',
+        equalTo: DEFAULT_GROUP_NAME
+    }
+});

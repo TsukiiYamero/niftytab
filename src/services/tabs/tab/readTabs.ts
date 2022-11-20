@@ -8,23 +8,17 @@ import { ReadGroupsWithFiltering2 } from '../tabs.types';
  * the fetch function takes a controller
  * @returns An object with a fetchFunc property.
  */
-export const readTabs = () => {
-    const fetchFunc = async (controller: AbortController) => {
-        const { data, error } = await supabase
-            .from(SUPABASE_TABLE_TABS)
-            .select('*')
-            .abortSignal(controller.signal);
-
-        return { data: data ?? [], error };
-    };
-
-    return { fetchFunc };
+export const readTabs = (controller: AbortController) => {
+    return supabase
+        .from(SUPABASE_TABLE_TABS)
+        .select('*')
+        .abortSignal(controller.signal);
 };
 
-export const readTabsWithFilter = async (filter: ReadGroupsWithFiltering2) => {
-    const { data, error } = await supabase
+export const readTabsWithFilter = (controller: AbortController, filter: ReadGroupsWithFiltering2) => {
+    return supabase
         .from(SUPABASE_TABLE_TABS)
-        .select('*').eq(filter.eq.column ?? '', filter.eq.equalTo ?? '');
-
-    return { data, error };
+        .select('*')
+        .eq(filter.eq.column ?? '', filter.eq.equalTo ?? '')
+        .abortSignal(controller.signal);
 };

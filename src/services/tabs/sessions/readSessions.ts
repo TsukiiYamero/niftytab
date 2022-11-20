@@ -1,26 +1,23 @@
 import { supabase } from '@/api/config';
-import { SessionTabsSupabase } from '@/models';
 import { DEFAULT_SESSION_NAME, SUPABASE_TABLE_SESSION } from '../tabs.statics';
 import { ReadGroupsWithFiltering2 } from '../tabs.types';
 
-export const ReadSessions = async () => {
-    const { data: sessions, error } = await supabase
+export const ReadSessions = (controller: AbortController) => {
+    return supabase
         .from(SUPABASE_TABLE_SESSION)
-        .select('*');
-
-    return { data: sessions, error };
+        .select('*')
+        .abortSignal(controller.signal);
 };
 
-export const ReadSessionsWithFilter = async (filter: ReadGroupsWithFiltering2) => {
-    const { data: sessions, error } = await supabase
+export const ReadSessionsWithFilter = (controller: AbortController, filter: ReadGroupsWithFiltering2) => {
+    return supabase
         .from(SUPABASE_TABLE_SESSION)
-        .select('*').eq(filter.eq.column ?? '', filter.eq.equalTo ?? '');
-
-    return { data: sessions as SessionTabsSupabase[], error };
+        .select('*').eq(filter.eq.column ?? '', filter.eq.equalTo ?? '')
+        .abortSignal(controller.signal);
 };
 
-export const readDefaultSession = async () => {
-    return await ReadSessionsWithFilter({
+export const readDefaultSession = (controller: AbortController) => {
+    return ReadSessionsWithFilter(controller, {
         eq: {
             column: 'browser_name',
             equalTo: DEFAULT_SESSION_NAME
