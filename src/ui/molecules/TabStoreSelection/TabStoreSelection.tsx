@@ -4,12 +4,16 @@ import { StandardButton } from '@/ui/atoms/Buttons';
 import { CloudIcon, LaptopIcon } from '@/ui/atoms/icons';
 
 export const TabStoreSelection = () => {
-    const { loading, typeOfStore } = useGetTabsContext();
+    const { loading, typeOfStore, local, saved } = useGetTabsContext();
     const dispatch = useGetTabsDispatchContext();
 
     const changeTabStoredType = (storedType: TabsStoredType) => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: storedType });
     };
+
+    const quantityOfTabs = `${(typeOfStore === TabsStoredType.local
+        ? local.length
+        : saved.length)} Tabs`;
 
     return (
         <div style={{ display: 'flex', paddingBlock: '8px' }}>
@@ -26,6 +30,12 @@ export const TabStoreSelection = () => {
                 icon={<CloudIcon />}
                 onClick={() => changeTabStoredType(TabsStoredType.saved)}
             />
+
+            <span>
+                {
+                    quantityOfTabs
+                }
+            </span>
         </div>
     );
 };
