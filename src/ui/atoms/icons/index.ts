@@ -10,6 +10,7 @@ export * from './FilterIcon';
 export * from './FoldersIcon';
 export * from './GroupTabsIcon';
 export * from './LaptopIcon';
+export * from './OptionsVertical';
 export * from './SearchIcon';
 export * from './SessionIcon';
 export * from './TabsIcon';
