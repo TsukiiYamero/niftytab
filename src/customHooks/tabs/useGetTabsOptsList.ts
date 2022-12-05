@@ -25,9 +25,7 @@ export const useGetTabsOptsList = () => {
         (tab: NiftyTab) => {
             return async () => {
                 dispatch({ type: TabsActions.requestTabs });
-                console.log(tab.url);
-                const resp = await callApi(deleteTabs, tab.url);
-                console.log(resp);
+                await callApi(deleteTabs, tab.url);
                 dispatch({ type: TabsActions.deleteTabInSaved, payload: tab.url });
             };
         }, [callApi, dispatch]
