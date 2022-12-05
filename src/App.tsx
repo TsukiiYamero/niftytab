@@ -4,16 +4,23 @@ import { useSetInitialTheme } from './theme/hooks/useSetInitialTheme';
 import MainPage from './pages/mainPage/MainPage';
 import { AuthProvider } from './contexts/auth';
 import { TabsProvider } from './contexts/tabs';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useMemo } from 'react';
+import { getDesignTokens } from './theme/helpers/getDesignTokens';
 
 export const App = () => {
     const userTheme = useSetInitialTheme();
 
+    const theme = useMemo(() => createTheme(getDesignTokens(userTheme)), [userTheme]);
+
     return (
         <AuthProvider>
             <ThemeContext.Provider value={{ userTheme }}>
-                <TabsProvider>
-                    <MainPage />
-                </TabsProvider>
+                <ThemeProvider theme={theme}>
+                    <TabsProvider>
+                        <MainPage />
+                    </TabsProvider>
+                </ThemeProvider>
             </ThemeContext.Provider>
         </AuthProvider>
     );

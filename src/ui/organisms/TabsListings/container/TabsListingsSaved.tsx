@@ -1,4 +1,5 @@
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
+import { useGetTabsOptsList } from '@/customHooks/tabs/useGetTabsOptsList';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { NiftyTab } from '@/models';
 import { readTabs } from '@/services/tabs';
@@ -15,6 +16,7 @@ type props = {
 
 export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
     const { callApi } = useFetchWithCallback();
+    const makeTabsOptsList = useGetTabsOptsList();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,6 +24,8 @@ export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
             const { data, error } = await callApi(readTabs);
             if (error) {
                 console.log(error.message);
+                dispatch({ type: TabsActions.finishRequestTabs });
+                return;
             }
             console.log('Saved', supabaseTabsToNiftyTabs(data));
             dispatch({ type: TabsActions.updatedSaved, payload: supabaseTabsToNiftyTabs(data) });
@@ -32,7 +36,7 @@ export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
 
     return (
         <>
-            {loading ? <SimpleLoading /> : <TabsListings tabs={saved} />}
+            {loading ? <SimpleLoading /> : <TabsListings tabs={saved} makeTabsOptsList={makeTabsOptsList} />}
         </>
     );
 };

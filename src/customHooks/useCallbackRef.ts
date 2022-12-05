@@ -7,5 +7,5 @@ export const useCallbackRef = (callback: any) => {
         callbackRef.current = callback;
     }, [callback]);
 
-    return callbackRef;
+    return callbackRef.current;
 };

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import SearchIcon from '@/ui/atoms/icons/SearchIcon/SearchIcon';
+import { SearchIcon } from '@/ui/atoms/icons/SearchIcon/SearchIcon';
 import { IconButtonSimple } from '@/ui/atoms/Buttons';
 import { SearchBarWrapper } from './searchBarWrapper.styled';
 import { SearchInput } from './SearchInput.styled';

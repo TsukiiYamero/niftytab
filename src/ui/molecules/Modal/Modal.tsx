@@ -26,7 +26,10 @@ export interface PropsModal {
     id?: string;
     modalCustomClass?: string;
 }
-
+/**
+ * Have to be used with the custom hook useModal
+ * Example: const { isOpen, openModal, closeModal } = useModal();
+ */
 export const Modal = memo(
     ({
         isOpen,

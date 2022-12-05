@@ -2,10 +2,10 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   width: 320px;
-  height: 40px;
+  height: 44px;
   gap: 10px;
   align-items: center;
-  padding: 6px 10px;
+  padding: 3px 10px;
   cursor: pointer;
   position: relative;
   transition: background 400ms;

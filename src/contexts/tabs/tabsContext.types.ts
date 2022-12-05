@@ -21,15 +21,19 @@ export interface TabsStore {
 
 export enum TabsActions {
     requestTabs = 'request_tabs',
+    finishRequestTabs = 'finish_request_tabs',
     updatedLocal = 'updated_local',
     updatedSaved = 'updated_saved',
+    deleteTabInSaved = 'delete_tab_in_saved',
     changeTabsSection = 'tabs_section',
-    changeTypeOfStore = 'type_of_store'
+    changeTypeOfStore = 'type_of_store',
 }
 
 export type TabsActionType =
     | { type: TabsActions.requestTabs; }
+    | { type: TabsActions.finishRequestTabs; }
     | { type: TabsActions.updatedLocal; payload: NiftyTab[]; }
     | { type: TabsActions.updatedSaved; payload: NiftyTab[]; }
+    | { type: TabsActions.deleteTabInSaved; payload: string; }
     | { type: TabsActions.changeTabsSection; payload: TabSectionFilter }
     | { type: TabsActions.changeTypeOfStore; payload: TabsStoredType };
