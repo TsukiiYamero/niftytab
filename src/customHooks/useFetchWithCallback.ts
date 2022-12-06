@@ -41,7 +41,7 @@ export const useFetchWithCallback = () => {
         }
 
         return result;
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         return () => {
