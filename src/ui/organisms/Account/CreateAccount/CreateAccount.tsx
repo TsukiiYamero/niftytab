@@ -7,7 +7,7 @@ import { FormEvent, useEffect, useRef } from 'react';
 
 type SignUpForm = { email: string, password: string, passwordRepeat: string }
 
-const CreateAccount = () => {
+export const CreateAccount = () => {
     const dispatch = useAuthDispatch();
     const { loading, errorMessage } = useAuthState();
     const { closeModal } = useModalContext();
@@ -97,5 +97,3 @@ const CreateAccount = () => {
         </div>
     );
 };
-
-export default CreateAccount;

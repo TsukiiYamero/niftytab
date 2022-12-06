@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 
 type SignUpForm = { email: string, password: string }
 
-const SignIn = () => {
+export const SignIn = () => {
     const dispatch = useAuthDispatch();
     const { loading, errorMessage } = useAuthState();
     const { closeModal } = useModalContext();
@@ -94,5 +94,3 @@ const SignIn = () => {
         </div>
     );
 };
-
-export default SignIn;
