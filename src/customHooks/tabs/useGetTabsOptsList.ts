@@ -8,10 +8,13 @@ import { TabsActions } from '@/contexts/tabs';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useGetSnackbarDispatchContext } from '@/contexts/snackbar/hooks';
+import { SnackbarActions } from '@/contexts/snackbar/snackbar.types';
 
 export const useGetTabsOptsList = () => {
     const { callApi } = useFetchWithCallback();
     const dispatch = useGetTabsDispatchContext();
+    const dispatchSnackbar = useGetSnackbarDispatchContext();
 
     const openTab = useCallback(
         (tab: NiftyTab) => {
@@ -27,8 +30,12 @@ export const useGetTabsOptsList = () => {
                 dispatch({ type: TabsActions.requestTabs });
                 await callApi(deleteTabs, tab.url);
                 dispatch({ type: TabsActions.deleteTabInSaved, payload: tab.url });
+                dispatchSnackbar({
+                    type: SnackbarActions.setSnackbar,
+                    payload: { opened: true, message: 'Tab Deleted' }
+                });
             };
-        }, [callApi, dispatch]
+        }, [callApi, dispatch, dispatchSnackbar]
     );
 
     const makeTabsOptsList = useCallback((tab: NiftyTab): OptionBtnMenuList[] => {

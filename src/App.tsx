@@ -7,6 +7,7 @@ import { TabsProvider } from './contexts/tabs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useMemo } from 'react';
 import { getDesignTokens } from './theme/helpers/getDesignTokens';
+import { SnackbarProvider } from './contexts/snackbar/provider';
 
 export const App = () => {
     const userTheme = useSetInitialTheme();
@@ -18,7 +19,9 @@ export const App = () => {
             <ThemeContext.Provider value={{ userTheme }}>
                 <ThemeProvider theme={theme}>
                     <TabsProvider>
-                        <MainPage />
+                        <SnackbarProvider>
+                            <MainPage />
+                        </SnackbarProvider>
                     </TabsProvider>
                 </ThemeProvider>
             </ThemeContext.Provider>
