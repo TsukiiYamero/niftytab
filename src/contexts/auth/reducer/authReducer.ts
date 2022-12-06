@@ -17,6 +17,12 @@ export const authReducer = (
                 ...authInitialState,
                 loading: true
             };
+        case AuthActions.resetMsg:
+            return {
+                ...authInitialState,
+                loading: false,
+                errorMessage: ''
+            };
         case AuthActions.loginSuccess:
             return {
                 ...state,

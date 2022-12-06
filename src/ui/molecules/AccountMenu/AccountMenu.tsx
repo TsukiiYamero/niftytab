@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { MouseEvent, useState } from 'react';
-import { useAuthState } from '@/contexts/auth';
+import { AuthActions, useAuthState } from '@/contexts/auth';
 import { UserLoggedMenu } from './UserLoggedMenu';
 import { UserNotLoggedMenu } from './UserNotLoggedMenu';
 import { Modal, useModal } from '../Modal';
@@ -34,6 +34,11 @@ export const AccountMenu = () => {
         setSignIn(false);
         openModal();
     };
+
+    const onCloseModal = () => {
+        dispatch({ type: AuthActions.})
+        closeModal();
+    }
 
     return (
         <>
@@ -94,11 +99,11 @@ export const AccountMenu = () => {
 
             </Menu>
 
-            <Modal isOpen={isOpen} closeByIcon={true} onClose={closeModal}>
+            <Modal isOpen={isOpen} closeByIcon={true} onClose={onCloseModal}>
                 <div>
                     {signIn ? <SignIn /> : <CreateAccount />}
 
-                    <span onClick={onSignUp}> don&apos;t have an account yet?</span>
+                    <span onClick={onSignUp}> Don&apos;t have an account yet?</span>
                     <br />
                     <span onClick={onSignIn}> Already have an account?</span>
                 </div>

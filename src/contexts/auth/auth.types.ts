@@ -14,6 +14,7 @@ export type AuthInitialState = {
     errorMessage: string;
 };
 export enum AuthActions {
+    resetMsg = 'reset_msg',
     requestLogin = 'request_login',
     loginSuccess = 'login_success',
     logout = 'logout',
@@ -21,6 +22,7 @@ export enum AuthActions {
 }
 
 export type AuthActionType =
+    | { type: AuthActions.resetMsg }
     | { type: AuthActions.requestLogin }
     | { type: AuthActions.loginSuccess; payload: AuthLoginData }
     | { type: AuthActions.logout }
