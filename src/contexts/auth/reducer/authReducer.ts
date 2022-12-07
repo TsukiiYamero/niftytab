@@ -19,7 +19,7 @@ export const authReducer = (
             };
         case AuthActions.resetMsg:
             return {
-                ...authInitialState,
+                ...state,
                 loading: false,
                 errorMessage: ''
             };

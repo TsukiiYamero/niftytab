@@ -26,11 +26,12 @@ export const OptionBtnMenu = ({ optionsMenu, tab }: Props) => {
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-        console.log(tab);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     const handleOnclickItem = (funcItem: () => void) => {
         setAnchorEl(null);
         funcItem();

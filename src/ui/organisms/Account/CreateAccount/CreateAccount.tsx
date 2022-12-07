@@ -1,4 +1,5 @@
 import { startSignUpWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
+import { useCallbackRef } from '@/customHooks/useCallbackRef';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { useModalContext } from '@/ui/molecules/Modal';
@@ -11,6 +12,8 @@ export const CreateAccount = () => {
     const dispatch = useAuthDispatch();
     const { loading, errorMessage } = useAuthState();
     const { closeModal } = useModalContext();
+    const closeModalMemoized = useCallbackRef(closeModal);
+
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordRepeatRef = useRef<HTMLInputElement>(null);
@@ -36,10 +39,11 @@ export const CreateAccount = () => {
             };
 
             const isOk = await startSignUpWithEmail(dispatch, userCredentials);
-            isOk && closeModal();
+            isOk && closeModalMemoized();
         };
         signUp();
-    }, [isValid, data, dispatch, closeModal]);
+        // problem the method is rerender too many times
+    }, [isValid, data, dispatch, closeModalMemoized]);
 
     const onHandleSubmit = (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();

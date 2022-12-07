@@ -19,7 +19,6 @@ export const TabsListing = ({ tab, makeTabsOptsList }: Props) => {
         if (makeOptsListRef) {
             setOptionsMenuList(makeOptsListRef(tabRef));
         }
-        console.log(tabRef);
     }, [setOptionsMenuList, makeOptsListRef, tabRef]);
 
     return (
