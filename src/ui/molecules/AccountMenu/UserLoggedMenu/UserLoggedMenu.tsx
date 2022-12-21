@@ -6,12 +6,14 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useAuthDispatch } from '@/contexts/auth';
 import { startSignOut } from '@/contexts/auth/thunks/signOut';
+import { useTabsDispatch } from '@/contexts/tabs/hooks';
 
 export const UserLoggedMenu = () => {
-    const dispatch = useAuthDispatch();
+    const authDispatch = useAuthDispatch();
+    const tabsDispatch = useTabsDispatch();
 
     const handleLogout = async () => {
-        await startSignOut(dispatch);
+        await startSignOut(authDispatch, tabsDispatch);
     };
 
     return (

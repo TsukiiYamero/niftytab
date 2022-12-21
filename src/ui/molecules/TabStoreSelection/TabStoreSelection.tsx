@@ -1,11 +1,11 @@
 import { TabsActions, TabsStoredType } from '@/contexts/tabs';
-import { useGetTabsContext, useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
+import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { CloudIcon, LaptopIcon } from '@/ui/atoms/icons';
 
 export const TabStoreSelection = () => {
     const { loading, typeOfStore, local, saved } = useGetTabsContext();
-    const dispatch = useGetTabsDispatchContext();
+    const dispatch = useTabsDispatch();
 
     const changeTabStoredType = (storedType: TabsStoredType) => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: storedType });

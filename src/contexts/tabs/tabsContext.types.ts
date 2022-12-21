@@ -20,6 +20,7 @@ export interface TabsStore {
 }
 
 export enum TabsActions {
+    resetTabs = 'reset_tabs',
     requestTabs = 'request_tabs',
     finishRequestTabs = 'finish_request_tabs',
     updatedLocal = 'updated_local',
@@ -30,7 +31,9 @@ export enum TabsActions {
 }
 
 export type TabsActionType =
+    | { type: TabsActions.resetTabs; }
     | { type: TabsActions.requestTabs; }
+    | { type: TabsActions.finishRequestTabs; }
     | { type: TabsActions.finishRequestTabs; }
     | { type: TabsActions.updatedLocal; payload: NiftyTab[]; }
     | { type: TabsActions.updatedSaved; payload: NiftyTab[]; }

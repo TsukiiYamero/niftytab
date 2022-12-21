@@ -3,7 +3,7 @@ import { OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 import { useCallback } from 'react';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { deleteTabs } from '@/services/tabs/tab/deleteTabs';
-import { useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
+import { useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsActions } from '@/contexts/tabs';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -13,7 +13,7 @@ import { SnackbarActions } from '@/contexts/snackbar/snackbar.types';
 
 export const useGetTabsOptsList = () => {
     const { callApi } = useFetchWithCallback();
-    const dispatch = useGetTabsDispatchContext();
+    const dispatch = useTabsDispatch();
     const dispatchSnackbar = useGetSnackbarDispatchContext();
 
     const openTab = useCallback(

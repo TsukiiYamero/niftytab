@@ -10,6 +10,14 @@ export const tabsInitialState: TabsStore = {
 
 export const tabsReducer = (state = tabsInitialState, action: TabsActionType) => {
     switch (action.type) {
+        case TabsActions.resetTabs:
+            return {
+                ...state,
+                saved: [],
+                typeOfStore: TabsStoredType.local,
+                tabSection: TabSectionFilter.tabs,
+                loading: false
+            };
         case TabsActions.requestTabs:
             return {
                 ...state,

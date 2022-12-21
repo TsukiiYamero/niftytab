@@ -6,7 +6,7 @@ export const useGetTabsContext = () => {
     return context;
 };
 
-export const useGetTabsDispatchContext = () => {
+export const useTabsDispatch = () => {
     const context = useContext(TabsDispatchContext);
 
     if (!context)

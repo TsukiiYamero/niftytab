@@ -1,5 +1,5 @@
 import { TabsActions, TabSectionFilter } from '@/contexts/tabs';
-import { useGetTabsContext, useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
+import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { FoldersIcon, SessionIcon, TabsIcon } from '@/ui/atoms/icons';
 import { AddTabs } from '@/ui/organisms/AddTabs';
@@ -7,7 +7,7 @@ import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.st
 
 const TabsSelection = () => {
     const { tabSection, loading } = useGetTabsContext();
-    const dispatch = useGetTabsDispatchContext();
+    const dispatch = useTabsDispatch();
 
     const changeActiveTab = (ev: TabSectionFilter) => {
         dispatch({ type: TabsActions.changeTabsSection, payload: ev });

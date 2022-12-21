@@ -1,5 +1,5 @@
 import { TabsActions } from '@/contexts/tabs';
-import { useGetTabsDispatchContext } from '@/contexts/tabs/hooks';
+import { useTabsDispatch } from '@/contexts/tabs/hooks';
 import { useSaveTabs } from '@/customHooks/tabs/useSaveTabs';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { TabCreationButton } from '@/ui/atoms/Buttons/TabCreationButton';
@@ -13,7 +13,7 @@ import './addTabs.css';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
-    const dispatch = useGetTabsDispatchContext();
+    const dispatch = useTabsDispatch();
 
     const { saveTabs } = useSaveTabs();
 
