@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
-import { AuthActions, useAuthDispatch, useAuthState } from '@/contexts/auth';
+import { useAuthDispatch, useAuthState } from '@/contexts/auth';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { signInWithGoogle } from '@/services/authProviders';
-import { StandardButton } from '@/ui/atoms/Buttons';
 import { useModalContext } from '@/ui/molecules/Modal';
 import { authValidationsBasic } from '@/utils/authValidations';
 import { useEffect, useRef } from 'react';
+import { FormDesign } from '../FormDesign/FormDesign';
 
 type SignUpForm = { email: string, password: string }
 
@@ -25,10 +25,6 @@ export const SignIn = () => {
             password: passwordRef.current?.value ?? ''
         }
     });
-
-    useEffect(() => {
-        console.log(closeModal, 'a dispatch fuk u');
-    }, [closeModal]);
 
     useEffect(() => {
         const signIn = async () => {
@@ -59,43 +55,14 @@ export const SignIn = () => {
         await signInWithGoogle();
     };
 
-    return (
-        <div>
-
-            {loading && <h1>Loading...</h1>}
-            {errorMessage && <p>{errorMessage}</p>}
-
-            <h2>Sign In</h2>
-
-            {!pristine && errors.email && <span>{errors.email}</span>}
-            {!pristine && errors.password && <span>{errors.password}</span>}
-
-            <form action="">
-                <input
-                    ref={emailRef}
-                    type="text"
-                    name="email"
-                    placeholder="example@gmail.com"
-                />
-                <input
-                    ref={passwordRef}
-                    type="password"
-                    name="password"
-                    placeholder="*******"
-                />
-
-                <StandardButton
-                    buttonStyle="btn-primary"
-                    text={'Sign In'}
-                    onClick={onSignIn}
-                />
-            </form>
-
-            <StandardButton
-                buttonStyle="btn-primary"
-                text={'Sign In With Google'}
-                onClick={onSignInWithGoogle}
-            />
-        </div>
-    );
+    return <FormDesign
+        title={'Sign In'}
+        loading={loading}
+        emailRef={emailRef}
+        passwordRef={passwordRef}
+        pristine={pristine}
+        errors={errors}
+        errorMessage={errorMessage}
+        onSubmit={onSignIn}
+    />;
 };

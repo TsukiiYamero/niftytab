@@ -3,19 +3,21 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+
 import { MouseEvent, useState } from 'react';
 import { AuthActions, useAuthDispatch, useAuthState } from '@/contexts/auth';
 import { UserLoggedMenu } from './UserLoggedMenu';
 import { UserNotLoggedMenu } from './UserNotLoggedMenu';
 import { Modal, useModal } from '../Modal';
-import { CreateAccount, SignIn } from '@/ui/organisms/Account';
+import { SignInSignUp } from '@/ui/molecules/SignInSignUp';
+import './account_menu.css';
 
 export const AccountMenu = () => {
     const { user } = useAuthState();
     const dispatch = useAuthDispatch();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isOpen, openModal, closeModal } = useModal();
-    const [signIn, setSignIn] = useState(true);
+    const [isSignIn, setIsSignIn] = useState(true);
 
     const open = Boolean(anchorEl);
 
@@ -27,12 +29,12 @@ export const AccountMenu = () => {
     };
 
     const onSignIn = () => {
-        setSignIn(true);
+        setIsSignIn(true);
         openModal();
     };
 
     const onSignUp = () => {
-        setSignIn(false);
+        setIsSignIn(false);
         openModal();
     };
 
@@ -100,14 +102,14 @@ export const AccountMenu = () => {
 
             </Menu>
 
-            <Modal isOpen={isOpen} closeByIcon={true} closeByClickOutside={false} onClose={onCloseModal}>
-                <div>
-                    {signIn ? <SignIn /> : <CreateAccount />}
-
-                    <span onClick={onSignUp}> Don&apos;t have an account yet?</span>
-                    <br />
-                    <span onClick={onSignIn}> Already have an account?</span>
-                </div>
+            <Modal
+                isOpen={isOpen}
+                closeByIcon={true}
+                closeByClickOutside={false}
+                onClose={onCloseModal}
+                modalClassSize='custom_modal_login'
+            >
+                <SignInSignUp signIn={isSignIn} />
             </Modal>
         </ >
     );
