@@ -1,13 +1,13 @@
 import { supabase } from '@/api/config';
 
-export const deleteTabs = (controller: AbortController, url: string) => {
-    if (!url) return {
+export const deleteTabs = (controller: AbortController, refererId: string) => {
+    if (!refererId) return {
         data: [], error: null
     };
 
     return supabase
         .from('tabs')
         .delete()
-        .eq('url', url)
+        .eq('referer_id', refererId)
         .abortSignal(controller.signal);
 };

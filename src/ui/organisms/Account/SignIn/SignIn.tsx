@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
 import { AuthActions, useAuthDispatch, useAuthState } from '@/contexts/auth';
-import { useCallbackRef } from '@/customHooks/useCallbackRef';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { signInWithGoogle } from '@/services/authProviders';
 import { StandardButton } from '@/ui/atoms/Buttons';
@@ -15,7 +14,6 @@ export const SignIn = () => {
     const dispatch = useAuthDispatch();
     const { loading, errorMessage } = useAuthState();
     const { closeModal } = useModalContext();
-    const closeModalMemoized = useCallbackRef(closeModal);
 
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -29,6 +27,10 @@ export const SignIn = () => {
     });
 
     useEffect(() => {
+        console.log(closeModal, 'a dispatch fuk u');
+    }, [closeModal]);
+
+    useEffect(() => {
         const signIn = async () => {
             if (!isValid) return;
 
@@ -40,11 +42,11 @@ export const SignIn = () => {
             };
 
             const isOK = await startSignInWithEmail(dispatch, userCredentials);
-            isOK && closeModalMemoized();
+            isOK && closeModal();
         };
 
         signIn();
-    }, [isValid, data, dispatch, closeModalMemoized]);
+    }, [isValid, data, dispatch, closeModal]);
 
     const onSignIn = async () => {
         const email = emailRef.current?.value;

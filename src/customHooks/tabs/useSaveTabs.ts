@@ -38,7 +38,7 @@ export const useSaveTabs = () => {
 
         const currentTabs = chromeTabsToTabsSupabase(currentChromeTabs, user, defaults);
 
-        const { tabsFiltered, tabsForOverWrite, structOfTabsToUpdate, errorInReadTabs } = await handleTabsToCreate(currentTabs);
+        const { tabsFiltered, structOfTabsToUpdate, errorInReadTabs } = await handleTabsToCreate(currentTabs);
 
         if (errorInReadTabs) {
             console.log('Ops... Something went wrong, Please try again later.');
@@ -47,7 +47,7 @@ export const useSaveTabs = () => {
 
         let requestForOverWrite: Array<Promise<any>> = [];
 
-        if (tabsFiltered.length === 0 && tabsForOverWrite.length === 0) {
+        if (tabsFiltered.length === 0) {
             console.log('Ops... The Tab/s selected already exist.');
             return;
         }

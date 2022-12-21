@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { supabase } from '@/api/config';
 import { signInWithEmail } from '@/services/authProviders';
 import { AuthResponse } from '@supabase/supabase-js';

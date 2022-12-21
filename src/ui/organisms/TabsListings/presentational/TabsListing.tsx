@@ -16,8 +16,8 @@ export const TabsListing = ({ tab, makeTabsOptsList }: Props) => {
     const tabRef = useCallbackRef(tab);
 
     useEffect(() => {
-        if (makeOptsListRef) {
-            setOptionsMenuList(makeOptsListRef(tabRef));
+        if (makeOptsListRef.current) {
+            setOptionsMenuList(makeOptsListRef.current?.(tabRef.current));
         }
     }, [setOptionsMenuList, makeOptsListRef, tabRef]);
 

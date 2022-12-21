@@ -6,7 +6,7 @@ export const supabaseTabsToNiftyTabs = (tabs: TabsSupabase[] = []): NiftyTab[] =
         discarded: tab.discarded,
         favIconUrl: tab.favicon_url,
         groupId: tab.group_id,
-        id: tab.id,
+        refererId: tab.referer_id,
         index: tab.index,
         pinned: tab.pinned,
         sessionId: tab.session_id,
@@ -15,8 +15,12 @@ export const supabaseTabsToNiftyTabs = (tabs: TabsSupabase[] = []): NiftyTab[] =
     }));
 };
 
+/**
+ * this function is used to listings the tabs Local
+ * the refererId here is fake just for key in ul
+ */
 export const chromeTabsToNiftyTabs = (tabs: chrome.tabs.Tab[] = []): NiftyTab[] => {
-    return tabs.map((tab, i) => ({
+    return tabs.map((tab) => ({
         active: tab.active,
         discarded: tab.discarded,
         groupId: tab.groupId,
@@ -24,7 +28,7 @@ export const chromeTabsToNiftyTabs = (tabs: chrome.tabs.Tab[] = []): NiftyTab[] 
         pinned: tab.pinned,
         sessionId: 0,
         favIconUrl: tab.favIconUrl ?? '',
-        id: tab.id ?? (i + Math.floor(Math.random() * 100000)),
+        refererId: `${tab.url}${tab.id}`,
         title: tab.title ?? '',
         url: tab.url ?? ''
     }));

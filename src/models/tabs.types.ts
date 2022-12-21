@@ -25,7 +25,7 @@ export type ChromeTabs = {
 
 // Model for save in supabase
 export type TabsSupabase = {
-    id: number;
+    referer_id: string; // url + id user
     url: string;
     pinned: boolean;
     active: boolean;
@@ -54,7 +54,7 @@ export type SessionTabsSupabase = {
 
 // Model for handle tabs in the app
 export type NiftyTab = {
-    id: number;
+    refererId: string; // url + id of user
     url: string;
     pinned: boolean;
     active: boolean;

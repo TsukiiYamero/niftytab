@@ -19,7 +19,7 @@ export const useModal = (initialState = false) => {
         left: 0
     });
 
-    const openModal = ({
+    const openModal = useCallback(({
         topModal = 0,
         leftModal = 0,
         event
@@ -35,7 +35,7 @@ export const useModal = (initialState = false) => {
             };
             setPositionsAnimation(animations);
         }
-    };
+    }, []);
 
     const closeModal = useCallback(
         () => {

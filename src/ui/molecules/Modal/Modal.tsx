@@ -1,5 +1,5 @@
 import './modal.css';
-import { memo, MouseEvent, useCallback } from 'react';
+import { memo, MouseEvent, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { WrapperAnimation } from './WrapperAnimation';
 import { IconButtonSimple } from '@/ui/atoms/Buttons';
@@ -28,13 +28,14 @@ export interface PropsModal {
 }
 /**
  * Have to be used with the custom hook useModal
- * Example: const { isOpen, openModal, closeModal } = useModal();
+ * Example: `const { isOpen, openModal, closeModal } = useModal();`
  */
 export const Modal = memo(
     ({
         isOpen,
         children,
         closable = true,
+        // prefer to receive a useCallback
         onClose,
         closeByClickOutside = true,
         closeByIcon = true,
@@ -50,6 +51,8 @@ export const Modal = memo(
         id = '',
         modalCustomClass = ''
     }: PropsModal) => {
+        const onCloseMemoized = useRef(onClose);
+
         const wrapperAnimationProps = {
             animationWrapper,
             ...posAnimationWrapper,
@@ -63,9 +66,9 @@ export const Modal = memo(
 
         const closableModal = useCallback(
             () => {
-                closable && onClose();
+                closable && onCloseMemoized.current?.();
             },
-            [closable, onClose]
+            [closable, onCloseMemoized]
         );
 
         const handleCloseModal = () => {

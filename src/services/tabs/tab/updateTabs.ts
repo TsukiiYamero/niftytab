@@ -16,13 +16,13 @@ export const updateTabs = (controller: AbortController, tab: TabsSupabase) => {
         session_id: tab.session_id,
         title: tab.title,
         url: tab.url,
-        id: tab.id,
+        referer_id: tab.referer_id,
         user_id: tab.user_id
     };
 
     return supabase
         .from('tabs')
         .update<TabsSupabase>(columnsToUpdate)
-        .eq('id', tab.id)
+        .eq('referer_id', tab.referer_id)
         .abortSignal(controller.signal);
 };
