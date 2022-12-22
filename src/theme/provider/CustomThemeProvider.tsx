@@ -19,7 +19,7 @@ export const CustomThemeProvider = ({ children }: props) => {
     const initialTheme = useGetInitialTheme();
     const [theme, setTheme] = useState<Themes>(initialTheme);
     useApplyTheme({ initialTheme, theme, setTheme });
-    const themeMui = useMemo(() => createTheme(getDesignTokens(theme)), [theme]);
+    const themeMui = useMemo(() => createTheme({ palette: { mode: theme } }), [theme]);
 
     return (<>
         <ThemeContext.Provider value={{ theme, setTheme }}>

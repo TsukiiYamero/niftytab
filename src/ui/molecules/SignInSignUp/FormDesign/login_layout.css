@@ -1,0 +1,21 @@
+.container-login-form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.container-login-form div p {
+    color: var(--error-color-primary-100);
+}
+
+.title-login-space {
+    padding-block: 6px 24px;
+    color: var(--neutral-color-third);
+}
+
+p.error-msg-login {
+    position: relative;
+    bottom: 19px;
+    color: var(--error-color-primary-100);
+}

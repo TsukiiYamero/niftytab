@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 
 import { FormEvent, RefObject } from 'react';
 
+import './login_layout.css';
+import { FormHelperText } from '@mui/material';
+
 type Props = {
     emailRef: RefObject<HTMLInputElement>;
     passwordRef: RefObject<HTMLInputElement>;
@@ -24,28 +27,58 @@ export const FormDesign = ({
         ev.preventDefault();
         onSubmit();
     };
+    const inputStyle = {
+        boxShadow: 'var(--bg-color) 0 0 0 1000px inset',
+        WebkitTextFillColor: 'var(--main-text-color)'
+    };
     return (
         <div>
 
             {loading && <h1>Loading...</h1>}
-            {errorMessage && <p>{errorMessage}</p>}
 
-            <h2>{title}</h2>
+            <h2 className='title-login-space'>{title}</h2>
 
-            {!pristine && errors.email && <span>{errors.email}</span>}
-            {!pristine && errors.password && <span>{errors.password}</span>}
+            <FormHelperText className={'error-msg-login'} >{errorMessage}</FormHelperText>
 
             <Box
                 component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' }
-                }}
                 noValidate
                 autoComplete="off"
+                width={'330px'}
+                className={'container-login-form'}
             >
-                <TextField ref={emailRef} id="login_Username" label="Username" variant="outlined" required />
-                <TextField ref={passwordRef} id="login_Password" label="Password" variant="outlined" type="password" required />
-                <Button type='submit' variant="contained" onClick={onSubmitForm} >{title}</Button>
+                <TextField
+                    inputRef={emailRef}
+                    id="login_Username"
+                    error={errors.email && !pristine}
+                    fullWidth
+                    label="Username"
+                    variant="outlined"
+                    required
+                    inputProps={{ style: inputStyle }}
+                    helperText={errors.email && !pristine ? errors.email : ''}
+                />
+
+                <TextField
+                    inputRef={passwordRef}
+                    id="login_Password"
+                    error={errors.email && !pristine}
+                    fullWidth
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    required
+                    inputProps={{ style: inputStyle }}
+                    helperText={errors.password && !pristine ? errors.password : ''}
+                />
+
+                <Button
+                    fullWidth
+                    disabled={loading}
+                    type='submit'
+                    variant="contained"
+                    onClick={onSubmitForm}
+                >{title}</Button>
             </Box>
 
         </div>

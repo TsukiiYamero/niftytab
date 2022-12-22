@@ -39,11 +39,12 @@
 
   --success-color-primary-100: #a5dc86;
   --success-color-primary-15: #a6dc8640;
-  --error-color-primary-100: #f27474;
+  --error-color-primary-100: #ef6d6d;
   --error-color-primary-15: #f2747445;
 
   --neutral-color-primary: #646464;
   --neutral-color-secondary: #64646465;
+  --neutral-color-third: #515050;
 
   --border-color-primary: #cdcdcd;
   --border-color-secondary: #b8b1b1;
@@ -97,10 +98,12 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 12px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--neutral-color-secondary);
 }
