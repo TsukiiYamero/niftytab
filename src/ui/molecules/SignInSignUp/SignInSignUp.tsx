@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { SignIn } from './SignIn';
 import { CreateAccount } from './CreateAccount';
+import { BottomLoginLayout } from './BottomLoginLayout';
+
+import './signin_signup.css';
+import { signInWithGoogle } from '@/services/authProviders';
 
 export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     const [isSignIn, setIsSignIn] = useState(signIn);
@@ -13,13 +17,14 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
         setIsSignIn(true);
     };
 
-    return (
-        <div>
-            {isSignIn ? <SignIn /> : <CreateAccount />}
+    const onSignInWithGoogle = async () => {
+        await signInWithGoogle();
+    };
 
-            <span onClick={onSignUp}> Don&apos;t have an account yet?</span>
-            <br />
-            <span onClick={onSignIn}> Already have an account?</span>
+    return (
+        <div className={'container-login'}>
+            {isSignIn ? <SignIn /> : <CreateAccount />}
+            <BottomLoginLayout isSignIn={isSignIn} onSignUp={onSignUp} onSignIn={onSignIn} googleSignIn={onSignInWithGoogle} />
         </div>
     );
 };

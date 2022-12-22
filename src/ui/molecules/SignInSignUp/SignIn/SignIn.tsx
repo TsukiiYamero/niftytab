@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
 import { useAuthDispatch, useAuthState } from '@/contexts/auth';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
-import { signInWithGoogle } from '@/services/authProviders';
 import { useModalContext } from '@/ui/molecules/Modal';
 import { authValidationsBasic } from '@/utils/authValidations';
 import { useEffect, useRef } from 'react';
@@ -49,10 +47,6 @@ export const SignIn = () => {
         const password = passwordRef.current?.value;
 
         handelSetData({ email, password });
-    };
-
-    const onSignInWithGoogle = async () => {
-        await signInWithGoogle();
     };
 
     return <LoginLayout
