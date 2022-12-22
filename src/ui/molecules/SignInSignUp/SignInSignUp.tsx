@@ -1,30 +1,86 @@
-import { useState } from 'react';
-import { SignIn } from './SignIn';
-import { CreateAccount } from './CreateAccount';
-import { BottomLoginLayout } from './BottomLoginLayout';
-
-import './signin_signup.css';
+import { startSignUpWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
+import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
+import { useModalContext } from '@/ui/molecules/Modal';
+import { authValidations } from '@/utils/authValidations';
+import { useEffect, useRef, useState } from 'react';
+import { LoginLayout } from './LoginLayout';
+import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
 import { signInWithGoogle } from '@/services/authProviders';
+
+type SignUpForm = { email: string, password: string }
 
 export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     const [isSignIn, setIsSignIn] = useState(signIn);
+    const { loading, errorMessage } = useAuthState();
+    const { closeModal } = useModalContext();
+    const dispatch = useAuthDispatch();
 
-    const onSignUp = () => {
-        setIsSignIn(false);
-    };
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
 
-    const onSignIn = () => {
-        setIsSignIn(true);
+    const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<SignUpForm>({
+        ...authValidations,
+        initialValues: {
+            email: emailRef.current?.value ?? '',
+            password: passwordRef.current?.value ?? ''
+        }
+    });
+
+    useEffect(() => {
+        const signUp = async () => {
+            if (!isValid) return;
+
+            if (!data?.email || !data?.password) return;
+
+            const userCredentials = {
+                email: data?.email,
+                password: data?.password
+            };
+
+            let isOk = false;
+
+            signIn
+                ? isOk = await startSignInWithEmail(dispatch, userCredentials)
+                : isOk = await startSignUpWithEmail(dispatch, userCredentials);
+
+            isOk && closeModal();
+        };
+        signUp();
+    }, [isValid, data, dispatch, closeModal, signIn]);
+
+    const onSubmit = () => {
+        const email = emailRef.current?.value;
+        const password = passwordRef.current?.value;
+
+        handelSetData({
+            email, password
+        });
     };
 
     const onSignInWithGoogle = async () => {
         await signInWithGoogle();
     };
 
-    return (
-        <div className={'container-login'}>
-            {isSignIn ? <SignIn /> : <CreateAccount />}
-            <BottomLoginLayout isSignIn={isSignIn} onSignUp={onSignUp} onSignIn={onSignIn} googleSignIn={onSignInWithGoogle} />
-        </div>
-    );
+    const onSignIn = () => {
+        setIsSignIn(true);
+    };
+
+    const onSignUp = () => {
+        setIsSignIn(false);
+    };
+
+    return <LoginLayout
+        title={signIn ? 'SIGN IN' : 'SIGN UP'}
+        isSignIn={isSignIn}
+        loading={loading}
+        emailRef={emailRef}
+        passwordRef={passwordRef}
+        pristine={pristine}
+        errors={errors}
+        errorMessage={errorMessage}
+        onSubmit={onSubmit}
+        googleSignIn={onSignInWithGoogle}
+        onSignIn={onSignIn}
+        onSignUp={onSignUp}
+    />;
 };

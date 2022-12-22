@@ -1,5 +1,3 @@
-type SignUpForm = { email: string, password: string, passwordRepeat: string }
-
 export const authValidations = {
     validations: {
         email: {
@@ -14,12 +12,6 @@ export const authValidations = {
                 // eslint-disable-next-line
                 value: /^(?=.*[A-Za-z])(?=.*\d){8,}/,
                 message: 'Password must be at least 8 characters long & contain one letter & one number'
-            }
-        },
-        passwordRepeat: {
-            custom: {
-                isValid: (value: SignUpForm) => value.password === value.passwordRepeat,
-                message: 'Both password should be the same.'
             }
         }
     }

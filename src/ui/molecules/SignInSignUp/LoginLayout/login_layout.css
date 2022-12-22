@@ -1,3 +1,7 @@
+.container-login {
+    padding: 3px 16px;
+}
+
 .container-login-form {
     align-items: flex-start;
     display: flex;
@@ -18,4 +22,71 @@ p.error-msg-login {
     position: relative;
     bottom: 19px;
     color: var(--error-color-primary-100);
+}
+
+/* bottom after login btn */
+
+.bottom-login-container {
+    padding-top: 8px;
+}
+
+p.forgot-msg-login {
+    position: relative;
+    right: -56%;
+    cursor: pointer;
+    color: var(--main-text-color);
+    font-size: 14px;
+    width: 141px;
+    margin: 0;
+}
+
+p.forgot-msg-login:hover {
+    color: var(--primary-color);
+}
+
+/* social media */
+
+.login-social-media {
+    padding-top: 6px;
+
+}
+
+.login-social-media .line {
+    border-bottom: 1px solid var(--neutral-color-secondary);
+    width: 100%;
+    display: block;
+}
+
+.login-social-media .line span {
+    position: relative;
+    width: 34px;
+    display: flex;
+    left: 45%;
+    justify-content: center;
+    border: 1px solid var(--neutral-color-secondary);
+    border-radius: 5px;
+    padding: 1px;
+    top: 13px;
+    color: var(--main-text-color);
+    background-color: var(--bg-color);
+}
+
+.social-media-btns {
+    padding-top: 32px;
+}
+
+.login-others-opts {
+    padding: 26px 28px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--main-text-color);
+}
+
+.login-others-opts span {
+    border-bottom: 1px solid var(--neutral-color-secondary);
+}
+
+.login-others-opts span:hover {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
 }
