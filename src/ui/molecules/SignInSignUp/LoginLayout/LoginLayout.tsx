@@ -55,7 +55,6 @@ export const LoginLayout = ({
                 <Box
                     component="form"
                     noValidate
-                    autoComplete="off"
                     width={'330px'}
                     className={'container-login-form'}
                 >
