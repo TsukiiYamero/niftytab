@@ -1,7 +1,7 @@
 import { startSignUpWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { useModalContext } from '@/ui/molecules/Modal';
-import { authValidations } from '@/utils/authValidations';
+import { authValidationsBasic } from '@/utils/authValidations';
 import { useEffect, useRef, useState } from 'react';
 import { LoginLayout } from './LoginLayout';
 import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
@@ -19,7 +19,7 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     const passwordRef = useRef<HTMLInputElement>(null);
 
     const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<SignUpForm>({
-        ...authValidations,
+        ...authValidationsBasic,
         initialValues: {
             email: emailRef.current?.value ?? '',
             password: passwordRef.current?.value ?? ''
