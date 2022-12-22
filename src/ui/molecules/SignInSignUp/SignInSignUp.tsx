@@ -59,6 +59,7 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
 
     const onSignInWithGoogle = async () => {
         await signInWithGoogle();
+        // getIdentityGoogle();
     };
 
     const onSignIn = () => {

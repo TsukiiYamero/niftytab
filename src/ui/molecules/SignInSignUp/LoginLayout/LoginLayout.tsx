@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FormEvent, RefObject } from 'react';
 import './login_layout.css';
 
@@ -101,11 +102,11 @@ export const LoginLayout = ({
                         <span>OR</span>
                     </div>
 
-                    <div className='social-media-btns'>
+                    {/*                     <div className='social-media-btns'>
                         <Button fullWidth variant="outlined" onClick={onClickGoogle} startIcon={<BsGoogle />}>
                             Continue with Google
                         </Button>
-                    </div>
+                    </div> */}
 
                     <div className='login-others-opts'>
                         {isSignIn
