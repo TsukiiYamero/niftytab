@@ -1,31 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from '../context/themeContext';
 import { setThemeInStorage } from '../helpers/setThemeInStorage';
-import { AttrThemeName, Themes } from '../theme.types';
+import { Themes } from '../theme.types';
 
+/**
+ * Custom hook for change the current theme
+ * using context to has more control
+ */
 export const useChangeTheme = () => {
-    const { userTheme } = useContext(ThemeContext);
-    const [theme, setTheme] = useState<Themes>(userTheme);
-
-    useEffect(() => {
-        userTheme && setTheme(userTheme);
-    }, [userTheme]);
-
-    useEffect(() => {
-        if (!theme) return;
-
-        const newTheme = theme === Themes.dark ? Themes.dark : Themes.light;
-        document.documentElement.setAttribute(AttrThemeName, newTheme);
-    }, [theme]);
+    const { theme: userTheme, setTheme: userSetTheme } = useContext(ThemeContext);
 
     const changeTheme = (isDark: boolean) => {
         const newTheme = isDark ? Themes.dark : Themes.light;
         setThemeInStorage(newTheme);
-        setTheme(newTheme);
+        userSetTheme(newTheme);
     };
 
     return {
-        darkTheme: theme === Themes.dark,
+        darkTheme: userTheme === Themes.dark,
         changeTheme
     };
 };

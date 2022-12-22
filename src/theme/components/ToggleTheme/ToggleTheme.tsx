@@ -2,7 +2,7 @@ import { useChangeTheme } from '@/theme/hooks/useChangeTheme';
 import './toggleTheme.css';
 
 /**
- * Toggle the theme in the application
+ * Component for toggle the theme,
  * themes supported Dark & Light.
  */
 export const ToggleTheme = () => {

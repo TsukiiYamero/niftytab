@@ -2,9 +2,11 @@ import { createContext } from 'react';
 import { Themes } from '../theme.types';
 
 type ThemeContextType = {
-    userTheme: Themes;
+    theme: Themes;
+    setTheme: (theme: Themes) => void;
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
-    userTheme: Themes.dark
+    theme: Themes.dark,
+    setTheme: (theme: Themes) => { }
 });
