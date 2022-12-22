@@ -6,7 +6,7 @@ import { signInWithGoogle } from '@/services/authProviders';
 import { useModalContext } from '@/ui/molecules/Modal';
 import { authValidationsBasic } from '@/utils/authValidations';
 import { useEffect, useRef } from 'react';
-import { FormDesign } from '../FormDesign/FormDesign';
+import { LoginLayout } from '../LoginLayout/LoginLayout';
 
 type SignUpForm = { email: string, password: string }
 
@@ -55,7 +55,7 @@ export const SignIn = () => {
         await signInWithGoogle();
     };
 
-    return <FormDesign
+    return <LoginLayout
         title={'Sign In'}
         loading={loading}
         emailRef={emailRef}

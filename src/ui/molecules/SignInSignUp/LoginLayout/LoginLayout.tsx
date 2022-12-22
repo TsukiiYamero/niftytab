@@ -19,7 +19,7 @@ type Props = {
     title: string
 }
 
-export const FormDesign = ({
+export const LoginLayout = ({
     emailRef, passwordRef, onSubmit, errors,
     loading, errorMessage, pristine, title
 }: Props) => {
