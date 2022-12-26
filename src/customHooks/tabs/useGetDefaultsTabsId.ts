@@ -6,16 +6,16 @@ import { readDefaultGroup, readDefaultSession } from '@/services/tabs';
  * and session ids.
  * @returns an object with a property called defaults.
  */
-export const useGetDefaultsTabsId = () => {
+export const useGetDefaultUserIds = () => {
     const { callApi } = useFetchWithCallback();
     const { callApi: callSecondApi } = useFetchWithCallback();
 
     /**
      * Get the default group and session ids of the user,
      * Generally is used to assign it to the tabs for save them
-     * @returns
+     * if got an error show the snackbar
      */
-    const getDefaultsTabsId = async () => {
+    const getDefaultUserIds = async () => {
         const RespDefault = await Promise.all([callApi(readDefaultGroup), callSecondApi(readDefaultSession)]);
         const groupDefault = RespDefault[0];
         const sessionDefault = RespDefault[1];
@@ -31,7 +31,7 @@ export const useGetDefaultsTabsId = () => {
         }
 
         return {
-            defaults: {
+            defaultsIds: {
                 groupId: groupDefault.data[0]?.id ?? 1,
                 sessionId: sessionDefault.data[0]?.id ?? 1
             },
@@ -40,6 +40,6 @@ export const useGetDefaultsTabsId = () => {
     };
 
     return {
-        getDefaultsTabsId
+        getDefaultUserIds
     };
 };

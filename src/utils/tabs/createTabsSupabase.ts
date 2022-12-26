@@ -5,10 +5,10 @@ import { TabsSupabase } from '@/models';
  * Create the tabs structure for save in supabase Tabs
  * @param tabs
  * @param user
- * @param defaults
+ * @param defaultsIds
  * @returns
  */
-export const chromeTabsToTabsSupabase = (tabs: chrome.tabs.Tab[], user: AuthUser | undefined, defaults: { groupId: number, sessionId: number }) => {
+export const chromeTabsToTabsSupabase = (tabs: chrome.tabs.Tab[], user: AuthUser | undefined, defaultsIds: { groupId: number, sessionId: number }) => {
     if (!tabs || !user) return [];
 
     const tabsForSave: TabsSupabase[] = [];
@@ -18,10 +18,10 @@ export const chromeTabsToTabsSupabase = (tabs: chrome.tabs.Tab[], user: AuthUser
             active: tab.active,
             discarded: tab.discarded,
             favicon_url: tab.favIconUrl ?? '',
-            group_id: tab.groupId === -1 ? defaults.groupId : tab.groupId,
+            group_id: tab.groupId === -1 ? defaultsIds.groupId : tab.groupId,
             index: tab.index,
             pinned: tab.pinned,
-            session_id: defaults.sessionId,
+            session_id: defaultsIds.sessionId,
             title: tab.title ?? '',
             url: tab.url ?? '',
             referer_id: `${tab.url}${user.id}`,

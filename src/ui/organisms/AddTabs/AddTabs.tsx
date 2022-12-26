@@ -27,16 +27,19 @@ export const AddTabs = () => {
         iconSize: IconsSize.medium
     };
 
-    const handleSaveSingleTab = async (ev: MouseEvent<HTMLDivElement>) => {
+    const handleSaveTabs = async (saveAll = true) => {
         dispatch({ type: TabsActions.requestTabs });
-        const activeTab = await getActiveTab();
-        await saveTabs([activeTab]);
-    };
 
-    const handleSaveAllTabs = async (ev: MouseEvent<HTMLDivElement>) => {
-        dispatch({ type: TabsActions.requestTabs });
-        const currentChromeTabs = await getAllChromeTabs();
-        await saveTabs(currentChromeTabs);
+        let TabsToSave: chrome.tabs.Tab[] = [];
+
+        saveAll
+            ? TabsToSave = await getAllChromeTabs()
+            : TabsToSave = [await getActiveTab()];
+
+        await saveTabs(TabsToSave);
+
+        dispatch({ type: TabsActions.finishRequestTabs });
+        closeModal();
     };
 
     const handleSessionCreation = (ev: MouseEvent<HTMLDivElement>) => {
@@ -76,13 +79,13 @@ export const AddTabs = () => {
                     <span>Quick</span>
 
                     <TabCreationButton
-                        onClick={handleSaveSingleTab}
+                        onClick={() => { handleSaveTabs(false); }}
                         text="Save current Tab"
                         iconLeft={iconLeft}
                         iconRight={iconRight}
                     />
                     <TabCreationButton
-                        onClick={handleSaveAllTabs}
+                        onClick={() => { handleSaveTabs(); }}
                         text="Save All Tabs"
                         iconLeft={iconLeft}
                         iconRight={iconRight}

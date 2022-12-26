@@ -1,5 +1,5 @@
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
-import { useGetTabsOptsList } from '@/customHooks/tabs/useGetTabsOptsList';
+import { useTabsSavedOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { NiftyTab } from '@/models';
 import { readTabs } from '@/services/tabs';
@@ -16,7 +16,7 @@ type props = {
 
 export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
     const { callApi } = useFetchWithCallback();
-    const makeTabsOptsList = useGetTabsOptsList();
+    const makeTabsOptsList = useTabsSavedOptionList();
 
     useEffect(() => {
         const fetchData = async () => {

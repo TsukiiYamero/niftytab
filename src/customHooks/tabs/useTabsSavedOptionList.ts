@@ -11,7 +11,10 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useGetSnackbarDispatchContext } from '@/contexts/snackbar/hooks';
 import { SnackbarActions } from '@/contexts/snackbar/snackbar.types';
 
-export const useGetTabsOptsList = () => {
+/**
+ * List of several options for saved tabs
+ */
+export const useTabsSavedOptionList = () => {
     const { callApi } = useFetchWithCallback();
     const dispatch = useTabsDispatch();
     const dispatchSnackbar = useGetSnackbarDispatchContext();

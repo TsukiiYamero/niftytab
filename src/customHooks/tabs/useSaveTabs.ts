@@ -1,80 +1,65 @@
 import { useAuthState } from '@/contexts/auth';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
-import { SupabaseCommonResponse } from '@/models';
 import { createTabs } from '@/services/tabs';
 import { chromeTabsToTabsSupabase } from '@/utils/tabs/createTabsSupabase';
-import { PostgrestError } from '@supabase/supabase-js';
-import { useGetDefaultsTabsId } from './useGetDefaultsTabsId';
+import { useGetDefaultUserIds } from './useGetDefaultsTabsId';
 import { useHandleTabGroups } from './useHandleTabGroups';
 import { useHandleTabsToCreate } from './useHandleTabsToCreate';
+import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
+import { TabsActions } from '@/contexts/tabs';
+import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 
 export const useSaveTabs = () => {
     const { user } = useAuthState();
-    const { getDefaultsTabsId } = useGetDefaultsTabsId();
-    const { handleTabGroups } = useHandleTabGroups();
-    const { handleTabsToCreate } = useHandleTabsToCreate();
-    const { callApi: fetchUpdateTabs } = useFetchWithCallback();
+    const { saved } = useGetTabsContext();
+    const { getDefaultUserIds } = useGetDefaultUserIds();
+    const { createTabGroupsIfNotExist } = useHandleTabGroups();
+    const { getTabsFiltered } = useHandleTabsToCreate();
     const { callApi: fetchCreateTabs } = useFetchWithCallback();
+    const dispatch = useTabsDispatch();
 
     /**
-     * Get The currentChromeTabs and the defaults tabs ids of the user.
-     * Create the groups of the tabs if not exist, and then
-     * find the unique tabs and the tabs duplicated,
-     * if the user wants can update the tabs
+     * Create the groups of the tabs if not exist this should to be before to save tabs
+     * find unique tabs and validate if its not saved already,
+     * then save the tabs, if saved successfully dispatch an update for tabs store
      */
     const saveTabs = async (currentChromeTabs: chrome.tabs.Tab[] = []) => {
         if (!currentChromeTabs || !user) return;
 
-        const errorInHandleTabGroups = await handleTabGroups(currentChromeTabs);
+        const errorInHandleTabGroups = await createTabGroupsIfNotExist(currentChromeTabs);
 
         if (errorInHandleTabGroups) {
             console.log('Ops.. something went wrong, Please try again later.');
             return;
         }
 
-        const { defaults, error: defaultIdsError } = await getDefaultsTabsId();
+        const { defaultsIds, error: defaultIdsError } = await getDefaultUserIds();
+        if (defaultIdsError ?? !defaultsIds) return;
 
-        if (defaultIdsError ?? !defaults) return;
-
-        const currentTabs = chromeTabsToTabsSupabase(currentChromeTabs, user, defaults);
-
-        const { tabsFiltered, structOfTabsToUpdate, errorInReadTabs } = await handleTabsToCreate(currentTabs);
+        const currentTabs = chromeTabsToTabsSupabase(currentChromeTabs, user, defaultsIds);
+        const { tabsFiltered, errorInReadTabs } = await getTabsFiltered(currentTabs);
 
         if (errorInReadTabs) {
             console.log('Ops... Something went wrong, Please try again later.');
             return;
         }
 
-        let requestForOverWrite: Array<Promise<any>> = [];
-
         if (tabsFiltered.length === 0) {
             console.log('Ops... The Tab/s selected already exist.');
             return;
         }
 
-        if (structOfTabsToUpdate && structOfTabsToUpdate.length > 0) {
-            const confirmedOverWrite = confirm('There are some tabs already saved do you want to update them?.');
-            if (!confirmedOverWrite) return;
+        const result = await fetchCreateTabs(createTabs, tabsFiltered);
 
-            // eslint-disable-next-line @typescript-eslint/return-await
-            requestForOverWrite = structOfTabsToUpdate.map(async ({ fetchFunc, data }) => fetchUpdateTabs(fetchFunc, data));
+        if (result.error) {
+            console.log('Results All: ', result.error);
+            return;
         }
 
-        const funcToCreateTabs = () => tabsFiltered.length === 0
-            ? []
-            : fetchCreateTabs(createTabs, tabsFiltered);
+        const tabsCreated = supabaseTabsToNiftyTabs(tabsFiltered);
 
-        const results = await Promise.all([funcToCreateTabs(), ...requestForOverWrite]);
-
-        const msgErrors: PostgrestError[] = [];
-
-        results.forEach((result: SupabaseCommonResponse) => {
-            if (result.error) {
-                msgErrors.push(result.error);
-            }
-        });
-
-        if (msgErrors.length > 0) console.log('Results All: ', msgErrors);
+        dispatch({ type: TabsActions.updatedSaved, payload: [...saved, ...tabsCreated] ?? [] });
+        console.log('Saved Successfully');
     };
 
     return { saveTabs };

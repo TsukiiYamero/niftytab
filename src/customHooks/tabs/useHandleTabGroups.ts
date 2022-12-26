@@ -11,10 +11,10 @@ export const useHandleTabGroups = () => {
 
     /**
      * If the group id of the tab doesn't exist in the database then it will be created.
-     * Tip: Always should be created the group then save tabs
+     * Tip: Always should be created the group before save tabs
      * @returns errorInHandleTabGroups
      */
-    const handleTabGroups = async (tabs: chrome.tabs.Tab[] = []) => {
+    const createTabGroupsIfNotExist = async (tabs: chrome.tabs.Tab[] = []) => {
         const allGroups = await getAllTabGroups();
         const groupsToCreate: GroupsTabsSupabase[] = [];
 
@@ -40,5 +40,5 @@ export const useHandleTabGroups = () => {
         return !!errorInCreateGroups;
     };
 
-    return { handleTabGroups };
+    return { createTabGroupsIfNotExist };
 };
