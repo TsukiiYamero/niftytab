@@ -49,7 +49,7 @@ export const GlobalSnackbar = () => {
                         open={opened}
                         autoHideDuration={autoHideDuration}
                         onClose={handleClose}
-                        message="Note archived"
+                        message={message}
                         action={action}
                         anchorOrigin={{ vertical, horizontal }}
                     >

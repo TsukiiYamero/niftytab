@@ -8,6 +8,8 @@ import { useHandleTabsToCreate } from './useHandleTabsToCreate';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsActions } from '@/contexts/tabs';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
+import { useSnackbar } from '@/contexts/snackbar/hooks';
+import { ERROR_MESSAGE, INFO_MESSAGE, SUCCESS_MESSAGE } from '@/utils/commonMsg';
 
 export const useSaveTabs = () => {
     const { user } = useAuthState();
@@ -16,6 +18,7 @@ export const useSaveTabs = () => {
     const { createTabGroupsIfNotExist } = useHandleTabGroups();
     const { getTabsFiltered } = useHandleTabsToCreate();
     const { callApi: fetchCreateTabs } = useFetchWithCallback();
+    const showSnackbar = useSnackbar();
     const dispatch = useTabsDispatch();
 
     /**
@@ -29,7 +32,7 @@ export const useSaveTabs = () => {
         const errorInHandleTabGroups = await createTabGroupsIfNotExist(currentChromeTabs);
 
         if (errorInHandleTabGroups) {
-            console.log('Ops.. something went wrong, Please try again later.');
+            showSnackbar(ERROR_MESSAGE, 'error');
             return;
         }
 
@@ -40,26 +43,27 @@ export const useSaveTabs = () => {
         const { tabsFiltered, errorInReadTabs } = await getTabsFiltered(currentTabs);
 
         if (errorInReadTabs) {
-            console.log('Ops... Something went wrong, Please try again later.');
+            showSnackbar(ERROR_MESSAGE, 'error');
             return;
         }
 
         if (tabsFiltered.length === 0) {
-            console.log('Ops... The Tab/s selected already exist.');
+            showSnackbar(INFO_MESSAGE, 'warning');
             return;
         }
 
         const result = await fetchCreateTabs(createTabs, tabsFiltered);
 
         if (result.error) {
-            console.log('Results All: ', result.error);
+            showSnackbar(ERROR_MESSAGE, 'error');
+            console.error('Results All: ', result.error);
             return;
         }
 
         const tabsCreated = supabaseTabsToNiftyTabs(tabsFiltered);
 
         dispatch({ type: TabsActions.updatedSaved, payload: [...saved, ...tabsCreated] ?? [] });
-        console.log('Saved Successfully');
+        showSnackbar(SUCCESS_MESSAGE, 'success');
     };
 
     return { saveTabs };

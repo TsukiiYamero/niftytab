@@ -8,8 +8,7 @@ import { TabsActions } from '@/contexts/tabs';
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { useGetSnackbarDispatchContext } from '@/contexts/snackbar/hooks';
-import { SnackbarActions } from '@/contexts/snackbar/snackbar.types';
+import { useSnackbar } from '@/contexts/snackbar/hooks';
 
 /**
  * List of several options for saved tabs
@@ -17,7 +16,7 @@ import { SnackbarActions } from '@/contexts/snackbar/snackbar.types';
 export const useTabsSavedOptionList = () => {
     const { callApi } = useFetchWithCallback();
     const dispatch = useTabsDispatch();
-    const dispatchSnackbar = useGetSnackbarDispatchContext();
+    const showSnackbar = useSnackbar();
 
     const openTab = useCallback(
         (tab: NiftyTab) => {
@@ -31,19 +30,20 @@ export const useTabsSavedOptionList = () => {
         (tab: NiftyTab) => {
             return async () => {
                 dispatch({ type: TabsActions.requestTabs });
-                console.log(tab);
+
                 const { error } = await callApi(deleteTabs, tab.refererId);
 
-                if (error)
+                if (error) {
+                    showSnackbar(
+                        'Ops... the tab could not be deleted, please try again later.',
+                        'error');
                     return;
+                }
 
                 dispatch({ type: TabsActions.deleteTabInSaved, payload: tab.url });
-                dispatchSnackbar({
-                    type: SnackbarActions.setSnackbar,
-                    payload: { opened: true, message: 'Tab Deleted' }
-                });
+                showSnackbar('Tab Deleted', 'success');
             };
-        }, [callApi, dispatch, dispatchSnackbar]
+        }, [callApi, dispatch, showSnackbar]
     );
 
     const makeTabsOptsList = useCallback((tab: NiftyTab): OptionBtnMenuList[] => {

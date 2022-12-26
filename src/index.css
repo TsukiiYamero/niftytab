@@ -37,8 +37,12 @@
   --aux-primary-color: #f2f2f2;
   --shade-primary-color-15: #2009212f;
 
-  --success-color-primary-100: #a5dc86;
+  --success-color-primary-100: rgb(231 253 246/1);
+  --success-color-border: rgb(67 181 147/1);
   --success-color-primary-15: #a6dc8640;
+
+  --orange-filter: invert(57%) sepia(90%) saturate(682%) hue-rotate(353deg) brightness(95%) contrast(103%);
+
   --error-color-primary-100: #ef6d6d;
   --error-color-primary-15: #f2747445;
 

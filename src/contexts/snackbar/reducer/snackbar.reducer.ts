@@ -4,7 +4,7 @@ export const snackbarInitialState: SnackbarInfo = {
     type: 'success',
     message: '',
     opened: false,
-    autoHideDuration: 6000,
+    autoHideDuration: 5000,
     position: {
         vertical: 'bottom',
         horizontal: 'right'

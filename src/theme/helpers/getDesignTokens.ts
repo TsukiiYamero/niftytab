@@ -1,5 +1,4 @@
 import { PaletteMode } from '@mui/material';
-import { amber, deepOrange } from '@mui/material/colors';
 
 export const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -7,24 +6,43 @@ export const getDesignTokens = (mode: PaletteMode) => ({
         ...(mode === 'light'
             ? {
                 // palette values for light mode
-                primary: amber,
-                background: {
-                    default: '#fdfdfd'
+                primary: {
+                    main: '#8758ff'
                 },
+                secondary: {
+                    main: '#181818'
+                },
+                success: {
+                    main: '#59d2ae'
+                },
+                Warning: {
+                    main: 'invert(57%) sepia(90%) saturate(682%) hue-rotate(353deg) brightness(95%) contrast(103%)'
+                },
+                /* background: {
+                    default: '#fdfdfd'
+                }, */
                 text: {
                     primary: '#191729',
                     secondary: '#2f2f2f'
-                },
-                icons: {
-                    primary: '#191729'
                 }
             }
             : {
                 // palette values for dark mode
-                primary: deepOrange,
-                background: {
-                    default: '#1b1b1d'
+                primary: {
+                    main: '#8758ff'
                 },
+                secondary: {
+                    main: '#181818'
+                },
+                success: {
+                    main: '#59d2ae'
+                },
+                Warning: {
+                    main: 'invert(57%) sepia(90%) saturate(682%) hue-rotate(353deg) brightness(95%) contrast(103%)'
+                },
+                /* background: {
+                    default: '#1b1b1d'
+                }, */
                 text: {
                     primary: '#ffffff',
                     secondary: '#2f2f2f'

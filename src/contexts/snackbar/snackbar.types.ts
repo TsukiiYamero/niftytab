@@ -1,6 +1,6 @@
 import { ReactFragment } from 'react';
 
-export type SnackbarTypes = 'error' | 'success' | 'info';
+export type SnackbarTypes = 'error' | 'success' | 'info' | 'warning';
 
 export interface SnackbarInfo {
     opened: boolean,
