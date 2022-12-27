@@ -9,15 +9,15 @@ import { AuthModalProvider } from './contexts/authModal';
 export const App = () => {
     return (
         <AuthProvider>
-            <AuthModalProvider>
-                <CustomThemeProvider>
+            <CustomThemeProvider>
+                <AuthModalProvider>
                     <TabsProvider>
                         <SnackbarProvider>
                             <MainPage />
                         </SnackbarProvider>
                     </TabsProvider>
-                </CustomThemeProvider>
-            </AuthModalProvider>
+                </AuthModalProvider>
+            </CustomThemeProvider>
         </AuthProvider>
     );
 };
