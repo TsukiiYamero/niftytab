@@ -193,3 +193,8 @@ body {
 .close-icon:hover {
   color: var(--error-color-primary-100);
 }
+
+.custom_modal_login {
+  width: auto;
+  height: auto;
+}
