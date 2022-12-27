@@ -1,9 +1,6 @@
 import { useAuthModal } from '@/contexts/authModal';
-import { } from 'react';
 
-type Props = {}
-
-export const TabsListingsNotUser = (props: Props) => {
+export const TabsListingsNotUser = () => {
     const { openAuthModal, setIsSignIn } = useAuthModal();
 
     const onLoginClick = () => {
