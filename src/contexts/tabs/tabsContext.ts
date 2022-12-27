@@ -4,8 +4,10 @@ import { TabsActionType, TabSectionFilter, TabsStore, TabsStoredType } from './t
 export const TabsStoreContext = createContext<TabsStore>({
     local: [],
     saved: [],
+    filtered: [],
     tabSection: TabSectionFilter.tabs,
     typeOfStore: TabsStoredType.local,
+    isFiltering: false,
     loading: false
 });
 

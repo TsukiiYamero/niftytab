@@ -3,12 +3,14 @@ import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TabsStoredTyp
 export const tabsInitialState: TabsStore = {
     local: [],
     saved: [],
+    filtered: [],
+    isFiltering: false,
     tabSection: TabSectionFilter.tabs,
     typeOfStore: TabsStoredType.local,
     loading: false
 };
 
-export const tabsReducer = (state = tabsInitialState, action: TabsActionType) => {
+export const tabsReducer = (state = tabsInitialState, action: TabsActionType): TabsStore => {
     switch (action.type) {
         case TabsActions.resetTabs:
             return {
@@ -41,10 +43,22 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType) =>
                 saved: action.payload,
                 loading: false
             };
+        case TabsActions.updatedFiltered:
+            return {
+                ...state,
+                filtered: action.payload,
+                loading: false
+            };
         case TabsActions.deleteTabInSaved:
             return {
                 ...state,
                 saved: state.saved.filter(tab => tab.url !== action.payload),
+                loading: false
+            };
+        case TabsActions.isFiltering:
+            return {
+                ...state,
+                isFiltering: action.payload,
                 loading: false
             };
         case TabsActions.changeTabsSection:

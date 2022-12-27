@@ -12,11 +12,13 @@ import { TabsListingsNotUser } from './TabsListingsNotUser';
 
 type props = {
     saved: NiftyTab[];
-    dispatch: Dispatch<TabsActionType>;
+    filtered: NiftyTab[];
+    isFiltering: boolean;
     loading: boolean;
+    dispatch: Dispatch<TabsActionType>;
 }
 
-export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
+export const TabsListingsSaved = ({ saved, filtered, isFiltering, loading, dispatch }: props) => {
     const { callApi } = useFetchWithCallback();
     const { user } = useAuthState();
     const makeTabsOptsList = useTabsSavedOptionList();
@@ -35,12 +37,14 @@ export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
         user && fetchData();
     }, [dispatch, callApi, user]);
 
+    const tabsToShow = isFiltering ? filtered : saved;
+
     return (
         <>
             {loading
                 ? <SimpleLoading />
                 : user
-                    ? <TabsListings tabs={saved} makeTabsOptsList={makeTabsOptsList} />
+                    ? <TabsListings tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
                     : <TabsListingsNotUser />}
         </>
     );

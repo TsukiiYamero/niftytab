@@ -4,12 +4,22 @@ import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
 import { MemoizedTabsListingsSaved } from './TabsListingsSaved';
 
 export const TabsListingsContainer = () => {
-    const { typeOfStore, local, saved, loading } = useGetTabsContext();
+    const { typeOfStore, local, saved, loading, isFiltering, filtered } = useGetTabsContext();
     const dispatch = useTabsDispatch();
 
     return (<>
         {typeOfStore === TabsStoredType.local
-            ? <MemoizedTabsListingsLocal local={local} dispatch={dispatch} loading={loading} />
-            : <MemoizedTabsListingsSaved saved={saved} dispatch={dispatch} loading={loading} />}
+            ? <MemoizedTabsListingsLocal
+                local={local}
+                filtered={filtered}
+                isFiltering={isFiltering}
+                loading={loading}
+                dispatch={dispatch} />
+            : <MemoizedTabsListingsSaved
+                saved={saved}
+                filtered={filtered}
+                isFiltering={isFiltering}
+                loading={loading}
+                dispatch={dispatch} />}
     </>);
 };

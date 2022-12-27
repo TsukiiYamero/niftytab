@@ -3,16 +3,18 @@ import { NiftyTab } from '@/models';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { getAllChromeTabs } from '@/utils/chrome';
 import { chromeTabsToNiftyTabs } from '@/utils/tabs';
-import { Dispatch, memo, useEffect } from 'react';
+import { Dispatch, useEffect, memo } from 'react';
 import { TabsListings } from '../presentational';
 
 type props = {
   local: NiftyTab[];
-  dispatch: Dispatch<TabsActionType>;
+  filtered: NiftyTab[];
+  isFiltering: boolean;
   loading: boolean;
+  dispatch: Dispatch<TabsActionType>;
 }
 
-export const TabsListingsLocal = ({ local, dispatch, loading }: props) => {
+export const TabsListingsLocal = ({ local, loading, filtered, isFiltering, dispatch }: props) => {
   useEffect(() => {
     const getTabs = async () => {
       dispatch({ type: TabsActions.requestTabs });
@@ -24,9 +26,11 @@ export const TabsListingsLocal = ({ local, dispatch, loading }: props) => {
     getTabs();
   }, [dispatch]);
 
+  const tabsToShow = isFiltering ? filtered : local;
+
   return (
     <>
-      {loading ? <SimpleLoading /> : <TabsListings tabs={local} />}
+      {loading ? <SimpleLoading /> : <TabsListings tabs={tabsToShow} />}
     </>
   );
 };

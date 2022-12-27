@@ -14,6 +14,8 @@ export enum TabsStoredType {
 export interface TabsStore {
     local: NiftyTab[];
     saved: NiftyTab[];
+    filtered: NiftyTab[];
+    isFiltering: boolean;
     tabSection: TabSectionFilter;
     typeOfStore: TabsStoredType;
     loading: boolean;
@@ -25,7 +27,9 @@ export enum TabsActions {
     finishRequestTabs = 'finish_request_tabs',
     updatedLocal = 'updated_local',
     updatedSaved = 'updated_saved',
+    updatedFiltered = 'updated_filtered',
     deleteTabInSaved = 'delete_tab_in_saved',
+    isFiltering = 'is_filtering',
     changeTabsSection = 'tabs_section',
     changeTypeOfStore = 'type_of_store',
 }
@@ -37,6 +41,8 @@ export type TabsActionType =
     | { type: TabsActions.finishRequestTabs; }
     | { type: TabsActions.updatedLocal; payload: NiftyTab[]; }
     | { type: TabsActions.updatedSaved; payload: NiftyTab[]; }
+    | { type: TabsActions.updatedFiltered; payload: NiftyTab[]; }
     | { type: TabsActions.deleteTabInSaved; payload: string; }
+    | { type: TabsActions.isFiltering; payload: boolean }
     | { type: TabsActions.changeTabsSection; payload: TabSectionFilter }
     | { type: TabsActions.changeTypeOfStore; payload: TabsStoredType };

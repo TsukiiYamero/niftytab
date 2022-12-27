@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const SearchBarWrapper = styled.div`
+    position: relative;
     display: flex;
     padding: 8px 16px;
     outline: 2px solid var(--border-color-secondary);
