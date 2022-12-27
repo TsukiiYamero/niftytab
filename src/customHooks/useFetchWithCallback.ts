@@ -1,7 +1,7 @@
-import { useGetSnackbarDispatchContext } from '@/contexts/snackbar/hooks';
-import { SnackbarActions } from '@/contexts/snackbar/snackbar.types';
+import { useSnackbar } from '@/contexts/snackbar/hooks';
 import { SupabaseCommonResponse } from '@/models';
 import { abortController } from '@/utils/abortController';
+import { ERROR_MESSAGE } from '@/utils/commonMsg';
 import { useCallback, useEffect, useRef } from 'react';
 
 type fetchApi = (controller: AbortController, payload?: any) => any;
@@ -12,7 +12,7 @@ type fetchApi = (controller: AbortController, payload?: any) => any;
  */
 export const useFetchWithCallback = () => {
     const refAbortController = useRef<AbortController>();
-    const dispatch = useGetSnackbarDispatchContext();
+    const showSnackbar = useSnackbar();
 
     // func that make the fetch call
     const callApi = useCallback(async (fetchFunc: fetchApi, payload?: any): Promise<SupabaseCommonResponse> => {
@@ -27,21 +27,15 @@ export const useFetchWithCallback = () => {
             result = await fetchFunc(refAbortController.current, payload || null);
 
             if (result.error) {
+                showSnackbar(ERROR_MESSAGE, 'error');
                 console.error(result.error.message);
             }
         } catch (error) {
-            dispatch({
-                type: SnackbarActions.setSnackbar,
-                payload: {
-                    opened: true,
-                    message: `Ops.. something went wrong, ${error} `,
-                    type: 'error'
-                }
-            });
+            showSnackbar(`Ops.. something went wrong, ${error} `, 'error');
         }
 
         return result;
-    }, [dispatch]);
+    }, [showSnackbar]);
 
     useEffect(() => {
         return () => {
