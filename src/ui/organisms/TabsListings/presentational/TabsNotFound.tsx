@@ -8,7 +8,8 @@ type Props = {
 export const TabsNotFound = ({ msg = 'Ops... No results found' }: Props) => {
     return (
         <div className='tabs-not-found-results'>
-            <img src={ImgAstro} alt="" />
+            {/* recuperada de: https://www.mothershipcorp.com/images/slider-6.png */}
+            <img src={ImgAstro} alt='img of astronaut' />
             <span>{msg}</span>
         </div>
     );
