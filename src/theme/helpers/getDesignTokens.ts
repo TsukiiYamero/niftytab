@@ -1,6 +1,6 @@
-import { PaletteMode } from '@mui/material';
+import { PaletteMode, ThemeOptions } from '@mui/material';
 
-export const getDesignTokens = (mode: PaletteMode) => ({
+export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     palette: {
         mode,
         ...(mode === 'light'
@@ -48,5 +48,29 @@ export const getDesignTokens = (mode: PaletteMode) => ({
                     secondary: '#2f2f2f'
                 }
             })
+    },
+    components: {
+        ...(mode === 'light')
+            ? {
+
+            }
+            : {
+                MuiInputLabel: {
+                    styleOverrides: {
+                        root: {
+                            color: 'var(--main-text-color)'
+                        }
+                    }
+                },
+                MuiOutlinedInput: {
+                    styleOverrides: {
+                        root: {
+                            '& fieldset': {
+                                borderColor: 'var(--main-text-color)'
+                            }
+                        }
+                    }
+                }
+            }
     }
 });

@@ -21,6 +21,7 @@
 p.error-msg-login {
     position: relative;
     bottom: 19px;
+    font-size: 0.875rem;
     color: var(--error-color-primary-100);
 }
 
