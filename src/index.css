@@ -198,3 +198,18 @@ body {
   width: auto;
   height: auto;
 }
+
+.link-text {
+  cursor: pointer;
+  margin-inline: 4px;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.center-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
