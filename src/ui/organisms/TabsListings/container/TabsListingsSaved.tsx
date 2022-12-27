@@ -7,6 +7,8 @@ import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
 import { TabsListings } from '../presentational';
+import { useAuthState } from '@/contexts/auth';
+import { TabsListingsNotUser } from './TabsListingsNotUser';
 
 type props = {
     saved: NiftyTab[];
@@ -16,27 +18,30 @@ type props = {
 
 export const TabsListingsSaved = ({ saved, dispatch, loading }: props) => {
     const { callApi } = useFetchWithCallback();
+    const { user } = useAuthState();
     const makeTabsOptsList = useTabsSavedOptionList();
 
     useEffect(() => {
         const fetchData = async () => {
             dispatch({ type: TabsActions.requestTabs });
             const { data, error } = await callApi(readTabs);
-            if (error) {
-                console.log(error.message);
-                dispatch({ type: TabsActions.finishRequestTabs });
-                return;
-            }
-            console.log('Saved', supabaseTabsToNiftyTabs(data));
+            dispatch({ type: TabsActions.finishRequestTabs });
+
+            if (error) return;
+
             dispatch({ type: TabsActions.updatedSaved, payload: supabaseTabsToNiftyTabs(data) });
         };
 
-        fetchData();
-    }, [dispatch, callApi]);
+        user && fetchData();
+    }, [dispatch, callApi, user]);
 
     return (
         <>
-            {loading ? <SimpleLoading /> : <TabsListings tabs={saved} makeTabsOptsList={makeTabsOptsList} />}
+            {loading
+                ? <SimpleLoading />
+                : user
+                    ? <TabsListings tabs={saved} makeTabsOptsList={makeTabsOptsList} />
+                    : <TabsListingsNotUser />}
         </>
     );
 };
