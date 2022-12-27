@@ -2,11 +2,10 @@
 import { FormEvent, RefObject } from 'react';
 import './login_layout.css';
 
-import Box from '@mui/material/Box';
+import { Box, FormHelperText } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { BsGoogle } from 'react-icons/bs';
-import { FormHelperText } from '@mui/material';
 
 type Props = {
     emailRef: RefObject<HTMLInputElement>;
