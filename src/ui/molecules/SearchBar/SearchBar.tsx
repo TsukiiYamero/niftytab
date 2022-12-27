@@ -20,7 +20,7 @@ const SearchBar = () => {
     /**
      * Active and Filter tabs by the type of storage
      */
-    const onFiltering = useCallback(() => {
+    const setFilterState = useCallback(() => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
 
         const tabsToFilter = typeOfStore === TabsStoredType.local ? local : saved;
@@ -31,23 +31,24 @@ const SearchBar = () => {
 
     useEffect(() => {
         if (debouncedValue.trim().length > 0)
-            onFiltering();
-    }, [debouncedValue, onFiltering]);
+            setFilterState();
+    }, [debouncedValue, setFilterState]);
+
+    const cancelFilter = () => {
+        dispatch({ type: TabsActions.updatedFiltered, payload: [] });
+        dispatch({ type: TabsActions.isFiltering, payload: false });
+    };
 
     const onSearch = (ev: ChangeEvent<HTMLInputElement>) => {
         setSearchWord(ev.target.value);
 
-        if (ev.target.value.trim().length === 0) {
-            dispatch({ type: TabsActions.updatedFiltered, payload: [] });
-            dispatch({ type: TabsActions.isFiltering, payload: false });
-        }
+        if (ev.target.value.trim().length === 0)
+            cancelFilter();
     };
 
-    const cancelFilter = () => {
+    const cancelSearch = () => {
         setSearchWord('');
-
-        dispatch({ type: TabsActions.updatedFiltered, payload: [] });
-        dispatch({ type: TabsActions.isFiltering, payload: false });
+        cancelFilter();
     };
 
     return (
@@ -60,7 +61,7 @@ const SearchBar = () => {
             />
 
             {isFiltering
-                ? <IconButton onClick={cancelFilter} className='btn-cancel-search' color="primary" aria-label="Cancel search" component="label">
+                ? <IconButton onClick={cancelSearch} className='btn-cancel-search' color="primary" aria-label="Cancel search" component="label">
                     <CancelRounded />
                 </ IconButton>
                 : null}
