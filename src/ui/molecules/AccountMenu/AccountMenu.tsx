@@ -1,24 +1,19 @@
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 import { MouseEvent, useState } from 'react';
-import { AuthActions, useAuthDispatch, useAuthState } from '@/contexts/auth';
+import { useAuthState } from '@/contexts/auth';
 import { UserLoggedMenu } from './UserLoggedMenu';
 import { UserNotLoggedMenu } from './UserNotLoggedMenu';
-import { Modal, useModal } from '@/ui/molecules/Modal';
-import { SignInSignUp } from '@/ui/molecules/SignInSignUp';
-
-import './account_menu.css';
+import { useAuthModal } from '@/contexts/authModal';
 
 export const AccountMenu = () => {
     const { user } = useAuthState();
-    const dispatch = useAuthDispatch();
+    const { openAuthModal, setIsSignIn } = useAuthModal();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const { isOpen, openModal, closeModal } = useModal();
-    const [isSignIn, setIsSignIn] = useState(true);
 
     const open = Boolean(anchorEl);
 
@@ -32,17 +27,12 @@ export const AccountMenu = () => {
 
     const onSignIn = () => {
         setIsSignIn(true);
-        openModal();
+        openAuthModal();
     };
 
     const onSignUp = () => {
         setIsSignIn(false);
-        openModal();
-    };
-
-    const onCloseModal = () => {
-        dispatch({ type: AuthActions.resetMsg });
-        closeModal();
+        openAuthModal();
     };
 
     const paperProps = {
@@ -105,16 +95,6 @@ export const AccountMenu = () => {
                 }
 
             </Menu>
-
-            <Modal
-                isOpen={isOpen}
-                closeByIcon={true}
-                closeByClickOutside={false}
-                onClose={onCloseModal}
-                modalClassSize='custom_modal_login'
-            >
-                <SignInSignUp signIn={isSignIn} />
-            </Modal>
         </ >
     );
 };

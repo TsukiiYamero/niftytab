@@ -4,17 +4,20 @@ import { AuthProvider } from './contexts/auth';
 import { TabsProvider } from './contexts/tabs';
 import { SnackbarProvider } from './contexts/snackbar/provider';
 import { CustomThemeProvider } from './theme/provider/CustomThemeProvider';
+import { AuthModalProvider } from './contexts/authModal';
 
 export const App = () => {
     return (
         <AuthProvider>
-            <CustomThemeProvider>
-                <TabsProvider>
-                    <SnackbarProvider>
-                        <MainPage />
-                    </SnackbarProvider>
-                </TabsProvider>
-            </CustomThemeProvider>
+            <AuthModalProvider>
+                <CustomThemeProvider>
+                    <TabsProvider>
+                        <SnackbarProvider>
+                            <MainPage />
+                        </SnackbarProvider>
+                    </TabsProvider>
+                </CustomThemeProvider>
+            </AuthModalProvider>
         </AuthProvider>
     );
 };

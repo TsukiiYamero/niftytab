@@ -10,10 +10,14 @@ import { getActiveTab, getAllChromeTabs } from '@/utils/chrome';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { MouseEvent, useEffect } from 'react';
 import './addTabs.css';
+import { useAuthModal } from '@/contexts/authModal';
+import { useAuthState } from '@/contexts/auth';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
+    const { user } = useAuthState();
     const dispatch = useTabsDispatch();
+    const { openAuthModal, setIsSignIn } = useAuthModal();
 
     const { saveTabs } = useSaveTabs();
 
@@ -28,6 +32,12 @@ export const AddTabs = () => {
     };
 
     const handleSaveTabs = async (saveAll = true) => {
+        if (!user) {
+            setIsSignIn(true);
+            openAuthModal();
+            return;
+        }
+
         dispatch({ type: TabsActions.requestTabs });
 
         let TabsToSave: chrome.tabs.Tab[] = [];
