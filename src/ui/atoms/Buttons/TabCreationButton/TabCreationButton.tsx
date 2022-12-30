@@ -1,7 +1,7 @@
-import { createRipple } from '@/utils';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { cloneElement, MouseEvent, ReactElement } from 'react';
 import './tabCreationButton.css';
+import { createRipple } from '@/utils/ripple-effect/ripple-effect';
 
 type Props = {
     iconLeft: {
@@ -25,21 +25,19 @@ export const TabCreationButton = ({
     const IconLeft =
         iconLeft &&
         cloneElement(iconLeft.icon, {
-            className: `standard-btn-icon-color ${iconLeft.iconSize ?? ''} ${
-                iconLeft.icon.props.className
+            className: `standard-btn-icon-color ${iconLeft.iconSize ?? ''} ${iconLeft.icon.props.className
                     ? iconLeft.icon.props.className
                     : ''
-            }`
+                }`
         });
 
     const IconRight =
         iconRight &&
         cloneElement(iconRight.icon, {
-            className: `standard-btn-icon-color ${iconRight.iconSize ?? ''} ${
-                iconRight.icon.props.className
+            className: `standard-btn-icon-color ${iconRight.iconSize ?? ''} ${iconRight.icon.props.className
                     ? iconRight.icon.props.className
                     : ''
-            }`
+                }`
         });
 
     const handleOnClickTabCreation = (ev: MouseEvent<HTMLDivElement>) => {
