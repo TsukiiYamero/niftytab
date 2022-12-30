@@ -28,7 +28,7 @@ export const chromeTabsToNiftyTabs = (tabs: chrome.tabs.Tab[] = []): NiftyTab[] 
         pinned: tab.pinned,
         sessionId: 0,
         favIconUrl: tab.favIconUrl ?? '',
-        refererId: `${tab.url}${tab.id}`,
+        refererId: `${tab.url}${tab.id}${tab.sessionId}`,
         title: tab.title ?? '',
         url: tab.url ?? ''
     }));

@@ -3,7 +3,7 @@ import { SessionTabsSupabase } from '@/models';
 import { DEFAULT_SESSION_NAME } from '../tabs.statics';
 
 export const createSession = (controller: AbortController, session: SessionTabsSupabase) => {
-    return supabase.from('sessions').insert([session]).abortSignal(controller.signal);
+    return supabase.from('sessions').insert([session]).abortSignal(controller.signal).select();
 };
 
 export const createDefaultSession = (controller: AbortController, userId: string) => {

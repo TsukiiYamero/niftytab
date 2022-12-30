@@ -1,21 +1,26 @@
+import { NiftyTab, SessionNiftyCount } from '@/models';
 import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TabsStoredType } from '../tabsContext.types';
 
-export const tabsInitialState: TabsStore = {
+export const tabsInitialState: TabsStore<NiftyTab | SessionNiftyCount> = {
     local: [],
     saved: [],
     filtered: [],
+    sessions: [],
     isFiltering: false,
     tabSection: TabSectionFilter.tabs,
     typeOfStore: TabsStoredType.local,
     loading: false
 };
 
-export const tabsReducer = (state = tabsInitialState, action: TabsActionType): TabsStore => {
+export const tabsReducer = (state = tabsInitialState, action: TabsActionType): TabsStore<NiftyTab | SessionNiftyCount> => {
     switch (action.type) {
         case TabsActions.resetTabs:
             return {
                 ...state,
                 saved: [],
+                sessions: [],
+                filtered: [],
+                isFiltering: false,
                 typeOfStore: TabsStoredType.local,
                 tabSection: TabSectionFilter.tabs,
                 loading: false
@@ -49,10 +54,22 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
                 filtered: action.payload,
                 loading: false
             };
+        case TabsActions.updatedSessions:
+            return {
+                ...state,
+                sessions: action.payload,
+                loading: false
+            };
         case TabsActions.deleteTabInSaved:
             return {
                 ...state,
                 saved: state.saved.filter(tab => tab.url !== action.payload),
+                loading: false
+            };
+        case TabsActions.deleteSession:
+            return {
+                ...state,
+                sessions: state.sessions.filter(session => session.id !== action.payload),
                 loading: false
             };
         case TabsActions.isFiltering:

@@ -1,13 +1,14 @@
 import './customButton.css';
 import { FC, MouseEvent, ReactNode } from 'react';
 import { BtnSizes, BtnSpace, BtnStyles } from './customButton.types';
-import { createRipple } from '@/utils';
+import { createRipple } from '@/utils/ripple-effect/ripple-effect';
 
 export interface Props {
     onClick: (ev: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => any;
     children: ReactNode;
     type?: 'submit' | 'reset' | 'button' | undefined;
     id?: string;
+    title?: string;
     className?: string;
     buttonStyle?: BtnStyles;
     buttonSize?: BtnSizes;
@@ -32,6 +33,7 @@ export const CustomButton: FC<Props> = ({
     buttonSpace = 'btn-cmn-p',
     disabled = false,
     id = '',
+    title = '',
     active = false,
     ripple = false
 }) => {
@@ -42,11 +44,11 @@ export const CustomButton: FC<Props> = ({
                 onClick(ev);
             }}
             type={type}
-            className={`common-btn ${buttonStyle} ${buttonSize} ${buttonSpace} ${className} ${
-                active ? 'btn-active' : ''
-            }`}
+            className={`common-btn ${buttonStyle} ${buttonSize} ${buttonSpace} ${className} ${active ? 'btn-active' : ''
+                }`}
             id={id}
             disabled={disabled}
+            title={title}
         >
             {children}
         </button>

@@ -6,6 +6,7 @@ import { CustomButton, BtnStyles } from '../CustomButton';
 type Props = {
     onClick: (ev: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => any;
     text?: string;
+    title?: string;
     icon?: ReactElement;
     iconSize?: IconsSize;
     textStyle?: string;
@@ -19,6 +20,7 @@ type Props = {
 export const StandardButton = ({
     icon,
     text,
+    title = '',
     textStyle = '',
     iconSize = IconsSize.medium,
     buttonStyle = 'btn-normal',
@@ -45,6 +47,7 @@ export const StandardButton = ({
             disabled={disabled}
             ripple={ripple}
             type={type}
+            title={title}
         >
             {Icon}
             {text && (

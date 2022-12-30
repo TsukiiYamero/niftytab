@@ -44,7 +44,7 @@ export const TabsListingsSaved = ({ saved, filtered, isFiltering, loading, dispa
             {loading
                 ? <SimpleLoading />
                 : user
-                    ? <TabsListings tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
+                    ? <TabsListings loading={loading} tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
                     : <TabsListingsNotUser />}
         </>
     );

@@ -32,6 +32,7 @@ export const useFetchWithCallback = () => {
             }
         } catch (error) {
             showSnackbar(`Ops.. something went wrong, ${error} `, 'error');
+            console.error(error);
         }
 
         return result;

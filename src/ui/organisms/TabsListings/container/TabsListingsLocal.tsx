@@ -30,7 +30,7 @@ export const TabsListingsLocal = ({ local, loading, filtered, isFiltering, dispa
 
   return (
     <>
-      {loading ? <SimpleLoading /> : <TabsListings tabs={tabsToShow} />}
+      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={tabsToShow} />}
     </>
   );
 };

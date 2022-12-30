@@ -29,7 +29,7 @@ export const TabsListing = ({ tab, makeTabsOptsList }: Props) => {
                 imgSrc={tab.favIconUrl ?? ''}
             >
                 {
-                    makeTabsOptsList && <OptionBtnMenu optionsMenu={optionsMenuList} tab={tab} />
+                    makeTabsOptsList && <OptionBtnMenu optionsMenu={optionsMenuList} />
                 }
             </ TabSmallView >
         </>

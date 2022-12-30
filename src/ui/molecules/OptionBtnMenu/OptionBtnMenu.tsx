@@ -15,11 +15,10 @@ export type OptionBtnMenuList = {
 }
 
 type Props = {
-    optionsMenu: OptionBtnMenuList[],
-    tab: any
+    optionsMenu: OptionBtnMenuList[]
 }
 
-export const OptionBtnMenu = ({ optionsMenu, tab }: Props) => {
+export const OptionBtnMenu = ({ optionsMenu }: Props) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const optionId = useId();

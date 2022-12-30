@@ -2,7 +2,6 @@ import { useAuthState } from '@/contexts/auth';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { createTabs } from '@/services/tabs';
 import { chromeTabsToTabsSupabase } from '@/utils/tabs/createTabsSupabase';
-import { useGetDefaultUserIds } from './useGetDefaultsTabsId';
 import { useHandleTabGroups } from './useHandleTabGroups';
 import { useHandleTabsToCreate } from './useHandleTabsToCreate';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
@@ -14,7 +13,6 @@ import { ERROR_MESSAGE, INFO_MESSAGE, SUCCESS_MESSAGE } from '@/utils/commonMsg'
 export const useSaveTabs = () => {
     const { user } = useAuthState();
     const { saved } = useGetTabsContext();
-    const { getDefaultUserIds } = useGetDefaultUserIds();
     const { createTabGroupsIfNotExist } = useHandleTabGroups();
     const { getTabsFiltered } = useHandleTabsToCreate();
     const { callApi: fetchCreateTabs } = useFetchWithCallback();
@@ -26,7 +24,10 @@ export const useSaveTabs = () => {
      * find unique tabs and validate if its not saved already,
      * then save the tabs, if saved successfully dispatch an update for tabs store
      */
-    const saveTabs = async (currentChromeTabs: chrome.tabs.Tab[] = []) => {
+    const saveTabs = async (
+        currentChromeTabs: chrome.tabs.Tab[] = [],
+        { sessionId, groupId }: { sessionId: number, groupId: number }
+    ) => {
         if (!currentChromeTabs || !user) return;
 
         const errorInHandleTabGroups = await createTabGroupsIfNotExist(currentChromeTabs);
@@ -36,10 +37,7 @@ export const useSaveTabs = () => {
             return;
         }
 
-        const { defaultsIds, error: defaultIdsError } = await getDefaultUserIds();
-        if (defaultIdsError ?? !defaultsIds) return;
-
-        const currentTabs = chromeTabsToTabsSupabase(currentChromeTabs, user, defaultsIds);
+        const currentTabs = chromeTabsToTabsSupabase(currentChromeTabs, user, { sessionId, groupId });
         const { tabsFiltered, errorInReadTabs } = await getTabsFiltered(currentTabs);
 
         if (errorInReadTabs) {

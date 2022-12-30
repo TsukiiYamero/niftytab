@@ -24,7 +24,7 @@ export const chromeTabsToTabsSupabase = (tabs: chrome.tabs.Tab[], user: AuthUser
             session_id: defaultsIds.sessionId,
             title: tab.title ?? '',
             url: tab.url ?? '',
-            referer_id: `${tab.url}${user.id}`,
+            referer_id: `${tab.url}${user.id}${defaultsIds.sessionId}`,
             user_id: user.id
         };
 
