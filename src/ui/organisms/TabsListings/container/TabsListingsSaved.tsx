@@ -1,14 +1,13 @@
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
 import { useTabsSavedOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
-import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { NiftyTab } from '@/models';
-import { readTabs } from '@/services/tabs';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
 import { TabsListings } from '../presentational';
 import { useAuthState } from '@/contexts/auth';
 import { TabsListingsNotUser } from './TabsListingsNotUser';
+import { useGetDefaultUserIds, useGetTabsByFilter } from '@/customHooks/tabs';
 
 type props = {
     saved: NiftyTab[];
@@ -19,23 +18,27 @@ type props = {
 }
 
 export const TabsListingsSaved = ({ saved, filtered, isFiltering, loading, dispatch }: props) => {
-    const { callApi } = useFetchWithCallback();
+    const getTabsBySessionDefault = useGetTabsByFilter();
+    const { getDefaultUserIds } = useGetDefaultUserIds();
     const { user } = useAuthState();
     const makeTabsOptsList = useTabsSavedOptionList();
 
     useEffect(() => {
         const fetchData = async () => {
             dispatch({ type: TabsActions.requestTabs });
-            const { data, error } = await callApi(readTabs);
+
+            const { defaultsIds, error: errorInIds } = await getDefaultUserIds();
+            const { data, error } = await getTabsBySessionDefault('session_id', defaultsIds?.sessionId);
+
             dispatch({ type: TabsActions.finishRequestTabs });
 
-            if (error) return;
+            if (error ?? errorInIds) return;
 
             dispatch({ type: TabsActions.updatedSaved, payload: supabaseTabsToNiftyTabs(data) });
         };
 
         user && fetchData();
-    }, [dispatch, callApi, user]);
+    }, [dispatch, getDefaultUserIds, getTabsBySessionDefault, user]);
 
     const tabsToShow = isFiltering ? filtered : saved;
 

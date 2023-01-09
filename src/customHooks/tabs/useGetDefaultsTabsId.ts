@@ -1,10 +1,9 @@
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { readDefaultGroup, readDefaultSession } from '@/services/tabs';
+import { useCallback } from 'react';
 
 /**
- * This function reads the default group and session from the supabase and returns the default group
- * and session ids.
- * @returns an object with a property called defaults.
+ * This function reads the defaults Id of group and session from the supabase
  */
 export const useGetDefaultUserIds = () => {
     const { callApi } = useFetchWithCallback();
@@ -15,7 +14,7 @@ export const useGetDefaultUserIds = () => {
      * Generally is used to assign it to the tabs for save them
      * if got an error show the snackbar
      */
-    const getDefaultUserIds = async () => {
+    const getDefaultUserIds = useCallback(async () => {
         const RespDefault = await Promise.all([callApi(readDefaultGroup), callSecondApi(readDefaultSession)]);
         const groupDefault = RespDefault[0];
         const sessionDefault = RespDefault[1];
@@ -37,7 +36,7 @@ export const useGetDefaultUserIds = () => {
             },
             error: ''
         };
-    };
+    }, [callApi, callSecondApi]);
 
     return {
         getDefaultUserIds

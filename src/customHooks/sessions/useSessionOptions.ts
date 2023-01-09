@@ -10,10 +10,10 @@ import ViewTimelineOutlinedIcon from '@mui/icons-material/ViewTimelineOutlined';
 import { useSnackbar } from '@/contexts/snackbar/hooks';
 import { SessionNifty, TabsSupabase } from '@/models';
 import { deleteSessions } from '@/services/tabs/sessions/deleteSessions';
-import { readTabsWithFilter } from '@/services/tabs/tab/readTabs';
 import { EditOutlined } from '@mui/icons-material';
-import { ReadGroupsWithFiltering2, deleteTabsBySessionId } from '@/services/tabs';
+import { deleteTabsBySessionId } from '@/services/tabs';
 import { createChromeTab } from '@/utils/chrome/openTabs';
+import { useGetTabsByFilter } from '../tabs';
 
 /**
  * List of several options for Sessions
@@ -21,22 +21,14 @@ import { createChromeTab } from '@/utils/chrome/openTabs';
 export const useSessionOptions = () => {
     const { callApi } = useFetchWithCallback();
     const { callApi: fetchDeleteTabs } = useFetchWithCallback();
-    const { callApi: fetchGetTabs } = useFetchWithCallback();
+    const getTabsBySessionId = useGetTabsByFilter();
     const dispatch = useTabsDispatch();
     const showSnackbar = useSnackbar();
 
     const getTabsFromSupabaseBySessionId = useCallback(async (sessionId: number) => {
-        const filter: ReadGroupsWithFiltering2 = {
-            eq: {
-                column: 'session_id',
-                equalTo: sessionId
-            }
-        };
-
-        const { data } = await fetchGetTabs(readTabsWithFilter, filter);
-
+        const { data } = await getTabsBySessionId('session_id', sessionId);
         return data || [];
-    }, [fetchGetTabs]);
+    }, [getTabsBySessionId]);
 
     const openAllSession = useCallback(
         (session: SessionNifty) => {
