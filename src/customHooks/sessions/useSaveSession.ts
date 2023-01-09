@@ -20,10 +20,10 @@ export const useSaveSession = () => {
      * Create the Session and then save the tabs with the id of the session
      */
     const saveSession = async (currentChromeTabs: chrome.tabs.Tab[] = [], sessionName: string) => {
-        if (!currentChromeTabs || !user) return;
+        if (!currentChromeTabs || !user) return null;
 
         const { defaultsIds, error: defaultIdsError } = await getDefaultUserIds();
-        if (!defaultsIds || defaultIdsError.trim()) return;
+        if (!defaultsIds || defaultIdsError.trim()) return null;
 
         const sessionPayload: SessionTabsSupabase = {
             user_id: user.id,
@@ -31,7 +31,7 @@ export const useSaveSession = () => {
         };
 
         const { data, error } = await callApi(createSession, sessionPayload);
-        if (!data || error) return;
+        if (!data || error) return null;
 
         const sessionId = data[0].id;
 
@@ -43,7 +43,7 @@ export const useSaveSession = () => {
             badgeContent: tabs.length
         };
 
-        dispatch({ type: TabsActions.updatedSessions, payload: [...sessions, sessionSaved] ?? [] });
+        return sessionSaved;
     };
 
     return { saveSession };

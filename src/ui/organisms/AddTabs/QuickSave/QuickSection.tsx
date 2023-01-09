@@ -22,7 +22,7 @@ type Props = {
 
 export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
     const { user } = useAuthState();
-    const { saved } = useGetTabsContext();
+    const { saved, sessions } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const showSnackbar = useSnackbar();
     const { getDefaultUserIds } = useGetDefaultUserIds();
@@ -76,8 +76,13 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
         closeModal();
 
         const chromeTabs = await getAllChromeTabs();
-        await saveSession(chromeTabs, name);
-    }, [closeModal, saveSession]);
+        const sessionCreated = await saveSession(chromeTabs, name);
+
+        if (!sessionCreated) return;
+
+        dispatch({ type: TabsActions.updatedSessions, payload: [...sessions, sessionCreated] ?? [] });
+        showSnackbar('Session saved', 'success');
+    }, [closeModal, saveSession, dispatch, sessions, showSnackbar]);
 
     return (
         <>
