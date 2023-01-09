@@ -76,8 +76,10 @@ export const useSessionOptions = () => {
 
                 dispatch({ type: TabsActions.finishRequestTabs });
 
-                if (!errorTabs && !errorSession)
-                    showSnackbar('Session Deleted', 'success');
+                if (errorTabs ?? errorSession) return;
+
+                showSnackbar('Session Deleted', 'success');
+                dispatch({ type: TabsActions.deleteSession, payload: session.id });
             };
         }, [callApi, dispatch, fetchDeleteTabs, showSnackbar]
     );
