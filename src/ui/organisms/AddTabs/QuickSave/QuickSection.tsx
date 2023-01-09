@@ -79,9 +79,9 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
                     flexWrap: 'wrap',
                     gap: '10px'
                 }}>
-                <Button fullWidth startIcon={<ArticleOutlinedIcon />} onClick={() => { handleSaveTabs(false); }} variant="outlined">Save active tab</Button>
-                <Button fullWidth startIcon={<FilterNoneOutlinedIcon />} onClick={() => { handleSaveTabs(); }} variant="outlined">Save all tabs</Button>
-                <Button fullWidth startIcon={<InboxOutlinedIcon />} onClick={() => { onClickSession(); }} variant="outlined">Save tabs in session</Button>
+                <Button fullWidth startIcon={<ArticleOutlinedIcon />} onClick={() => { handleSaveTabs(false); }} variant="contained">Save active tab</Button>
+                <Button fullWidth startIcon={<FilterNoneOutlinedIcon />} onClick={() => { handleSaveTabs(); }} variant="contained">Save all tabs</Button>
+                <Button fullWidth startIcon={<InboxOutlinedIcon />} onClick={() => { onClickSession(); }} variant="contained">Save tabs in session</Button>
             </Box>
 
             <Modal isOpen={isOpen} onClose={closeModal} closeByClickOutside={false}>

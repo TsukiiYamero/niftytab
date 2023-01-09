@@ -16,8 +16,8 @@ export const CustomSaveTabs = (props: Props) => {
                     flexWrap: 'wrap',
                     gap: '10px'
                 }}>
-                <Button fullWidth startIcon={<FolderCopyOutlinedIcon />} onClick={() => { }} variant="outlined">Save In Group</Button>
-                <Button fullWidth startIcon={<InboxOutlinedIcon />} onClick={() => { }} variant="outlined">Save In Session</Button>
+                <Button fullWidth startIcon={<FolderCopyOutlinedIcon />} onClick={() => { }} variant="contained">Save In Group</Button>
+                <Button fullWidth startIcon={<InboxOutlinedIcon />} onClick={() => { }} variant="contained">Save In Session</Button>
             </Box>
         </div>
     );
