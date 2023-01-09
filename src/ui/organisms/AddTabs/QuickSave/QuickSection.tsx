@@ -1,7 +1,7 @@
 import { useAuthState } from '@/contexts/auth';
 import { useAuthModal } from '@/contexts/authModal';
 import { TabsActions } from '@/contexts/tabs';
-import { useTabsDispatch } from '@/contexts/tabs/hooks';
+import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { useSaveTabs } from '@/customHooks/tabs/useSaveTabs';
 import { getActiveTab, getAllChromeTabs } from '@/utils/chrome';
 import { Box, Button } from '@mui/material';
@@ -13,6 +13,8 @@ import { QuickSession } from './QuickSession';
 import { useCallback } from 'react';
 import { useGetDefaultUserIds } from '@/customHooks/tabs/useGetDefaultsTabsId';
 import { useSaveSession } from '@/customHooks/sessions/useSaveSession';
+import { SUCCESS_MESSAGE } from '@/utils';
+import { useSnackbar } from '@/contexts/snackbar/hooks';
 
 type Props = {
     closeModal: () => void
@@ -20,7 +22,9 @@ type Props = {
 
 export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
     const { user } = useAuthState();
+    const { saved } = useGetTabsContext();
     const dispatch = useTabsDispatch();
+    const showSnackbar = useSnackbar();
     const { getDefaultUserIds } = useGetDefaultUserIds();
     const { openAuthModal, setIsSignIn } = useAuthModal();
     const { isOpen, openModal, closeModal } = useModal();
@@ -46,9 +50,15 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
         const { defaultsIds, error: defaultIdsError } = await getDefaultUserIds();
         if (!defaultsIds || defaultIdsError.trim()) return;
 
-        await saveTabs(TabsToSave, defaultsIds);
+        const tabsCreated = await saveTabs(TabsToSave, defaultsIds);
+
+        if (tabsCreated.length > 0) {
+            showSnackbar(SUCCESS_MESSAGE, 'success');
+            dispatch({ type: TabsActions.updatedSaved, payload: [...saved, ...tabsCreated] ?? [] });
+        }
 
         dispatch({ type: TabsActions.finishRequestTabs });
+
         closeSaveModal();
     };
 

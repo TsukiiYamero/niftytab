@@ -22,7 +22,7 @@ export const QuickSession = ({ closeQuickSession, setSessionName }: Props) => {
     const onSave = () => {
         setPristine(false);
 
-        // This is because exist a session 'default' that can not be deleted or created
+        // This is because exist a session with the name 'default', and that session can not be deleted or created
         // maybe in the future i have to change it
         if (name.trim() === SESSION_DEFAULT) return;
 
