@@ -9,6 +9,7 @@ import { TabsActions } from '@/contexts/tabs';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useSnackbar } from '@/contexts/snackbar/hooks';
+import { createChromeTab } from '@/utils/chrome/openTabs';
 
 /**
  * List of several options for saved tabs
@@ -21,6 +22,7 @@ export const useTabsSavedOptionList = () => {
     const openTab = useCallback(
         (tab: NiftyTab) => {
             return () => {
+                createChromeTab(tab.url);
                 console.log(tab);
             };
         }, []

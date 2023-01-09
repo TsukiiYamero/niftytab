@@ -8,11 +8,12 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ViewTimelineOutlinedIcon from '@mui/icons-material/ViewTimelineOutlined';
 import { useSnackbar } from '@/contexts/snackbar/hooks';
-import { SessionNifty } from '@/models';
+import { SessionNifty, TabsSupabase } from '@/models';
 import { deleteSessions } from '@/services/tabs/sessions/deleteSessions';
 import { readTabsWithFilter } from '@/services/tabs/tab/readTabs';
 import { EditOutlined } from '@mui/icons-material';
 import { ReadGroupsWithFiltering2, deleteTabsBySessionId } from '@/services/tabs';
+import { createChromeTab } from '@/utils/chrome/openTabs';
 
 /**
  * List of several options for Sessions
@@ -24,30 +25,42 @@ export const useSessionOptions = () => {
     const dispatch = useTabsDispatch();
     const showSnackbar = useSnackbar();
 
+    const getTabsFromSupabaseBySessionId = useCallback(async (sessionId: number) => {
+        const filter: ReadGroupsWithFiltering2 = {
+            eq: {
+                column: 'session_id',
+                equalTo: sessionId
+            }
+        };
+
+        const { data } = await fetchGetTabs(readTabsWithFilter, filter);
+
+        return data || [];
+    }, [fetchGetTabs]);
+
     const openAllSession = useCallback(
         (session: SessionNifty) => {
-            return () => {
-                // console.log(session);
+            return async () => {
+                const tabs: TabsSupabase[] = await getTabsFromSupabaseBySessionId(session.id);
+
+                if (!tabs.length) {
+                    showSnackbar('Ops... there is no tabs to open');
+                    return;
+                }
+
+                tabs.forEach(tab => {
+                    createChromeTab(tab.url);
+                });
             };
-        }, []
+        }, [getTabsFromSupabaseBySessionId, showSnackbar]
     );
 
     const viewDetails = useCallback((session: SessionNifty) => {
         return async () => {
             showSnackbar('View Details are in construction');
-
-            const filter: ReadGroupsWithFiltering2 = {
-                eq: {
-                    column: 'session_id',
-                    equalTo: session.id
-                }
-            };
-
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { data } = await fetchGetTabs(readTabsWithFilter, filter);
             // console.log(data);
         };
-    }, [showSnackbar, fetchGetTabs]);
+    }, [showSnackbar]);
 
     const editSession = useCallback((session: SessionNifty) => {
         return () => {
