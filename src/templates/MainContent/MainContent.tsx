@@ -1,9 +1,10 @@
 import { TabsListingsContainer } from '@/ui/organisms/TabsListings';
-import { } from 'react';
+import { Outlet } from 'react-router-dom';
 
 export const MainContent = () => {
     return (
         <>
+            <Outlet />
             <TabsListingsContainer />
         </>
     );
