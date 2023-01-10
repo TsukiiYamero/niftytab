@@ -71,7 +71,7 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     };
 
     return <LoginLayout
-        title={isSignIn ? 'SIGN IN' : 'SIGN UP'}
+        title={isSignIn ? 'SIGN IN' : 'Create Account'}
         isSignIn={isSignIn}
         loading={loading}
         emailRef={emailRef}

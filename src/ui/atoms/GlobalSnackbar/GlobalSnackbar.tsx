@@ -34,7 +34,7 @@ export const GlobalSnackbar = () => {
     };
 
     return (
-        <div>
+        <div id="global-snackbar">
             {
                 action
                     ? <Snackbar

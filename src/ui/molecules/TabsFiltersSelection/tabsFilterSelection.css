@@ -1,7 +1,5 @@
 .tab-store-selection-container {
     display: flex;
-    padding-block: 8px;
-    gap: 6px;
 }
 
 .tab-store-selection-filter-view {
