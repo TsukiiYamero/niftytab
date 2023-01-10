@@ -2,8 +2,16 @@ import TabsSection from '@/templates/TabsSection/TabsSection';
 import Navbar from '@/ui/organisms/Navbar/Navbar';
 import { MainPageWrapper } from './MainPageWrapper.styled';
 import { MainContent } from '@/templates/MainContent';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate('/tabs');
+    }, [navigate]);
+
     return (
         <MainPageWrapper>
             <Navbar />

@@ -7,7 +7,7 @@ import {
     RouterProvider
 } from 'react-router-dom';
 import { ErrorPage } from './pages/ErrorPage';
-import { TabsPage } from './pages/TabsPage';
+import { TabsTemplate } from './templates/TabsTemplate';
 
 const router = createBrowserRouter([
     {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'tabs',
-                element: <TabsPage />
+                element: <TabsTemplate />
             }
         ]
     }
