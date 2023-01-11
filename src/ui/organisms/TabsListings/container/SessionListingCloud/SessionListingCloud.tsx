@@ -16,7 +16,7 @@ import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 /**
  * Stateful comp to get the session list and group
  */
-export const SectionGroupings = () => {
+export const SessionListingCloud = () => {
     const { callApi } = useFetchWithCallback();
     const { callApi: fetchGetTabs } = useFetchWithCallback();
     const { user } = useAuthState();

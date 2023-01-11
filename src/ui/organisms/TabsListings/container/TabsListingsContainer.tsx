@@ -2,7 +2,7 @@ import { TabSectionFilter, TypeOfStore } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
 import { MemoizedTabsListingsCloud } from './TabsListingsSaved';
-import { SectionGroupings } from './SectionGroupings/SectionGroupings';
+import { SessionListingCloud } from './SessionListingCloud/SessionListingCloud';
 import { NiftyTab } from '@/models';
 
 export const TabsListingsContainer = () => {
@@ -24,7 +24,7 @@ export const TabsListingsContainer = () => {
                     isFiltering={isFiltering}
                     loading={loading}
                     dispatch={dispatch} />
-            : <SectionGroupings />
+            : <SessionListingCloud />
         }
     </>);
 };

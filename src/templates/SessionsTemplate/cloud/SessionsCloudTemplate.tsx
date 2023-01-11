@@ -1,5 +1,5 @@
-import { SectionGroupings } from '@/ui/organisms/TabsListings/container/SectionGroupings';
+import { SessionListingCloud } from '@/ui/organisms/TabsListings/container/SessionListingCloud';
 
 export const SessionsCloudTemplate = () => {
-    return <SectionGroupings />;
+    return <SessionListingCloud />;
 };
