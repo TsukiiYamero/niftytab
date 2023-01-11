@@ -1,7 +1,7 @@
 import { TabSectionFilter, TypeOfStore } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
-import { MemoizedTabsListingsCloud } from './TabsListingsSaved';
+import { MemoizedTabsListingsCloud } from './TabsListingsCloud';
 import { SessionListingCloud } from './SessionListingCloud/SessionListingCloud';
 import { NiftyTab } from '@/models';
 

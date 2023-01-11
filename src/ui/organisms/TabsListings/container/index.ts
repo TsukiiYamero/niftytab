@@ -1,4 +1,4 @@
 export * from './TabsListingsContainer';
 export * from './TabsListingsLocal';
 export * from './UserNoAuthenticatedMessage';
-export * from './TabsListingsSaved';
+export * from './TabsListingsCloud';
