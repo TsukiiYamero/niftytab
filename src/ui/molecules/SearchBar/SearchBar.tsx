@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState, useCallback } from 'react';
 import { SearchBarWrapper } from './searchBarWrapper.styled';
 import { SearchInput } from './SearchInput.styled';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
-import { TabSectionFilter, TabsActions, TabsStoredType } from '@/contexts/tabs';
+import { TabSectionFilter, TabsActions, TypeOfStore } from '@/contexts/tabs';
 import { filterTabsByTitleOrUrl } from '@/utils/tabs';
 import { CancelRounded } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -25,7 +25,7 @@ const SearchBar = () => {
     const setFilterState = useCallback(() => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
 
-        const tabsToFilter = typeOfStore === TabsStoredType.local ? local : saved;
+        const tabsToFilter = typeOfStore === TypeOfStore.local ? local : saved;
 
         let listFiltered: NiftyTab[] | SessionNiftyCount[] = [];
 

@@ -6,7 +6,7 @@ export enum TabSectionFilter {
     sessions = 'sessions'
 };
 
-export enum TabsStoredType {
+export enum TypeOfStore {
     local = 'local',
     saved = 'saved'
 }
@@ -20,7 +20,7 @@ export interface TabsStore<T> {
     filtered: T[];
     isFiltering: boolean;
     tabSection: TabSectionFilter;
-    typeOfStore: TabsStoredType;
+    typeOfStore: TypeOfStore;
     loading: boolean;
 }
 
@@ -57,4 +57,4 @@ export type TabsActionType =
     | { type: TabsActions.deleteSession; payload: number; }
 
     | { type: TabsActions.changeTabsSection; payload: TabSectionFilter }
-    | { type: TabsActions.changeTypeOfStore; payload: TabsStoredType };
+    | { type: TabsActions.changeTypeOfStore; payload: TypeOfStore };

@@ -1,4 +1,4 @@
-import { TabSectionFilter, TabsStoredType } from '@/contexts/tabs';
+import { TabSectionFilter, TypeOfStore } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
 import { MemoizedTabsListingsSaved } from './TabsListingsSaved';
@@ -11,7 +11,7 @@ export const TabsListingsContainer = () => {
 
     return (<>
         {tabSection === TabSectionFilter.tabs
-            ? typeOfStore === TabsStoredType.local
+            ? typeOfStore === TypeOfStore.local
                 ? <MemoizedTabsListingsLocal
                     local={local}
                     filtered={(filtered as NiftyTab[])}

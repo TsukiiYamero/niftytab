@@ -1,4 +1,4 @@
-import { TabSectionFilter, TabsActions, TabsStoredType } from '@/contexts/tabs';
+import { TabSectionFilter, TabsActions, TypeOfStore } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { CloudIcon, LaptopIcon } from '@/ui/atoms/icons';
@@ -9,7 +9,7 @@ export const TabStoreSelection = () => {
     const dispatch = useTabsDispatch();
     const navigate = useNavigate();
 
-    const changeTabStoredType = (storedType: TabsStoredType) => {
+    const changeTabStoredType = (storedType: TypeOfStore) => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: storedType });
         navigate(`/${tabSection}/${storedType}`);
         console.log(`/${tabSection}/${storedType}`);
@@ -28,18 +28,18 @@ export const TabStoreSelection = () => {
                     />
                     : <>
                         <StandardButton
-                            active={typeOfStore === TabsStoredType.local}
+                            active={typeOfStore === TypeOfStore.local}
                             disabled={loading}
                             icon={<LaptopIcon />}
-                            onClick={() => changeTabStoredType(TabsStoredType.local)}
+                            onClick={() => changeTabStoredType(TypeOfStore.local)}
                             title='Tabs currently in the window'
                         />
 
                         <StandardButton
-                            active={typeOfStore === TabsStoredType.saved}
+                            active={typeOfStore === TypeOfStore.saved}
                             disabled={loading}
                             icon={<CloudIcon />}
-                            onClick={() => changeTabStoredType(TabsStoredType.saved)}
+                            onClick={() => changeTabStoredType(TypeOfStore.saved)}
                             title='Tabs Saved in the cloud'
                         />
                     </>

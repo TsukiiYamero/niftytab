@@ -1,5 +1,5 @@
 import { NiftyTab, SessionNiftyCount } from '@/models';
-import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TabsStoredType } from '../tabsContext.types';
+import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TypeOfStore } from '../tabsContext.types';
 
 export const tabsInitialState: TabsStore<NiftyTab | SessionNiftyCount> = {
     local: [],
@@ -8,7 +8,7 @@ export const tabsInitialState: TabsStore<NiftyTab | SessionNiftyCount> = {
     sessions: [],
     isFiltering: false,
     tabSection: TabSectionFilter.tabs,
-    typeOfStore: TabsStoredType.local,
+    typeOfStore: TypeOfStore.local,
     loading: false
 };
 
@@ -21,7 +21,7 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
                 sessions: [],
                 filtered: [],
                 isFiltering: false,
-                typeOfStore: TabsStoredType.local,
+                typeOfStore: TypeOfStore.local,
                 tabSection: TabSectionFilter.tabs,
                 loading: false
             };
