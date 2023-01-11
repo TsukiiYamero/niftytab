@@ -7,7 +7,6 @@ import Tooltip from '@mui/material/Tooltip';
 import { MouseEvent, useState } from 'react';
 import { useAuthState } from '@/contexts/auth';
 import { UserLoggedMenu } from './UserLoggedMenu';
-import { UserNotLoggedMenu } from './UserNotLoggedMenu';
 import { useAuthModal } from '@/contexts/authModal';
 
 export const AccountMenu = () => {
@@ -17,7 +16,17 @@ export const AccountMenu = () => {
 
     const open = Boolean(anchorEl);
 
+    const onSignIn = () => {
+        setIsSignIn(true);
+        openAuthModal();
+    };
+
     const handleClick = (event: MouseEvent<HTMLElement>) => {
+        if (!user) {
+            onSignIn();
+            return;
+        }
+
         setAnchorEl(event.currentTarget);
     };
 
@@ -25,15 +34,10 @@ export const AccountMenu = () => {
         setAnchorEl(null);
     };
 
-    const onSignIn = () => {
-        setIsSignIn(true);
-        openAuthModal();
-    };
-
-    const onSignUp = () => {
+    /* const onSignUp = () => {
         setIsSignIn(false);
         openAuthModal();
-    };
+    }; */
 
     const paperProps = {
         elevation: 0,
@@ -65,7 +69,7 @@ export const AccountMenu = () => {
     return (
         <>
             <Box>
-                <Tooltip title="Account settings">
+                <Tooltip title="Account">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -91,7 +95,7 @@ export const AccountMenu = () => {
                 {
                     user
                         ? <UserLoggedMenu />
-                        : <UserNotLoggedMenu onSignIn={onSignIn} onSignUp={onSignUp} />
+                        : null
                 }
 
             </Menu>
