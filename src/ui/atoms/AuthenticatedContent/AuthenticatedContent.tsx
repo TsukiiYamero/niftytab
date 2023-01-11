@@ -12,13 +12,7 @@ type Props = {
 export const AuthenticatedContent = ({ children }: Props) => {
     const { user } = useAuthState();
 
-    return (
-        <>
-            {
-                user
-                    ? { children }
-                    : <UserNoAuthenticatedMessage />
-            }
-        </>
-    );
+    if (user) return <>{children}</>;
+
+    return <UserNoAuthenticatedMessage />;
 };
