@@ -1,13 +1,12 @@
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
 import { useTabsCloudOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
 import { NiftyTab } from '@/models';
-import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
 import { TabsListings } from '../presentational';
 import { useAuthState } from '@/contexts/auth';
-import { UserNoAuthenticatedMessage } from './UserNoAuthenticatedMessage';
 import { useGetDefaultUserIds, useGetTabsByFilter } from '@/customHooks/tabs';
+import { AuthenticatedContent } from '@/ui/atoms/AuthenticatedContent';
 
 type props = {
     cloud: NiftyTab[];
@@ -43,13 +42,9 @@ export const TabsListingsCloud = ({ cloud, filtered, isFiltering, loading, dispa
     const tabsToShow = isFiltering ? filtered : cloud;
 
     return (
-        <>
-            {loading
-                ? <SimpleLoading />
-                : user
-                    ? <TabsListings loading={loading} tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
-                    : <UserNoAuthenticatedMessage />}
-        </>
+        <AuthenticatedContent>
+            <TabsListings loading={loading} tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
+        </AuthenticatedContent>
     );
 };
 

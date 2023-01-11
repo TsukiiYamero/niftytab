@@ -2,10 +2,10 @@ import { NiftyTab } from '@/models';
 import { OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 import { TabsListing } from './TabsListing';
 import { ListingsGrid } from './ListingsGrid.styled';
-import { TabsNotFound } from './TabsNotFound';
 
 import './tabs_presentational.css';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
+import { ContentNotFound } from '@/ui/atoms/ContentNotFound';
 
 type Props = {
     tabs: NiftyTab[];
@@ -19,13 +19,13 @@ export const TabsListings = ({ tabs = [], loading, makeTabsOptsList }: Props) =>
             {
                 loading
                     ? <SimpleLoading />
-                    : tabs.length > 0
-                        ? <ListingsGrid>
+                    : <ContentNotFound condition={tabs.length > 0}>
+                        <ListingsGrid>
                             {tabs.map((tab) => (
                                 <TabsListing key={tab.refererId} tab={tab} makeTabsOptsList={makeTabsOptsList} />
                             ))}
                         </ListingsGrid>
-                        : <TabsNotFound />
+                    </ ContentNotFound>
             }
         </>
     );
