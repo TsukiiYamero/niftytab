@@ -2,18 +2,18 @@ import { TabSectionFilter, TabsActions, TabsStoredType } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { CloudIcon, LaptopIcon } from '@/ui/atoms/icons';
+import { useNavigate } from 'react-router-dom';
 
 export const TabStoreSelection = () => {
-    const { loading, typeOfStore, local, saved, tabSection } = useGetTabsContext();
+    const { loading, typeOfStore, tabSection } = useGetTabsContext();
     const dispatch = useTabsDispatch();
+    const navigate = useNavigate();
 
     const changeTabStoredType = (storedType: TabsStoredType) => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: storedType });
+        navigate(`/${tabSection}/${storedType}`);
+        console.log(`/${tabSection}/${storedType}`);
     };
-
-    const quantityOfTabs = `${(typeOfStore === TabsStoredType.local
-        ? local.length
-        : saved.length)} Tabs`;
 
     return (
         <div style={{ display: 'flex', paddingBlock: '8px' }}>
@@ -44,12 +44,6 @@ export const TabStoreSelection = () => {
                         />
                     </>
             }
-
-            <span>
-                {
-                    quantityOfTabs
-                }
-            </span>
         </div>
     );
 };

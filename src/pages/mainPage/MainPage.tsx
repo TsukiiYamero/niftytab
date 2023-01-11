@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import TabsSection from '@/templates/TabsSection/TabsSection';
 import Navbar from '@/ui/organisms/Navbar/Navbar';
 import { MainPageWrapper } from './MainPageWrapper.styled';
@@ -10,7 +11,8 @@ const MainPage = () => {
 
     useEffect(() => {
         navigate('/tabs/local');
-    }, [navigate]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <MainPageWrapper>
