@@ -60,10 +60,10 @@ export const LoginLayout = ({
                 >
                     <TextField
                         inputRef={emailRef}
-                        id="login_Username"
+                        id="login_Email"
                         error={errors.email && !pristine}
                         fullWidth
-                        label="Username"
+                        label="Email"
                         variant="outlined"
                         required
                         inputProps={{ style: inputStyle }}
