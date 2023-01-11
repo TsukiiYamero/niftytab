@@ -6,13 +6,15 @@ interface Props {
     top: number;
     left: number;
     animationBgColor: string;
+    displayLevel: number;
 }
 
 export const WrapperAnimation = ({
     animationWrapper,
     top,
     left,
-    animationBgColor
+    animationBgColor,
+    displayLevel
 }: Props) => {
     const [isShown, setIsShown] = useState(false);
 
@@ -24,9 +26,8 @@ export const WrapperAnimation = ({
         <>
             {animationWrapper && (
                 <div
-                    className={`modal__wrapper ${
-                        isShown && 'modal__wrapper-zindex'
-                    }`}
+                    className={'modal__wrapper'}
+                    style={{ zIndex: isShown ? `${displayLevel}00` : '-1' }}
                 >
                     <div
                         className="modal__iconposition-wrapper"

@@ -25,6 +25,7 @@ export interface PropsModal {
     titleIconElement?: any;
     id?: string;
     modalCustomClass?: string;
+    displayLevel?: number;
 }
 /**
  * Have to be used with the custom hook useModal
@@ -39,6 +40,7 @@ export const Modal = memo(
         onClose,
         closeByClickOutside = true,
         closeByIcon = true,
+        displayLevel = 1,
         animationBgColor = 'rgba(18, 21, 25, 0.5)',
         bgColorClass = 'modal__bg-color',
         animationWrapper = true,
@@ -87,11 +89,12 @@ export const Modal = memo(
             <ModalProvider CloseFn={closableModal} isOpen closable>
                 {isOpen && (
                     <div className="modal__container">
-                        <WrapperAnimation {...wrapperAnimationProps} />
+                        <WrapperAnimation displayLevel={displayLevel} {...wrapperAnimationProps} />
 
                         <div
                             id={id}
                             className={`modal__container-content ${modalCustomClass}`}
+                            style={{ zIndex: `${displayLevel}05` }}
                             onClick={handleCloseModalClickOutsider}
                         >
                             <div
