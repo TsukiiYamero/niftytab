@@ -1,5 +1,5 @@
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
-import { useTabsSavedOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
+import { useTabsCloudOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
 import { NiftyTab } from '@/models';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
@@ -10,18 +10,18 @@ import { TabsListingsNotUser } from './TabsListingsNotUser';
 import { useGetDefaultUserIds, useGetTabsByFilter } from '@/customHooks/tabs';
 
 type props = {
-    saved: NiftyTab[];
+    cloud: NiftyTab[];
     filtered: NiftyTab[];
     isFiltering: boolean;
     loading: boolean;
     dispatch: Dispatch<TabsActionType>;
 }
 
-export const TabsListingsSaved = ({ saved, filtered, isFiltering, loading, dispatch }: props) => {
+export const TabsListingsCloud = ({ cloud, filtered, isFiltering, loading, dispatch }: props) => {
     const getTabsBySessionDefault = useGetTabsByFilter();
     const { getDefaultUserIds } = useGetDefaultUserIds();
     const { user } = useAuthState();
-    const makeTabsOptsList = useTabsSavedOptionList();
+    const makeTabsOptsList = useTabsCloudOptionList();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,13 +34,13 @@ export const TabsListingsSaved = ({ saved, filtered, isFiltering, loading, dispa
 
             if (error ?? errorInIds) return;
 
-            dispatch({ type: TabsActions.updatedSaved, payload: supabaseTabsToNiftyTabs(data) });
+            dispatch({ type: TabsActions.updateCloud, payload: supabaseTabsToNiftyTabs(data) });
         };
 
         user && fetchData();
     }, [dispatch, getDefaultUserIds, getTabsBySessionDefault, user]);
 
-    const tabsToShow = isFiltering ? filtered : saved;
+    const tabsToShow = isFiltering ? filtered : cloud;
 
     return (
         <>
@@ -53,4 +53,4 @@ export const TabsListingsSaved = ({ saved, filtered, isFiltering, loading, dispa
     );
 };
 
-export const MemoizedTabsListingsSaved = memo(TabsListingsSaved);
+export const MemoizedTabsListingsCloud = memo(TabsListingsCloud);

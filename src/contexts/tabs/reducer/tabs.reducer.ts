@@ -3,7 +3,7 @@ import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TypeOfStore }
 
 export const tabsInitialState: TabsStore<NiftyTab | SessionNiftyCount> = {
     local: [],
-    saved: [],
+    cloud: [],
     filtered: [],
     sessions: [],
     isFiltering: false,
@@ -17,7 +17,7 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
         case TabsActions.resetTabs:
             return {
                 ...state,
-                saved: [],
+                cloud: [],
                 sessions: [],
                 filtered: [],
                 isFiltering: false,
@@ -35,17 +35,17 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
                 ...state,
                 loading: false
             };
-        case TabsActions.updatedLocal:
+        case TabsActions.updateLocal:
             return {
                 ...state,
                 local: action.payload,
                 loading: false
             };
 
-        case TabsActions.updatedSaved:
+        case TabsActions.updateCloud:
             return {
                 ...state,
-                saved: action.payload,
+                cloud: action.payload,
                 loading: false
             };
         case TabsActions.updatedFiltered:
@@ -54,16 +54,16 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
                 filtered: action.payload,
                 loading: false
             };
-        case TabsActions.updatedSessions:
+        case TabsActions.updateSessions:
             return {
                 ...state,
                 sessions: action.payload,
                 loading: false
             };
-        case TabsActions.deleteTabInSaved:
+        case TabsActions.deleteTabInCloud:
             return {
                 ...state,
-                saved: state.saved.filter(tab => tab.url !== action.payload),
+                cloud: state.cloud.filter(tab => tab.url !== action.payload),
                 loading: false
             };
         case TabsActions.deleteSession:

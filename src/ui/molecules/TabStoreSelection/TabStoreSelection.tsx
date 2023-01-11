@@ -3,6 +3,7 @@ import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
 import { CloudIcon, LaptopIcon } from '@/ui/atoms/icons';
 import { useNavigate } from 'react-router-dom';
+import { CloudStore } from '@/utils/niftyDefaults';
 
 export const TabStoreSelection = () => {
     const { loading, typeOfStore, tabSection } = useGetTabsContext();
@@ -24,7 +25,7 @@ export const TabStoreSelection = () => {
                         disabled={loading}
                         icon={<CloudIcon />}
                         onClick={() => { }}
-                        title='Tabs Saved in the cloud'
+                        title={`Sessions Saved in ${CloudStore}`}
                     />
                     : <>
                         <StandardButton
@@ -32,15 +33,15 @@ export const TabStoreSelection = () => {
                             disabled={loading}
                             icon={<LaptopIcon />}
                             onClick={() => changeTabStoredType(TypeOfStore.local)}
-                            title='Tabs currently in the window'
+                            title='Tabs currently in the browser'
                         />
 
                         <StandardButton
-                            active={typeOfStore === TypeOfStore.saved}
+                            active={typeOfStore === TypeOfStore.cloud}
                             disabled={loading}
                             icon={<CloudIcon />}
-                            onClick={() => changeTabStoredType(TypeOfStore.saved)}
-                            title='Tabs Saved in the cloud'
+                            onClick={() => changeTabStoredType(TypeOfStore.cloud)}
+                            title={`Tabs Saved in ${CloudStore}`}
                         />
                     </>
             }

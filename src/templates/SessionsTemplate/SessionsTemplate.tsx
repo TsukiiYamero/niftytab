@@ -1,8 +1,8 @@
-import { useNavigateToSaved } from '@/customHooks/routes/useNavigateToLocalAndSaved';
+import { useNavigateToCloud } from '@/customHooks/routes/useNavigateToLocalAndSaved';
 import { Outlet } from 'react-router-dom';
 
 export const SessionsTemplate = () => {
-    useNavigateToSaved();
+    useNavigateToCloud();
 
     return (
         <Outlet />

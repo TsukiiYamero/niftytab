@@ -1,12 +1,12 @@
 import { TabSectionFilter, TypeOfStore } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { MemoizedTabsListingsLocal } from './TabsListingsLocal';
-import { MemoizedTabsListingsSaved } from './TabsListingsSaved';
+import { MemoizedTabsListingsCloud } from './TabsListingsSaved';
 import { SectionGroupings } from './SectionGroupings/SectionGroupings';
 import { NiftyTab } from '@/models';
 
 export const TabsListingsContainer = () => {
-    const { typeOfStore, tabSection, local, saved, loading, isFiltering, filtered } = useGetTabsContext();
+    const { typeOfStore, tabSection, local, cloud, loading, isFiltering, filtered } = useGetTabsContext();
     const dispatch = useTabsDispatch();
 
     return (<>
@@ -18,8 +18,8 @@ export const TabsListingsContainer = () => {
                     isFiltering={isFiltering}
                     loading={loading}
                     dispatch={dispatch} />
-                : <MemoizedTabsListingsSaved
-                    saved={saved}
+                : <MemoizedTabsListingsCloud
+                    cloud={cloud}
                     filtered={(filtered as NiftyTab[])}
                     isFiltering={isFiltering}
                     loading={loading}

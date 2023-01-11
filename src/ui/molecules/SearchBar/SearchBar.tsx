@@ -14,7 +14,7 @@ import { filterSession } from '@/utils/sessions';
 import { NiftyTab, SessionNiftyCount } from '@/models';
 
 const SearchBar = () => {
-    const { isFiltering, saved, sessions, local, typeOfStore, tabSection } = useGetTabsContext();
+    const { isFiltering, cloud, sessions, local, typeOfStore, tabSection } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const [searchWord, setSearchWord] = useState('');
     const debouncedValue = useDebounce({ value: searchWord, delay: 430 });
@@ -25,7 +25,7 @@ const SearchBar = () => {
     const setFilterState = useCallback(() => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
 
-        const tabsToFilter = typeOfStore === TypeOfStore.local ? local : saved;
+        const tabsToFilter = typeOfStore === TypeOfStore.local ? local : cloud;
 
         let listFiltered: NiftyTab[] | SessionNiftyCount[] = [];
 
@@ -42,7 +42,7 @@ const SearchBar = () => {
         }
 
         dispatch({ type: TabsActions.updatedFiltered, payload: listFiltered });
-    }, [dispatch, typeOfStore, local, saved, tabSection, debouncedValue, sessions]);
+    }, [dispatch, typeOfStore, local, cloud, tabSection, debouncedValue, sessions]);
 
     useEffect(() => {
         if (debouncedValue.trim().length > 0)

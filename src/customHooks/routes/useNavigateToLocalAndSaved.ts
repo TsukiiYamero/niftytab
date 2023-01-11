@@ -1,5 +1,6 @@
 import { TabsActions, TypeOfStore } from '@/contexts/tabs';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
+import { CloudStore, LocalStore } from '@/utils/niftyDefaults';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,23 +14,23 @@ export const useNavigateToLocal = () => {
 
     useEffect(() => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: TypeOfStore.local });
-        navigate('local');
+        navigate(LocalStore);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 };
 
 /**
- * Navigate to saved the first time the comp is rendered.
+ * Navigate to Cloud the first time the comp is rendered.
  * think in mind the route is relative
  */
-export const useNavigateToSaved = () => {
+export const useNavigateToCloud = () => {
     const navigate = useNavigate();
     const dispatch = useTabsDispatch();
 
     useEffect(() => {
-        dispatch({ type: TabsActions.changeTypeOfStore, payload: TypeOfStore.saved });
-        navigate('saved');
+        dispatch({ type: TabsActions.changeTypeOfStore, payload: TypeOfStore.cloud });
+        navigate(CloudStore);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 };

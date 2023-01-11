@@ -44,7 +44,7 @@ export const SectionGroupings = () => {
                 const listSessionsWithCount = makeListSessionWithBadgeCount(listNiftySessions, listOfCount);
                 // default session item should to be removed because it can not appear
                 const listSessionWithoutDefault = listSessionsWithCount.filter(session => session.browserName !== SESSION_DEFAULT);
-                dispatch({ type: TabsActions.updatedSessions, payload: listSessionWithoutDefault });
+                dispatch({ type: TabsActions.updateSessions, payload: listSessionWithoutDefault });
                 console.log(listSessionWithoutDefault, errorSessions);
             }
 

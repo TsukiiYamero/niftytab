@@ -21,7 +21,7 @@ export const TabsListingsLocal = ({ local, loading, filtered, isFiltering, dispa
 
       const resp = await getAllChromeTabs();
       const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
-      dispatch({ type: TabsActions.updatedLocal, payload: dataTabs });
+      dispatch({ type: TabsActions.updateLocal, payload: dataTabs });
     };
     getTabs();
   }, [dispatch]);

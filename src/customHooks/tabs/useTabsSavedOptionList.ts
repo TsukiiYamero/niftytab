@@ -12,9 +12,9 @@ import { useSnackbar } from '@/contexts/snackbar/hooks';
 import { createChromeTab } from '@/utils/chrome/openTabs';
 
 /**
- * List of several options for saved tabs
+ * List of several options for cloud tabs
  */
-export const useTabsSavedOptionList = () => {
+export const useTabsCloudOptionList = () => {
     const { callApi } = useFetchWithCallback();
     const dispatch = useTabsDispatch();
     const showSnackbar = useSnackbar();
@@ -42,7 +42,7 @@ export const useTabsSavedOptionList = () => {
                     return;
                 }
 
-                dispatch({ type: TabsActions.deleteTabInSaved, payload: tab.url });
+                dispatch({ type: TabsActions.deleteTabInCloud, payload: tab.url });
                 showSnackbar('Tab Deleted', 'success');
             };
         }, [callApi, dispatch, showSnackbar]

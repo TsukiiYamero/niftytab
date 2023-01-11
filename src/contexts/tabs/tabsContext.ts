@@ -4,7 +4,7 @@ import { NiftyTab, SessionNiftyCount } from '@/models';
 
 export const TabsStoreContext = createContext<TabsStore<NiftyTab | SessionNiftyCount>>({
     local: [],
-    saved: [],
+    cloud: [],
     filtered: [],
     sessions: [],
     tabSection: TabSectionFilter.tabs,

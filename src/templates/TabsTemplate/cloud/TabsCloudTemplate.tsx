@@ -1,13 +1,13 @@
 import { NiftyTab } from '@/models';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
-import { MemoizedTabsListingsSaved } from '@/ui/organisms/TabsListings';
+import { MemoizedTabsListingsCloud } from '@/ui/organisms/TabsListings';
 
-export const TabsSavedTemplate = () => {
-    const { saved, loading, isFiltering, filtered } = useGetTabsContext();
+export const TabsCloudTemplate = () => {
+    const { cloud, loading, isFiltering, filtered } = useGetTabsContext();
     const dispatch = useTabsDispatch();
 
-    return <MemoizedTabsListingsSaved
-        saved={saved}
+    return <MemoizedTabsListingsCloud
+        cloud={cloud}
         filtered={(filtered as NiftyTab[])}
         isFiltering={isFiltering}
         loading={loading}

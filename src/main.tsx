@@ -7,8 +7,10 @@ import {
     RouterProvider
 } from 'react-router-dom';
 import { ErrorPage } from './pages/ErrorPage';
-import { TabsLocalTemplate, TabsSavedTemplate, TabsTemplate } from './templates/TabsTemplate';
+import { TabsLocalTemplate, TabsCloudTemplate, TabsTemplate } from './templates/TabsTemplate';
 import { SessionsCloudTemplate, SessionsTemplate } from './templates/SessionsTemplate';
+import { CloudStore } from './utils/niftyDefaults';
+import { LocalStore } from '@/utils/niftyDefaults';
 
 const router = createBrowserRouter([
     {
@@ -21,12 +23,12 @@ const router = createBrowserRouter([
                 element: <TabsTemplate />,
                 children: [
                     {
-                        path: 'local',
+                        path: LocalStore,
                         element: <TabsLocalTemplate />
                     },
                     {
-                        path: 'saved',
-                        element: <TabsSavedTemplate />
+                        path: CloudStore,
+                        element: <TabsCloudTemplate />
                     }
                 ]
             }, {
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
                 element: <SessionsTemplate />,
                 children: [
                     {
-                        path: 'saved',
+                        path: CloudStore,
                         element: <SessionsCloudTemplate />
                     }
                 ]

@@ -22,7 +22,7 @@ type Props = {
 
 export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
     const { user } = useAuthState();
-    const { saved, sessions } = useGetTabsContext();
+    const { cloud: saved, sessions } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const showSnackbar = useSnackbar();
     const { getDefaultUserIds } = useGetDefaultUserIds();
@@ -54,7 +54,7 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
 
         if (tabsCreated.length > 0) {
             showSnackbar(SUCCESS_MESSAGE, 'success');
-            dispatch({ type: TabsActions.updatedSaved, payload: [...saved, ...tabsCreated] ?? [] });
+            dispatch({ type: TabsActions.updateCloud, payload: [...saved, ...tabsCreated] ?? [] });
         }
 
         dispatch({ type: TabsActions.finishRequestTabs });
@@ -80,7 +80,7 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
 
         if (!sessionCreated) return;
 
-        dispatch({ type: TabsActions.updatedSessions, payload: [...sessions, sessionCreated] ?? [] });
+        dispatch({ type: TabsActions.updateSessions, payload: [...sessions, sessionCreated] ?? [] });
         showSnackbar('Session saved', 'success');
     }, [closeModal, saveSession, dispatch, sessions, showSnackbar]);
 
