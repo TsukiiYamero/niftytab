@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { ErrorPage } from './pages/ErrorPage';
 import { TabsLocalTemplate, TabsSavedTemplate, TabsTemplate } from './templates/TabsTemplate';
+import { SessionsCloudTemplate, SessionsTemplate } from './templates/SessionsTemplate';
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,15 @@ const router = createBrowserRouter([
                     {
                         path: 'saved',
                         element: <TabsSavedTemplate />
+                    }
+                ]
+            }, {
+                path: 'sessions',
+                element: <SessionsTemplate />,
+                children: [
+                    {
+                        path: 'saved',
+                        element: <SessionsCloudTemplate />
                     }
                 ]
             }

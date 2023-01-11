@@ -4,13 +4,17 @@ import { StandardButton } from '@/ui/atoms/Buttons';
 import { FoldersIcon, SessionIcon, TabsIcon } from '@/ui/atoms/icons';
 import { AddTabs } from '@/ui/organisms/AddTabs';
 import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.styled';
+import { useNavigate } from 'react-router-dom';
 
 const TabsSelection = () => {
     const { tabSection, loading } = useGetTabsContext();
     const dispatch = useTabsDispatch();
+    const navigate = useNavigate();
 
-    const changeActiveTab = (ev: TabSectionFilter) => {
-        dispatch({ type: TabsActions.changeTabsSection, payload: ev });
+    const changeActiveTab = (tabSectionSelected: TabSectionFilter) => {
+        dispatch({ type: TabsActions.changeTabsSection, payload: tabSectionSelected });
+        // saved because there is not local
+        navigate(`${tabSectionSelected}/saved`);
     };
 
     return (
