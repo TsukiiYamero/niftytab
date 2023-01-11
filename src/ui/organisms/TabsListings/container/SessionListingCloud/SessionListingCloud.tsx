@@ -6,12 +6,12 @@ import { SessionNiftyCount } from '@/models';
 import { getBadgeCount, makeListSessionWithBadgeCount, makeSessionNifty as supabaseSessionToNiftySession } from '@/utils/sessions';
 import { useSessionOptions } from '@/customHooks/sessions';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
-import { TabsListingsNotUser } from '../TabsListingsNotUser';
 import { useAuthState } from '@/contexts/auth';
 import { SESSION_DEFAULT } from '@/utils';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsActions } from '@/contexts/tabs';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
+import { AuthenticatedContent } from '@/ui/atoms/AuthenticatedContent';
 
 /**
  * Stateful comp to get the session list and group
@@ -57,14 +57,12 @@ export const SessionListingCloud = () => {
     const tabsToShow = isFiltering ? (filtered as SessionNiftyCount[]) : sessions;
 
     return (
-        <>
+        <AuthenticatedContent>
             {
                 loading
                     ? <SimpleLoading />
-                    : user
-                        ? <ListingsGrouping loading={loading} sessions={tabsToShow} sessionOptionsList={sessionOptions} />
-                        : <TabsListingsNotUser />
+                    : <ListingsGrouping loading={loading} sessions={tabsToShow} sessionOptionsList={sessionOptions} />
             }
-        </>
+        </AuthenticatedContent>
     );
 };

@@ -6,7 +6,7 @@ import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, memo, useEffect } from 'react';
 import { TabsListings } from '../presentational';
 import { useAuthState } from '@/contexts/auth';
-import { TabsListingsNotUser } from './TabsListingsNotUser';
+import { UserNoAuthenticatedMessage } from './UserNoAuthenticatedMessage';
 import { useGetDefaultUserIds, useGetTabsByFilter } from '@/customHooks/tabs';
 
 type props = {
@@ -48,7 +48,7 @@ export const TabsListingsCloud = ({ cloud, filtered, isFiltering, loading, dispa
                 ? <SimpleLoading />
                 : user
                     ? <TabsListings loading={loading} tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
-                    : <TabsListingsNotUser />}
+                    : <UserNoAuthenticatedMessage />}
         </>
     );
 };
