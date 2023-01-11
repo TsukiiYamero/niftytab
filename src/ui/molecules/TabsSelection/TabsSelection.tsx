@@ -13,8 +13,7 @@ const TabsSelection = () => {
 
     const changeActiveTab = (tabSectionSelected: TabSectionFilter) => {
         dispatch({ type: TabsActions.changeTabsSection, payload: tabSectionSelected });
-        // saved because there is not local
-        navigate(`${tabSectionSelected}/saved`);
+        navigate(`/${tabSectionSelected}`);
     };
 
     return (
