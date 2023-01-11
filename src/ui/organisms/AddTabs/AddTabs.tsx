@@ -3,15 +3,10 @@ import './addTabs.css';
 import { QuickSection } from './QuickSave/QuickSection';
 import { CustomSaveTabs } from './CustomSave/CustomSaveTabs';
 import { Modal, useModal } from '@/ui/molecules/Modal';
-import { useEffect } from 'react';
 import { CloudUploadOutlined } from '@mui/icons-material';
 
 export const AddTabs = () => {
     const { isOpen, closeModal, openModal } = useModal();
-
-    useEffect(() => {
-        return () => console.log('c murio');
-    }, []);
 
     return (
         <div>
