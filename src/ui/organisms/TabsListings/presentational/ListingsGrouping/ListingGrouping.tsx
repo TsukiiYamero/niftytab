@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SessionNifty, SessionNiftyCount } from '@/models';
 import { SessionItem } from '@/ui/atoms/SessionItem';
 import { OptionBtnMenu, OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
