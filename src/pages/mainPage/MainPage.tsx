@@ -9,7 +9,7 @@ const MainPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate('/tabs');
+        navigate('/tabs/local');
     }, [navigate]);
 
     return (

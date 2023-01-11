@@ -7,7 +7,7 @@ import {
     RouterProvider
 } from 'react-router-dom';
 import { ErrorPage } from './pages/ErrorPage';
-import { TabsTemplate } from './templates/TabsTemplate';
+import { TabsLocalTemplate, TabsSavedTemplate, TabsTemplate } from './templates/TabsTemplate';
 
 const router = createBrowserRouter([
     {
@@ -17,7 +17,17 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'tabs',
-                element: <TabsTemplate />
+                element: <TabsTemplate />,
+                children: [
+                    {
+                        path: 'local',
+                        element: <TabsLocalTemplate />
+                    },
+                    {
+                        path: 'saved',
+                        element: <TabsSavedTemplate />
+                    }
+                ]
             }
         ]
     }
