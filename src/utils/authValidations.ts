@@ -16,3 +16,32 @@ export const authValidationsBasic = {
         }
     }
 };
+
+export const EmailValidation = {
+    validations: {
+        email: {
+            pattern: {
+                // eslint-disable-next-line
+                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                message: 'Please provide your email.'
+            }
+        }
+    }
+};
+
+/* recovery validation */
+
+export const recoveryPasswordValidation = {
+    validations: {
+        link: {
+            custom: {
+                isValid: ({ link }: { link: string }) => {
+                    console.log(link);
+                    return link?.trim().length > 0;
+                },
+                message: 'Please provide the link sent to your email'
+            }
+        },
+        ...authValidationsBasic.validations.password
+    }
+};
