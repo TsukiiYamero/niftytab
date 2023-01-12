@@ -52,7 +52,16 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     components: {
         ...(mode === 'light')
             ? {
-
+                MuiOutlinedInput: {
+                    styleOverrides: {
+                        root: {
+                            '& input': {
+                                boxShadow: 'var(--bg-color) 0 0 0 1000px inset !important',
+                                WebkitTextFillColor: 'var(--main-text-color) !important'
+                            }
+                        }
+                    }
+                }
             }
             : {
                 MuiInputLabel: {
@@ -67,6 +76,10 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
                         root: {
                             '& fieldset': {
                                 borderColor: 'var(--main-text-color)'
+                            },
+                            '& input': {
+                                boxShadow: 'var(--bg-color) 0 0 0 1000px inset !important',
+                                WebkitTextFillColor: 'var(--main-text-color) !important'
                             }
                         }
                     }
