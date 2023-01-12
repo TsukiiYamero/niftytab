@@ -62,6 +62,10 @@
   position: absolute;
 }
 
+.modal__default-padding {
+  padding: clamp(1rem, 1.65vw, 1.75rem);
+}
+
 .modal__place-self-center {
   place-self: center;
 }
@@ -69,7 +73,6 @@
 .modal__layout-default-sizes {
   width: 310px;
   height: 260px;
-  padding: clamp(1rem, 1.65vw, 1.75rem);
 }
 
 .modal__close-btn {

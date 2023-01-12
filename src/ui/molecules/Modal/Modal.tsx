@@ -17,6 +17,7 @@ export interface PropsModal {
     modalAnimationClass?: string;
     position?: 'centered' | 'custom';
     modalClassSize?: string;
+    ClassSizeAuto?: boolean;
     animationWrapper?: boolean;
     animationBgColor?: string;
     topModal?: number;
@@ -47,6 +48,7 @@ export const Modal = memo(
         modalAnimationClass = '',
         position = 'centered',
         modalClassSize = '',
+        ClassSizeAuto = false,
         topModal = 0,
         leftModal = 0,
         posAnimationWrapper = { top: 0, left: 0 },
@@ -98,10 +100,15 @@ export const Modal = memo(
                             onClick={handleCloseModalClickOutsider}
                         >
                             <div
-                                className={`${bgColorClass} ${modalAnimationClass} 
-                                    ${position === 'centered' && 'modal__place-self-center'} 
-                                    modal__layout-default-sizes ${modalClassSize}       
-                                `}
+                                /* be careful with the space */
+                                className={
+                                    `modal__default-padding
+                                    ${bgColorClass}
+                                    ${modalAnimationClass}
+                                    ${position === 'centered' && 'modal__place-self-center'}
+                                    ${ClassSizeAuto ? '' : 'modal__layout-default-sizes'}
+                                    ${modalClassSize}`
+                                }
                                 style={
                                     position === 'custom' ? positionModal : {}
                                 }
