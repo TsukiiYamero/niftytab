@@ -19,13 +19,14 @@ type Props = {
     onSignUp: () => void,
     onSignIn: () => void,
     onSubmit: () => void;
-    googleSignIn: () => void
+    googleSignIn: () => void,
+    forgotPassword: () => void
 }
 
 export const LoginLayout = ({
     emailRef, passwordRef, errors, loading,
     errorMessage, pristine, title, isSignIn,
-    onSubmit, onSignUp, onSignIn, googleSignIn
+    onSubmit, onSignUp, onSignIn, googleSignIn, forgotPassword
 }: Props) => {
     const onSubmitForm = (ev: FormEvent) => {
         ev.preventDefault();
@@ -35,6 +36,10 @@ export const LoginLayout = ({
     const onClickGoogle = (ev: FormEvent) => {
         ev.preventDefault();
         googleSignIn();
+    };
+
+    const onForgotPassword = () => {
+        forgotPassword();
     };
 
     const inputStyle = {
@@ -94,11 +99,15 @@ export const LoginLayout = ({
             </div>
 
             <div className='bottom-login-container'>
-                {isSignIn ? <FormHelperText className='forgot-msg-login'>Forgot your password?</FormHelperText> : null}
+                {
+                    isSignIn
+                        ? <FormHelperText onClick={onForgotPassword} className='forgot-msg-login'>Forgot your password?</FormHelperText>
+                        : null
+                }
 
                 <div className='login-social-media'>
-                    <div className='line'>
-                        <span>OR</span>
+                    <div className='custom-line'>
+                        <span>Or</span>
                     </div>
 
                     {/*                     <div className='social-media-btns'>
