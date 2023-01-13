@@ -1,5 +1,5 @@
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, FormHelperText, TextField } from '@mui/material';
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import { EmailValidation } from '@/utils/authValidations';
 import { ChangePasswordWithLink } from './ChangePasswordWithLink/ChangePasswordWithLink';
@@ -7,6 +7,7 @@ import './forgot_password_layout.css';
 
 export const ForgotPasswordLayout = () => {
   const [haveUrl, setHaveUrl] = useState(false);
+  const [timeToRetry, setTimeToRetry] = useState('');
   // const showSnackbar = useSnackbar();
   const [disableBtn, setDisableBtn] = useState(false);
   const emailRecoveryRef = useRef<HTMLInputElement>(null);
@@ -19,10 +20,30 @@ export const ForgotPasswordLayout = () => {
   });
 
   useEffect(() => {
-    if (isValid) {
-      setDisableBtn(true);
-      // showSnackbar('Recovery Link sent successfully', 'success');
+    if (!isValid) {
+      return;
     }
+
+    const timeForAllowRecovery = localStorage.getItem('time_re');
+    if (timeForAllowRecovery) {
+      const actualTime = new Date();
+
+      if (Number(timeForAllowRecovery) > actualTime.getTime()) {
+        const timeAllowed = new Date(Number(timeForAllowRecovery));
+        const timeToShow = `${timeAllowed.getHours()}:${timeAllowed.getMinutes()}`;
+        setTimeToRetry(`Try again after ${timeToShow}`);
+        return;
+      };
+    }
+
+    const timeForRetryLink = new Date();
+    const timeToSave = timeForRetryLink.setSeconds(timeForRetryLink.getSeconds() + 35);
+    localStorage.setItem('time_re', `${timeToSave}`);
+
+    setTimeToRetry('');
+    setDisableBtn(true);
+
+    // showSnackbar('Recovery Link sent successfully', 'success');
   }, [setDisableBtn, data, isValid]);
 
   const onAlreadyHaveUrl = () => {
@@ -47,6 +68,9 @@ export const ForgotPasswordLayout = () => {
               component="form"
               noValidate
             >
+              {
+                timeToRetry ? <FormHelperText>{timeToRetry}</FormHelperText> : null
+              }
               <TextField
                 inputRef={emailRecoveryRef}
                 id="email_recovery"
