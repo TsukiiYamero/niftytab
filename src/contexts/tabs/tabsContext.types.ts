@@ -1,5 +1,4 @@
 import { NiftyTab, SessionNiftyCount } from '@/models';
-import { CloudStore, LocalStore } from '@/utils/niftyDefaults';
 
 export enum TabSectionFilter {
     tabs = 'tabs',
@@ -8,8 +7,8 @@ export enum TabSectionFilter {
 };
 
 export enum TypeOfStore {
-    local = LocalStore,
-    cloud = CloudStore
+    local = 'local',
+    cloud = 'cloud'
 }
 
 export interface TabsStore<T> {
@@ -32,15 +31,15 @@ export enum TabsActions {
     isFiltering = 'is_filtering',
 
     updatedFiltered = 'updated_filtered',
-    updateLocal = `update_${LocalStore}`,
-    updateCloud = `update_${CloudStore}`,
+    updateLocal = 'update_local',
+    updateCloud = 'update_cloud',
     updateSessions = 'update_sessions',
 
     changeTabsSection = 'tabs_section',
     changeTypeOfStore = 'type_of_store',
 
     deleteSession = 'delete_sessions',
-    deleteTabInCloud = `delete_tab_in_${CloudStore}`,
+    deleteTabInCloud = 'delete_tab_in_cloud',
 }
 
 export type TabsActionType =

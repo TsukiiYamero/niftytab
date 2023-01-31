@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState, useCallback } from 'react';
 
 type ErrorRecord<T> = Partial<Record<keyof T, string>>;
 
@@ -21,16 +21,16 @@ type Validations<T extends {}> = Partial<Record<keyof T, Validation>>;
 
 export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
     validations?: Validations<T>;
-    initialValues?: Partial<T>;
+    initialValues: Partial<T>;
     onSubmit?: () => void;
 }) => {
-    const [data, setData] = useState(options?.initialValues);
+    const [data, setData] = useState(options.initialValues);
     const [errors, setErrors] = useState<ErrorRecord<T>>({});
     const [isValid, setIsValid] = useState(false);
     const [pristine, setPristine] = useState(true);
 
     const handleChange =
-        <S extends unknown>(key: keyof T, sanitizeFn: (value: string) => S) =>
+        useCallback(<S extends unknown>(key: keyof T, sanitizeFn: (value: string) => S) =>
             (e: ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
                 const value = sanitizeFn
                     ? sanitizeFn(e.target.value)
@@ -39,14 +39,14 @@ export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
                     ...data,
                     [key]: value
                 });
-            };
+            }, [data]);
 
-    const handelSetData = <T extends Record<keyof T, any> = {}>(data: Partial<T>) => {
+    const handelSetData = useCallback(<T extends Record<keyof T, any> = {}>(data: Partial<T>) => {
         if (!data) return;
 
         setData(data);
         setPristine(false);
-    };
+    }, []);
 
     useEffect(() => {
         const validations = options?.validations;
@@ -87,6 +87,13 @@ export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
         setErrors({});
     }, [data, options.validations]);
 
+    const resetForm = useCallback(() => {
+        setData({});
+        setErrors({});
+        setPristine(true);
+        setIsValid(false);
+    }, []);
+
     return {
         data,
         errors,
@@ -94,6 +101,6 @@ export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
         pristine,
         handleChange,
         handelSetData,
-        setErrors
+        resetForm
     };
 };

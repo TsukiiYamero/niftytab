@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import {
-    createBrowserRouter,
+    createMemoryRouter,
     RouterProvider
 } from 'react-router-dom';
 import { ErrorPage } from './pages/ErrorPage';
@@ -12,7 +12,7 @@ import { SessionsCloudTemplate, SessionsTemplate } from './templates/SessionsTem
 import { CloudStore } from './utils/niftyDefaults';
 import { LocalStore } from '@/utils/niftyDefaults';
 
-const router = createBrowserRouter([
+const router = createMemoryRouter([
     {
         path: '/',
         element: <App />,

@@ -7,6 +7,7 @@ import { LoginLayout } from './LoginLayout';
 import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
 import { signInWithGoogle } from '@/services/authProviders';
 import { ForgotPasswordLayout } from './ForgotPasswordLayout';
+import { AuthActions } from '@/contexts/auth/auth.types';
 
 type SignUpForm = { email: string, password: string }
 
@@ -20,7 +21,7 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<SignUpForm>({
+    const { data, errors, isValid, pristine, handelSetData, resetForm } = useFormAdvanced<SignUpForm>({
         validations: authValidationsBasic.validations,
         initialValues: {
             email: emailRef.current?.value ?? '',
@@ -32,23 +33,22 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
         const signUp = async () => {
             if (!isValid) return;
 
-            if (!data?.email || !data?.password) return;
-
             const userCredentials = {
-                email: data?.email,
-                password: data?.password
+                email: data.email ?? '',
+                password: data.password ?? ''
             };
 
             let isOk = false;
 
-            signIn
+            isSignIn
                 ? isOk = await startSignInWithEmail(dispatch, userCredentials)
                 : isOk = await startSignUpWithEmail(dispatch, userCredentials);
 
             isOk && closeModal();
         };
         signUp();
-    }, [isValid, data, dispatch, closeModal, signIn]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isValid, data, dispatch, closeModal]);
 
     const onSubmit = () => {
         const email = emailRef.current?.value;
@@ -65,11 +65,23 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     };
 
     const onSignIn = () => {
+        resetLoginData();
         setIsSignIn(true);
     };
 
     const onSignUp = () => {
+        resetLoginData();
         setIsSignIn(false);
+    };
+
+    const resetLoginData = async () => {
+        if (emailRef.current)
+            emailRef.current.value = '';
+        if (passwordRef.current)
+            passwordRef.current.value = '';
+
+        resetForm();
+        dispatch({ type: AuthActions.resetMsg });
     };
 
     const forgotPassword = () => {

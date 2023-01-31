@@ -1,13 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useLogOut } from '@/contexts/auth/thunks/useLogout';
+import { useSnackbar } from '@/contexts/snackbar/hooks';
+import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
+import { setSessionByToken, updateProfile } from '@/services/authProviders';
 import { recoveryPasswordValidation } from '@/utils';
 import { Box, TextField, Button } from '@mui/material';
-import { FormEvent, useEffect, useRef } from 'react';
+import { FormEvent, IframeHTMLAttributes, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-type Props = {}
-
-export const ChangePasswordWithLink = (props: Props) => {
+export const ChangePasswordWithLink = () => {
+    const { callApi: fetchChangePassword } = useFetchWithCallback();
+    const { callApi } = useFetchWithCallback();
+    const showSnackbar = useSnackbar();
+    const logOut = useLogOut();
+    const navigate = useNavigate();
+    const [linkToValidate, setLinkToValidate] = useState('');
     const linkRecoveryRef = useRef<HTMLInputElement>(null);
     const newPasswordRef = useRef<HTMLInputElement>(null);
+    const iframeRef = useRef<any>(null);
 
     const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<{ link: string, newPassword: string }>({
         validations: recoveryPasswordValidation.validations,
@@ -18,10 +29,31 @@ export const ChangePasswordWithLink = (props: Props) => {
     });
 
     useEffect(() => {
-        if (isValid) {
-            console.log(data, 'Ahora verificar el link y si si cambiar la contrasenia');
-        }
-    }, [isValid, data]);
+        if (!isValid) return;
+
+        const verifyCode = async () => {
+            const urlWithToken = new URL(data.link ?? '');
+            const token = new URLSearchParams(data.link?.split('#')[1]).get('access_token');
+            console.log(token, data.link, urlWithToken);
+            setLinkToValidate(urlWithToken.href);
+
+            // validate rgx
+            if (!data.link) return;
+
+            const newLink = data.link.replace('to=', 'to=chrome-extension://');
+            console.log(newLink);
+            window.location.href = newLink;
+            /* const { error: errorInSession } = await callApi(setSessionByToken, token);
+            if (errorInSession) return; */
+            // showSnackbar('Password changed successfully, please login', 'success');
+        };
+
+        verifyCode();
+
+        return () => {
+            logOut();
+        };
+    }, [isValid, data, callApi, fetchChangePassword, logOut, showSnackbar]);
 
     const onChangePassword = (formEv: FormEvent) => {
         formEv.preventDefault();
@@ -32,9 +64,24 @@ export const ChangePasswordWithLink = (props: Props) => {
         });
     };
 
+    const onLoadIframe = async () => {
+        if (!linkToValidate) return;
+        console.log('ya?');
+        /* const token = localStorage.getItem('sb-mwneagqiuxzbkgsfkkio-auth-token');
+        console.log('cookie', token); */
+        /* const { error: errorInChangePassword } = await fetchChangePassword(updateProfile, { password: data.newPassword });
+
+        if (errorInChangePassword) return;
+
+        await logOut();
+        showSnackbar('Password changed successfully, please login', 'success'); */
+    };
+
     return (
         <>
             <h3>Change Password</h3>
+            {/* I need to open the link and the get the new url with the tokken */}
+            {/*  <iframe ref={iframeRef} src={linkToValidate} onLoad={onLoadIframe} width={350} height={190}></iframe> */}
 
             <Box component={'form'}>
                 {/* To avoid autocomplete the link recovery from browsers */}

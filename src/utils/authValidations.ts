@@ -36,7 +36,6 @@ export const recoveryPasswordValidation = {
         link: {
             custom: {
                 isValid: ({ link }: { link: string }) => {
-                    console.log(link);
                     return link?.trim().length > 0;
                 },
                 message: 'Please provide the link sent to your email'

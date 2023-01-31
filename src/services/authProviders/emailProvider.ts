@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prefer-const */
 import { supabase } from '@/api/config';
 import { UserCredentials } from '@/contexts/auth';
 import { AuthResponse } from '@supabase/supabase-js';

@@ -10,7 +10,7 @@ export const useTabsDispatch = () => {
     const context = useContext(TabsDispatchContext);
 
     if (!context)
-        throw new Error('useAuthDispatch must be used within an AuthProvider');
+        throw new Error('TabsDispatchContext does not exist');
 
     return context;
 };

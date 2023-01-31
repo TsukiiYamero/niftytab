@@ -10,7 +10,7 @@ export const useGetSnackbarDispatchContext = () => {
     const context = useContext(SnackbarDispatchContext);
 
     if (!context)
-        throw new Error('useAuthDispatch must be used within an AuthProvider');
+        throw new Error('SnackbarDispatchContext does not exist');
 
     return context;
 };

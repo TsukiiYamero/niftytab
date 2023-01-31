@@ -4,16 +4,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { useAuthDispatch } from '@/contexts/auth';
-import { startSignOut } from '@/contexts/auth/thunks/signOut';
-import { useTabsDispatch } from '@/contexts/tabs/hooks';
+import { useLogOut } from '@/contexts/auth/thunks/useLogout';
 
 export const UserLoggedMenu = () => {
-    const authDispatch = useAuthDispatch();
-    const tabsDispatch = useTabsDispatch();
+    const logOut = useLogOut();
 
-    const handleLogout = async () => {
-        await startSignOut(authDispatch, tabsDispatch);
+    const handleLogout = () => {
+        logOut();
     };
 
     return (

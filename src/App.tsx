@@ -10,13 +10,13 @@ export const App = () => {
     return (
         <AuthProvider>
             <CustomThemeProvider>
-                <AuthModalProvider>
+                <SnackbarProvider>
                     <TabsProvider>
-                        <SnackbarProvider>
+                        <AuthModalProvider>
                             <MainPage />
-                        </SnackbarProvider>
+                        </AuthModalProvider>
                     </TabsProvider>
-                </AuthModalProvider>
+                </SnackbarProvider>
             </CustomThemeProvider>
         </AuthProvider>
     );
