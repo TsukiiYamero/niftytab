@@ -1,10 +1,10 @@
 import './App.css';
-import MainPage from './pages/mainPage/MainPage';
 import { AuthProvider } from './contexts/auth';
 import { TabsProvider } from './contexts/tabs';
 import { SnackbarProvider } from './contexts/snackbar/provider';
 import { CustomThemeProvider } from './theme/provider/CustomThemeProvider';
 import { AuthModalProvider } from './contexts/authModal';
+import { MainRouter } from './routes/MainRouter';
 
 export const App = () => {
     return (
@@ -13,7 +13,7 @@ export const App = () => {
                 <SnackbarProvider>
                     <TabsProvider>
                         <AuthModalProvider>
-                            <MainPage />
+                            <MainRouter />
                         </AuthModalProvider>
                     </TabsProvider>
                 </SnackbarProvider>

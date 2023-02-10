@@ -1,7 +1,7 @@
 import { TabsActions, TabSectionFilter } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { StandardButton } from '@/ui/atoms/Buttons';
-import { FoldersIcon, SessionIcon, TabsIcon } from '@/ui/atoms/icons';
+import { SessionIcon, TabsIcon } from '@/ui/atoms/icons';
 import { AddTabs } from '@/ui/organisms/AddTabs';
 import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.styled';
 import { useNavigate } from 'react-router-dom';
@@ -26,13 +26,13 @@ const TabsSelection = () => {
                 onClick={() => changeActiveTab(TabSectionFilter.tabs)}
             />
 
-            <StandardButton
+            {/* <StandardButton
                 active={tabSection === TabSectionFilter.groups}
                 disabled={loading}
                 text="Groups"
                 icon={<FoldersIcon />}
                 onClick={() => changeActiveTab(TabSectionFilter.groups)}
-            />
+            /> */}
 
             <StandardButton
                 active={tabSection === TabSectionFilter.sessions}
