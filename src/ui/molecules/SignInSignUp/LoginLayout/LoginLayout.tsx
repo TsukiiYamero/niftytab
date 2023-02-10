@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FormEvent, RefObject } from 'react';
 import './login_layout.css';
@@ -6,6 +7,7 @@ import { Box, FormHelperText } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { BsGoogle } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 type Props = {
     emailRef: RefObject<HTMLInputElement>;
@@ -96,13 +98,24 @@ export const LoginLayout = ({
                         onClick={onSubmitForm}
                     >{title}</Button>
                 </Box>
+
             </div>
 
             <div className='bottom-login-container'>
                 {
                     isSignIn
                         ? <FormHelperText onClick={onForgotPassword} className='forgot-msg-login'>Forgot your password?</FormHelperText>
-                        : null
+                        : (
+                            <Box className='tos-privacy'>
+                                <FormHelperText>
+                                    By clicking "Create account", I agree to NiftyTab's
+                                </FormHelperText>
+                                <FormHelperText>
+                                    <a href={'https://niftytab.netlify.app/terms#termsSection'} target='_blank' rel="noreferrer">TOS</a> and
+                                    <a href={'https://niftytab.netlify.app/privacy#termsSection'} target='_blank' rel="noreferrer">Privacy Policy</a>.
+                                </FormHelperText>
+                            </Box>
+                        )
                 }
 
                 <div className='login-social-media'>

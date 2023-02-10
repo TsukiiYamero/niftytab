@@ -31,6 +31,16 @@ p.error-msg-login {
     padding-top: 8px;
 }
 
+.tos-privacy p:nth-child(2) {
+    display: flex;
+    gap: 5px;
+}
+
+.tos-privacy p:nth-child(2) a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
 p.forgot-msg-login {
     position: relative;
     right: -56%;
