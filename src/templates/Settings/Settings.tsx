@@ -36,8 +36,8 @@ export const SettingsTemplate = () => {
 
             <Box sx={{
                 display: 'grid',
-                gridTemplateColumns: '250px 1fr',
-                gap: '1.25rem',
+                gridTemplateColumns: '120px 1fr',
+                gap: '4rem',
                 paddingTop: '1.75rem'
             }}>
                 <Settings />
