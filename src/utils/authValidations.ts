@@ -44,3 +44,6 @@ export const recoveryPasswordValidation = {
         ...authValidationsBasic.validations.password
     }
 };
+
+// eslint-disable-next-line prefer-regex-literals
+export const PatternPassword = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
