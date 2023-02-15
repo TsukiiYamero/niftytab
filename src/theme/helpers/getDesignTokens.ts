@@ -49,6 +49,20 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
                 }
             })
     },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'system-ui',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"'
+        ].join(',')
+    },
     components: {
         ...(mode === 'light')
             ? {
