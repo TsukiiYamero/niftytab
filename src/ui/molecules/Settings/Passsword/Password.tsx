@@ -45,14 +45,30 @@ export const Password = () => {
 
     return (
         <Box>
-            <Typography variant='h3' >
+            <Typography variant='h5' >
                 Change Password
             </Typography>
 
             <FormHelperText>Please enter a new password for your account.</FormHelperText>
             <FormHelperText error>{msgError}</FormHelperText>
 
-            <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={{
+                borderWidth: '1px',
+                borderColor: '#ccc9c952',
+                borderStyle: 'solid',
+                marginTop: '1.5rem',
+                marginBottom: '1rem',
+                borderRadius: '1rem'
+            }}>
+            </Box>
+
+            <Box component={'form'} onSubmit={handleSubmit(onSubmit)} sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                paddingTop: '.7rem',
+                paddingRight: '1.5rem',
+                gap: '1.25rem'
+            }}>
                 <FormControl variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-confirm-password">Enter new Password</InputLabel>
                     <OutlinedInput
