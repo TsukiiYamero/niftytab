@@ -1,9 +1,7 @@
-import React from 'react';
+import { SettingsTemplate } from '@/templates/Settings';
 
 export const SettingsPage = () => {
   return (
-    <>
-
-    </>
+    <SettingsTemplate />
   );
 };
