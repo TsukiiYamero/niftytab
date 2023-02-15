@@ -17,8 +17,7 @@
 } */
 
 :root {
-  --main-font-family: SignikaNegative, "Segoe UI", Tahoma, Geneva, Verdana,
-    sans-serif;
+  --main-font-family: '-apple-system', 'system-ui', SignikaNegative, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-family: var(--main-font-family);
 
   color-scheme: light dark;
