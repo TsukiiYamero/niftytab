@@ -97,6 +97,13 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
                             }
                         }
                     }
+                },
+                MuiFormHelperText: {
+                    styleOverrides: {
+                        root: {
+                            color: '#c4c4c4'
+                        }
+                    }
                 }
             }
     }
