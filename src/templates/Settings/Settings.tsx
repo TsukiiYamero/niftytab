@@ -15,7 +15,7 @@ export const SettingsTemplate = () => {
             padding: '1.34rem'
         }}>
             <Box onClick={goToHome} sx={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: '.85rem',
                 cursor: 'pointer'
@@ -31,7 +31,6 @@ export const SettingsTemplate = () => {
                 marginBlock: '1rem',
                 borderRadius: '1rem'
             }}>
-
             </Box>
 
             <Box sx={{
