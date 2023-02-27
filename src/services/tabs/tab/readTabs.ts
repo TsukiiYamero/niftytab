@@ -22,3 +22,9 @@ export const readTabsWithFilter = (controller: AbortController, filter: ReadGrou
         .eq(filter.eq.column ?? '', filter.eq.equalTo ?? '')
         .abortSignal(controller.signal);
 };
+
+export const readAllTabs = (controller: AbortController, userId: string) => {
+    return supabase.rpc('all_tabs_info', {
+        p_user_id: userId
+    }).abortSignal(controller.signal);
+};
