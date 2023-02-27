@@ -14,6 +14,8 @@ export const AccountMenu = () => {
     const { openAuthModal, setIsSignIn } = useAuthModal();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+    const userInitial = user?.email ? user.email.charAt(0).toUpperCase() : 'N';
+
     const open = Boolean(anchorEl);
 
     const onSignIn = () => {
@@ -78,7 +80,9 @@ export const AccountMenu = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }}>
+                            {userInitial}
+                        </Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
