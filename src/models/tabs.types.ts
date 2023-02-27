@@ -71,3 +71,18 @@ export type SupabaseCommonResponse = {
     data: any[],
     error: PostgrestError | null
 }
+
+// All Tabs Info
+export interface AllTabsInfoSupabase {
+    count_badge: number;
+    id: number;
+    name: string;
+    tabs: TabsSupabase[];
+};
+
+export interface AllTabsInfo {
+    countBadge: number;
+    id: number;
+    name: string;
+    tabs: NiftyTab[];
+}

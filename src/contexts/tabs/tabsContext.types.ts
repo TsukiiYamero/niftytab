@@ -1,4 +1,4 @@
-import { NiftyTab, SessionNiftyCount } from '@/models';
+import { AllTabsInfo, NiftyTab, SessionNiftyCount } from '@/models';
 
 export enum TabSectionFilter {
     tabs = 'tabs',
@@ -11,14 +11,12 @@ export enum TypeOfStore {
     cloud = 'cloud'
 }
 
-export interface TabsStore<T> {
-    local: NiftyTab[];
-    cloud: NiftyTab[];
-    sessions: SessionNiftyCount[];
-    // i'm think if this should be the just a keyword
-    // and where filtered is used, do the filter manual
-    filtered: T[];
+export interface TabsStore {
     isFiltering: boolean;
+    filterSection: TabSectionFilter;
+    local: NiftyTab[];
+    cloud: AllTabsInfo[];
+    sessions: SessionNiftyCount[];
     tabSection: TabSectionFilter;
     typeOfStore: TypeOfStore;
     loading: boolean;
@@ -28,9 +26,10 @@ export enum TabsActions {
     requestTabs = 'request_tabs',
     resetTabs = 'reset_tabs',
     finishRequestTabs = 'finish_request_tabs',
-    isFiltering = 'is_filtering',
 
-    updatedFiltered = 'updated_filtered',
+    isFiltering = 'is_filtering',
+    changeFilterSection = 'change_filter_section',
+
     updateLocal = 'update_local',
     updateCloud = 'update_cloud',
     updateSessions = 'update_sessions',
@@ -46,11 +45,12 @@ export type TabsActionType =
     | { type: TabsActions.resetTabs; }
     | { type: TabsActions.requestTabs; }
     | { type: TabsActions.finishRequestTabs; }
+
     | { type: TabsActions.isFiltering; payload: boolean }
+    | { type: TabsActions.changeFilterSection; payload: TabSectionFilter; }
 
     | { type: TabsActions.updateLocal; payload: NiftyTab[]; }
-    | { type: TabsActions.updateCloud; payload: NiftyTab[]; }
-    | { type: TabsActions.updatedFiltered; payload: NiftyTab[] | SessionNiftyCount[]; }
+    | { type: TabsActions.updateCloud; payload: AllTabsInfo[]; }
     | { type: TabsActions.updateSessions; payload: SessionNiftyCount[]; }
 
     | { type: TabsActions.deleteTabInCloud; payload: string; }
