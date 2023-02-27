@@ -4,6 +4,9 @@ import { NavLink, useLocation } from 'react-router-dom';
 export const Settings = () => {
     const { pathname } = useLocation();
     const listSettings = [{
+        path: 'account',
+        text: 'Account'
+    }, {
         path: 'password',
         text: 'Password'
     }];
