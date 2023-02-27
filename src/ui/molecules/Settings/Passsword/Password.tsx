@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Button, FormHelperText, InputLabel, OutlinedInput, Typography, IconButton, InputAdornment, FormControl } from '@mui/material';
 import { MouseEvent, useState } from 'react';
+import { CommonLine } from '@/ui/atoms/CommonLine';
 
 type ChangePassword = { password: string, passwordConfirm: string }
 
@@ -52,15 +53,7 @@ export const Password = () => {
             <FormHelperText>Please enter a new password for your account.</FormHelperText>
             <FormHelperText error>{msgError}</FormHelperText>
 
-            <Box sx={{
-                borderWidth: '1px',
-                borderColor: '#ccc9c952',
-                borderStyle: 'solid',
-                marginTop: '1.5rem',
-                marginBottom: '1rem',
-                borderRadius: '1rem'
-            }}>
-            </Box>
+            <CommonLine />
 
             <Box component={'form'} onSubmit={handleSubmit(onSubmit)} sx={{
                 display: 'flex',
