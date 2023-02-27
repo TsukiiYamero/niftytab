@@ -13,7 +13,6 @@ export const TabStoreSelection = () => {
     const changeTabStoredType = (storedType: TypeOfStore) => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: storedType });
         navigate(`/${tabSection}/${storedType}`);
-        console.log(`/${tabSection}/${storedType}`);
     };
 
     return (
