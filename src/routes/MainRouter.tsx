@@ -8,7 +8,7 @@ import { SessionsCloudTemplate, SessionsTemplate } from '@/templates/SessionsTem
 import { LocalStore, CloudStore } from '@/utils/niftyDefaults';
 import MainPage from '@/pages/mainPage/MainPage';
 import { SettingsPage } from '@/pages/Settings';
-import { Password } from '@/ui/molecules/Settings';
+import { AccountInfo, Password } from '@/ui/molecules/Settings';
 
 const router = createMemoryRouter([
     {
@@ -45,6 +45,9 @@ const router = createMemoryRouter([
         element: <SettingsPage />,
         errorElement: <ErrorPage />,
         children: [{
+            path: 'account',
+            element: <AccountInfo />
+        }, {
             path: 'password',
             element: <Password />
         }]
