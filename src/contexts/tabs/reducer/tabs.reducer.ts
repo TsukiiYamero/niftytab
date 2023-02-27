@@ -16,14 +16,7 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
     switch (action.type) {
         case TabsActions.resetTabs:
             return {
-                ...state,
-                cloud: [],
-                sessions: [],
-                filtered: [],
-                isFiltering: false,
-                typeOfStore: TypeOfStore.local,
-                tabSection: TabSectionFilter.tabs,
-                loading: false
+                ...tabsInitialState
             };
         case TabsActions.requestTabs:
             return {

@@ -4,10 +4,13 @@ import { TabsActions } from '@/contexts/tabs';
 import { useAuthDispatch } from '../hooks';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LocalStore } from '@/utils/niftyDefaults';
 
 export const useLogOut = () => {
     const authDispatch = useAuthDispatch();
     const tabsDispatch = useTabsDispatch();
+    const navigateTo = useNavigate();
 
     const logOut = useCallback(async () => {
         authDispatch({ type: AuthActions.requestLogin });
@@ -20,7 +23,9 @@ export const useLogOut = () => {
 
         tabsDispatch({ type: TabsActions.resetTabs });
         authDispatch({ type: AuthActions.logout });
-    }, [authDispatch, tabsDispatch]);
+
+        navigateTo(`/tabs/${LocalStore}`);
+    }, [authDispatch, tabsDispatch, navigateTo]);
 
     return logOut;
 };
