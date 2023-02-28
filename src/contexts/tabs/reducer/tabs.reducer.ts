@@ -38,7 +38,7 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
         case TabsActions.updateCloud:
             return {
                 ...state,
-                // cloud: action.payload,
+                cloud: action.payload,
                 loading: false
             };
         case TabsActions.deleteTabInCloud:
