@@ -20,8 +20,6 @@ export const TabsListingsContainer = () => {
                     dispatch={dispatch} />
                 : <MemoizedTabsListingsCloud
                     cloud={cloud}
-                    filtered={(filtered as NiftyTab[])}
-                    isFiltering={isFiltering}
                     loading={loading}
                     dispatch={dispatch} />
             : <SessionListingCloud />

@@ -1,49 +1,54 @@
-import { TabsActions, TabsActionType } from '@/contexts/tabs';
-import { useTabsCloudOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
-import { NiftyTab } from '@/models';
-import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch, memo, useEffect } from 'react';
-import { TabsListings } from '../presentational';
-import { useAuthState } from '@/contexts/auth';
-import { useGetDefaultUserIds, useGetTabsByFilter } from '@/customHooks/tabs';
+import { AllTabsInfo, AllTabsInfoSupabase, NiftyTab } from '@/models';
 import { AuthenticatedContent } from '@/ui/atoms/AuthenticatedContent';
+import { CloudListings } from '../presentational';
+import { readAllTabs } from '@/services/tabs';
+import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
+import { TabsActions, TabsActionType } from '@/contexts/tabs';
+import { useAuthState } from '@/contexts/auth';
+import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
+import { useTabsCloudOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
 
 type props = {
-    cloud: NiftyTab[];
-    filtered: NiftyTab[];
-    isFiltering: boolean;
+    cloud: AllTabsInfo[];
     loading: boolean;
     dispatch: Dispatch<TabsActionType>;
 }
 
-export const TabsListingsCloud = ({ cloud, filtered, isFiltering, loading, dispatch }: props) => {
-    const getTabsBySessionDefault = useGetTabsByFilter();
-    const { getDefaultUserIds } = useGetDefaultUserIds();
+export const TabsListingsCloud = ({ cloud, loading, dispatch }: props) => {
+    // const { getDefaultUserIds } = useGetDefaultUserIds();
     const { user } = useAuthState();
+    const { callApi: fetchAllTabs } = useFetchWithCallback();
     const makeTabsOptsList = useTabsCloudOptionList();
 
     useEffect(() => {
         const fetchData = async () => {
             dispatch({ type: TabsActions.requestTabs });
-
-            const { defaultsIds, error: errorInIds } = await getDefaultUserIds();
-            const { data, error } = await getTabsBySessionDefault('session_id', defaultsIds?.sessionId);
-
+            const { data, error } = await fetchAllTabs(readAllTabs, user?.id);
             dispatch({ type: TabsActions.finishRequestTabs });
 
-            if (error ?? errorInIds) return;
+            if (error) return;
 
-            dispatch({ type: TabsActions.updateCloud, payload: supabaseTabsToNiftyTabs(data) });
+            const groupTabs: AllTabsInfoSupabase[] = data[0]?.data || [];
+
+            const tabsToCloud: AllTabsInfo[] = groupTabs.map(group => {
+                return {
+                    ...group,
+                    countBadge: group.count_badge,
+                    tabs: supabaseTabsToNiftyTabs(group.tabs)
+                };
+            });
+
+            dispatch({ type: TabsActions.updateCloud, payload: tabsToCloud });
         };
 
         user && fetchData();
-    }, [dispatch, getDefaultUserIds, getTabsBySessionDefault, user]);
-
-    const tabsToShow = isFiltering ? filtered : cloud;
+    }, [dispatch, fetchAllTabs, user]);
 
     return (
         <AuthenticatedContent>
-            <TabsListings loading={loading} tabs={tabsToShow} makeTabsOptsList={makeTabsOptsList} />
+            <CloudListings cloudGroup={cloud} loading={loading} makeTabsOptsList={makeTabsOptsList} />
         </AuthenticatedContent>
     );
 };
