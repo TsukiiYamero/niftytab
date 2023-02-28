@@ -14,6 +14,7 @@ export enum TypeOfStore {
 export interface TabsStore {
     isFiltering: boolean;
     filterSection: TabSectionFilter;
+    filterQuery: string;
     local: NiftyTab[];
     cloud: AllTabsInfo[];
     sessions: SessionNiftyCount[];
@@ -29,6 +30,7 @@ export enum TabsActions {
 
     isFiltering = 'is_filtering',
     changeFilterSection = 'change_filter_section',
+    filterQuery = 'filter_query',
 
     updateLocal = 'update_local',
     updateCloud = 'update_cloud',
@@ -48,6 +50,7 @@ export type TabsActionType =
 
     | { type: TabsActions.isFiltering; payload: boolean }
     | { type: TabsActions.changeFilterSection; payload: TabSectionFilter; }
+    | { type: TabsActions.filterQuery; payload: string; }
 
     | { type: TabsActions.updateLocal; payload: NiftyTab[]; }
     | { type: TabsActions.updateCloud; payload: AllTabsInfo[]; }

@@ -3,6 +3,7 @@ import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TypeOfStore }
 export const tabsInitialState: TabsStore = {
     isFiltering: false,
     filterSection: TabSectionFilter.tabs,
+    filterQuery: '',
     local: [],
     cloud: [],
     sessions: [],
@@ -60,6 +61,13 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
                 filterSection: action.payload,
                 loading: false
             };
+        case TabsActions.filterQuery:
+            return {
+                ...state,
+                filterQuery: action.payload,
+                loading: false
+            };
+
         // sessions
         case TabsActions.updateSessions:
             return {
