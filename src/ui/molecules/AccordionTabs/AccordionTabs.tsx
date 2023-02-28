@@ -12,6 +12,7 @@ type Props = {
 
 export const AccordionTabs = ({ cloudGroup, makeTabsOptsList }: Props) => {
     const id = useId();
+
     return (
         <Accordion >
             <AccordionSummary
@@ -25,7 +26,11 @@ export const AccordionTabs = ({ cloudGroup, makeTabsOptsList }: Props) => {
                     justifyContent: 'space-between',
                     paddingRight: '1rem'
                 }}>
-                    <Typography>{cloudGroup.name}</Typography>
+                    <Typography sx={{
+                        textTransform: 'capitalize'
+                    }}>
+                        {cloudGroup.name}
+                    </Typography>
 
                     <Badge badgeContent={cloudGroup.countBadge} color="default">
                         <ContentCopyOutlined titleAccess={`${cloudGroup.countBadge} Tabs in this session`} />
