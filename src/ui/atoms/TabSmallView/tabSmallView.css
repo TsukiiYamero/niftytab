@@ -1,7 +1,7 @@
 .tab-Small-View__container {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  width: 320px;
+  width: 292px;
   height: max-content;
   gap: 10px;
   align-items: center;
@@ -23,7 +23,7 @@
 }
 
 .tab-Small-View__container>span {
-  font-size: var(--font-size-common);
+  font-size: var(--font-size-small);
   color: var(--main-text-color);
 }
 
