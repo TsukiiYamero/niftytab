@@ -22,7 +22,7 @@ export const TabsListings = ({ tabs = [], loading, makeTabsOptsList }: Props) =>
                     : <ContentNotFound condition={tabs.length > 0}>
                         <ListingsGrid>
                             {tabs.map((tab) => (
-                                <TabsListing key={tab.refererId} tab={tab} makeTabsOptsList={makeTabsOptsList} />
+                                <TabsListing key={tab.refererId} tab={tab} makeTabsOptsList={makeTabsOptsList ? makeTabsOptsList(tab) : []} />
                             ))}
                         </ListingsGrid>
                     </ ContentNotFound>
