@@ -9,6 +9,7 @@ import { TabsActions, TabsActionType } from '@/contexts/tabs';
 import { useAuthState } from '@/contexts/auth';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { useTabsCloudOptionList } from '@/customHooks/tabs/useTabsSavedOptionList';
+import { moveItem } from '@/utils';
 
 type props = {
     cloud: AllTabsInfo[];
@@ -40,7 +41,12 @@ export const TabsListingsCloud = ({ cloud, loading, dispatch }: props) => {
                 };
             });
 
-            dispatch({ type: TabsActions.updateCloud, payload: tabsToCloud });
+            // moving default to first position
+            let tabsOrdered = tabsToCloud;
+            const groupDefaultIndex = tabsToCloud.findIndex(group => group.name === 'default');
+            if (groupDefaultIndex > -1) tabsOrdered = moveItem(tabsToCloud, groupDefaultIndex, 0);
+
+            dispatch({ type: TabsActions.updateCloud, payload: tabsOrdered });
         };
 
         user && fetchData();
