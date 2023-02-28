@@ -1,5 +1,5 @@
 import { useAuthState } from '@/contexts/auth';
-import { UserNoAuthenticatedMessage } from '@/ui/organisms/TabsListings';
+import { UserNoAuthenticatedMessage } from '@/ui/molecules/UserNotAuthenticatedMessage';
 import { ReactNode } from 'react';
 
 type Props = {
