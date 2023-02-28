@@ -4,7 +4,7 @@ import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { getAllChromeTabs } from '@/utils/chrome';
 import { chromeTabsToNiftyTabs } from '@/utils/tabs';
 import { Dispatch, useEffect, memo } from 'react';
-import { TabsListings } from '../presentational';
+import { TabsListings } from '../../presentational';
 
 type props = {
   local: NiftyTab[];

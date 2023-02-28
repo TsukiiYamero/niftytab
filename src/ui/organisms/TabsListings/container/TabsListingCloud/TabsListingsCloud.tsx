@@ -2,7 +2,7 @@
 import { Dispatch, memo, useEffect } from 'react';
 import { AllTabsInfo, AllTabsInfoSupabase, NiftyTab } from '@/models';
 import { AuthenticatedContent } from '@/ui/atoms/AuthenticatedContent';
-import { CloudListings } from '../presentational';
+import { CloudListings } from '../../presentational';
 import { readAllTabs } from '@/services/tabs';
 import { supabaseTabsToNiftyTabs } from '@/utils/tabs';
 import { TabsActions, TabsActionType } from '@/contexts/tabs';
