@@ -1,11 +1,11 @@
 import { createContext, Dispatch } from 'react';
 import { TabsActionType, TabSectionFilter, TabsStore, TypeOfStore } from './tabsContext.types';
-import { NiftyTab, SessionNiftyCount } from '@/models';
 
-export const TabsStoreContext = createContext<TabsStore<NiftyTab | SessionNiftyCount>>({
+export const TabsStoreContext = createContext<TabsStore>({
+    filterQuery: '',
+    filterSection: TabSectionFilter.tabs,
     local: [],
     cloud: [],
-    filtered: [],
     sessions: [],
     tabSection: TabSectionFilter.tabs,
     typeOfStore: TypeOfStore.local,

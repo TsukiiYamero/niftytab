@@ -1,5 +1,6 @@
-import { TabsNotFound } from '@/ui/organisms/TabsListings';
+
 import { ReactNode } from 'react';
+import { DataNotFound } from '@/ui/atoms/DataNotFound';
 
 type Props = {
     condition: boolean;
@@ -12,5 +13,5 @@ type Props = {
 export const ContentNotFound = ({ condition, children }: Props) => {
     if (condition) return <>{children}</>;
 
-    return <TabsNotFound />;
+    return <DataNotFound />;
 };

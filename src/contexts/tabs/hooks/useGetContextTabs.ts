@@ -3,6 +3,10 @@ import { TabsDispatchContext, TabsStoreContext } from '../tabsContext';
 
 export const useGetTabsContext = () => {
     const context = useContext(TabsStoreContext);
+
+    if (!context)
+        throw new Error('TabsStoreContext does not exist');
+
     return context;
 };
 

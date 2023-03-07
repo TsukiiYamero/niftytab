@@ -4,7 +4,7 @@ type Props = {
     msg?: string
 }
 
-export const TabsNotFound = ({ msg = 'Ops... No results found' }: Props) => {
+export const DataNotFound = ({ msg = 'Ops... No results found' }: Props) => {
     return (
         <div className='tabs-not-found-results'>
             {/* recuperada de: https://www.mothershipcorp.com/images/slider-6.png */}

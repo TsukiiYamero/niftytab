@@ -8,13 +8,11 @@ import { TabsListings } from '../../presentational';
 
 type props = {
   local: NiftyTab[];
-  filtered: NiftyTab[];
-  isFiltering: boolean;
   loading: boolean;
   dispatch: Dispatch<TabsActionType>;
 }
 
-export const TabsListingsLocal = ({ local, loading, filtered, isFiltering, dispatch }: props) => {
+export const TabsListingsLocal = ({ local, loading, dispatch }: props) => {
   useEffect(() => {
     const getTabs = async () => {
       dispatch({ type: TabsActions.requestTabs });
@@ -26,11 +24,9 @@ export const TabsListingsLocal = ({ local, loading, filtered, isFiltering, dispa
     getTabs();
   }, [dispatch]);
 
-  const tabsToShow = isFiltering ? filtered : local;
-
   return (
     <>
-      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={tabsToShow} />}
+      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={local} />}
     </>
   );
 };

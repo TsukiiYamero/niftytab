@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import TabsSection from '@/templates/TabsSection/TabsSection';
 import Navbar from '@/ui/organisms/Navbar/Navbar';
 import { MainPageWrapper } from './MainPageWrapper.styled';
-import { MainContent } from '@/templates/MainContent';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
     const navigate = useNavigate();
@@ -18,7 +16,7 @@ const MainPage = () => {
         <MainPageWrapper>
             <Navbar />
             <TabsSection />
-            <MainContent />
+            <Outlet />
         </MainPageWrapper>
     );
 };

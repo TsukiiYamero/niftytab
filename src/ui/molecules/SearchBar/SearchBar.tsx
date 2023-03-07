@@ -1,57 +1,40 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChangeEvent, useEffect, useState, useCallback } from 'react';
 import { SearchBarWrapper } from './searchBarWrapper.styled';
 import { SearchInput } from './SearchInput.styled';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
-import { TabSectionFilter, TabsActions, TypeOfStore } from '@/contexts/tabs';
-import { filterTabsByTitleOrUrl } from '@/utils/tabs';
+import { TabsActions } from '@/contexts/tabs';
 import { CancelRounded } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-
-import './search_bar.css';
 import { useDebounce } from '@/customHooks/useDebounce';
-import { filterSession } from '@/utils/sessions';
-import { NiftyTab, SessionNiftyCount } from '@/models';
+import { useNavigate } from 'react-router-dom';
+import './search_bar.css';
 
 const SearchBar = () => {
-    const { isFiltering, cloud, sessions, local, typeOfStore, tabSection } = useGetTabsContext();
+    const { isFiltering, filterSection } = useGetTabsContext();
     const dispatch = useTabsDispatch();
+    const navigateTo = useNavigate();
     const [searchWord, setSearchWord] = useState('');
-    const debouncedValue = useDebounce({ value: searchWord, delay: 430 });
+    const debouncedValue: string = useDebounce({ value: searchWord, delay: 430 });
 
     /**
      * Active and Filter tabs by the type of storage
      */
-    const setFilterState = useCallback(() => {
+    const setFilterState = useCallback((query: string) => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
-
-        const tabsToFilter = typeOfStore === TypeOfStore.local ? local : cloud;
-
-        let listFiltered: NiftyTab[] | SessionNiftyCount[] = [];
-
-        switch (tabSection) {
-            case TabSectionFilter.tabs:
-                listFiltered = filterTabsByTitleOrUrl(tabsToFilter, debouncedValue ?? '');
-                break;
-            case TabSectionFilter.sessions:
-                listFiltered = filterSession(sessions, debouncedValue ?? '');
-                break;
-
-            default: listFiltered = [];
-                break;
-        }
-
-        dispatch({ type: TabsActions.updatedFiltered, payload: listFiltered });
-    }, [dispatch, typeOfStore, local, cloud, tabSection, debouncedValue, sessions]);
+        dispatch({ type: TabsActions.filterQuery, payload: query });
+        navigateTo(`/filter/${filterSection}`);
+    }, [dispatch, navigateTo, filterSection]);
 
     useEffect(() => {
         if (debouncedValue.trim().length > 0)
-            setFilterState();
+            setFilterState(debouncedValue);
     }, [debouncedValue, setFilterState]);
 
     const cancelFilter = () => {
-        dispatch({ type: TabsActions.updatedFiltered, payload: [] });
         dispatch({ type: TabsActions.isFiltering, payload: false });
+        dispatch({ type: TabsActions.filterQuery, payload: '' });
+        navigateTo('/tabs');
+        console.log('a');
     };
 
     const onSearch = (ev: ChangeEvent<HTMLInputElement>) => {

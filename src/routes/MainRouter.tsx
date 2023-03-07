@@ -3,12 +3,12 @@ import {
     RouterProvider
 } from 'react-router-dom';
 import { ErrorPage } from '@/pages/ErrorPage';
-import { TabsLocalTemplate, TabsCloudTemplate, TabsTemplate } from '@/templates/TabsTemplate';
-import { SessionsCloudTemplate, SessionsTemplate } from '@/templates/SessionsTemplate';
 import { LocalStore, CloudStore } from '@/utils/niftyDefaults';
 import MainPage from '@/pages/mainPage/MainPage';
 import { SettingsPage } from '@/pages/Settings';
 import { AccountInfo, Password } from '@/ui/molecules/Settings';
+import { SessionsCloudTemplate, SessionsTemplate, TabsCloudTemplate, TabsLocalTemplate, TabsTemplate } from '@/templates/MainTemplates';
+import { TabsTemplateFiltered } from '@/templates/FilterTemplates';
 
 const router = createMemoryRouter([
     {
@@ -38,6 +38,13 @@ const router = createMemoryRouter([
                         element: <SessionsCloudTemplate />
                     }
                 ]
+            },
+            {
+                path: 'filter/tabs',
+                element: <TabsTemplateFiltered />
+            }, {
+                path: 'filter/sessions',
+                element: <SessionsCloudTemplate />
             }
         ]
     }, {

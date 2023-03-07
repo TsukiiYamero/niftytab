@@ -2,7 +2,6 @@ import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { ReadSessions, readTabs } from '@/services/tabs';
 import { useEffect } from 'react';
 import { ListingsGrouping } from '../../presentational/ListingsGrouping';
-import { SessionNiftyCount } from '@/models';
 import { getBadgeCount, makeListSessionWithBadgeCount, makeSessionNifty as supabaseSessionToNiftySession } from '@/utils/sessions';
 import { useSessionOptions } from '@/customHooks/sessions';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
@@ -20,7 +19,7 @@ export const SessionListingCloud = () => {
     const { callApi } = useFetchWithCallback();
     const { callApi: fetchGetTabs } = useFetchWithCallback();
     const { user } = useAuthState();
-    const { sessions, loading, isFiltering, filtered } = useGetTabsContext();
+    const { sessions, loading } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const sessionOptions = useSessionOptions();
 
@@ -36,6 +35,8 @@ export const SessionListingCloud = () => {
 
             const { data: dataTabs, error: errorTabs } = respAll[0];
             const { data: dataSessions, error: errorSessions } = respAll[1];
+
+            // Refactorizar ya tengo el nuevo procedure
 
             if (!errorTabs && !errorSessions) {
                 const niftyTabs = supabaseTabsToNiftyTabs(dataTabs);
@@ -54,14 +55,12 @@ export const SessionListingCloud = () => {
         user && getSessions();
     }, [user, fetchGetTabs, callApi, dispatch]);
 
-    const tabsToShow = isFiltering ? (filtered as SessionNiftyCount[]) : sessions;
-
     return (
         <AuthenticatedContent>
             {
                 loading
                     ? <SimpleLoading />
-                    : <ListingsGrouping loading={loading} sessions={tabsToShow} sessionOptionsList={sessionOptions} />
+                    : <ListingsGrouping sessions={sessions} sessionOptionsList={sessionOptions} />
             }
         </AuthenticatedContent>
     );
