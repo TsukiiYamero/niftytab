@@ -1,8 +1,8 @@
-import { AllTabsInfo } from '@/models';
+import { TabsCloud } from '@/models';
 import { filterTabsByTitleOrUrl } from './filterTabsByTitleOrUrl';
 
-export const filterAllTabsInfo = (AllTabsInfo: AllTabsInfo[] = [], query: string): AllTabsInfo[] => {
-    const newList: AllTabsInfo[] = [];
+export const filterAllTabsInfo = (AllTabsInfo: TabsCloud[] = [], query: string): TabsCloud[] => {
+    const newList: TabsCloud[] = [];
 
     AllTabsInfo.forEach(group => {
         const listItemsFound = filterTabsByTitleOrUrl(group.tabs, query);
