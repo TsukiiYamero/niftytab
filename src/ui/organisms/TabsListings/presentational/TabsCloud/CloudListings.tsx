@@ -1,4 +1,4 @@
-import { AllTabsInfo, NiftyTab } from '@/models';
+import { TabsCloud, NiftyTab } from '@/models';
 import { ContentNotFound } from '@/ui/atoms/ContentNotFound';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { AccordionTabs } from '@/ui/molecules/AccordionTabs/AccordionTabs';
@@ -6,7 +6,7 @@ import { OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 import { Box } from '@mui/material';
 
 type Props = {
-    cloudGroup: AllTabsInfo[],
+    cloudGroup: TabsCloud[],
     loading: boolean,
     makeTabsOptsList: (tab: NiftyTab) => OptionBtnMenuList[];
 }

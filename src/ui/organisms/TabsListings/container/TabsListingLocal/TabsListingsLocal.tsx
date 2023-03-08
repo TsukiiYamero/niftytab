@@ -1,32 +1,25 @@
-import { TabsActions, TabsActionType } from '@/contexts/tabs';
-import { NiftyTab } from '@/models';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
-import { getAllChromeTabs } from '@/utils/chrome';
-import { chromeTabsToNiftyTabs } from '@/utils/tabs';
-import { Dispatch, useEffect, memo } from 'react';
+import { memo } from 'react';
 import { TabsListings } from '../../presentational';
+import { useGetTabsCloud } from '@/customHooks/tabs/useGetTabsCloud';
+import { useSetTabsCloud } from '@/customHooks/tabs/useSetTabsCloud';
+import { useGetTabsLocal } from '@/customHooks/tabs/useGetTabsLocal';
+import { useSetTabsLocal } from '@/customHooks/tabs/useSetTabsLocal';
 
 type props = {
-  local: NiftyTab[];
   loading: boolean;
-  dispatch: Dispatch<TabsActionType>;
 }
 
-export const TabsListingsLocal = ({ local, loading, dispatch }: props) => {
-  useEffect(() => {
-    const getTabs = async () => {
-      dispatch({ type: TabsActions.requestTabs });
-
-      const resp = await getAllChromeTabs();
-      const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
-      dispatch({ type: TabsActions.updateLocal, payload: dataTabs });
-    };
-    getTabs();
-  }, [dispatch]);
+export const TabsListingsLocal = ({ loading }: props) => {
+  // fetching cloud because can search inmediately in local & cloud
+  const { tabsCloud } = useGetTabsCloud();
+  useSetTabsCloud(tabsCloud);
+  const tabsLocal = useGetTabsLocal();
+  useSetTabsLocal(tabsLocal);
 
   return (
     <>
-      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={local} />}
+      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={tabsLocal} />}
     </>
   );
 };
