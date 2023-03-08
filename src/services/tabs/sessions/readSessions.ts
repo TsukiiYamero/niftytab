@@ -24,3 +24,9 @@ export const readDefaultSession = (controller: AbortController) => {
         }
     });
 };
+
+export const readAllSessions = (controller: AbortController, userId: string) => {
+    return supabase.rpc('sessions_info', {
+        p_user_id: userId
+    }).abortSignal(controller.signal);
+};
