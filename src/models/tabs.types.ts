@@ -73,14 +73,14 @@ export type SupabaseCommonResponse = {
 }
 
 // All Tabs Info
-export interface AllTabsInfoSupabase {
+export interface TabsCloudSupabase {
     count_badge: number;
     id: number;
     name: string;
     tabs: TabsSupabase[];
 };
 
-export interface AllTabsInfo {
+export interface TabsCloud {
     countBadge: number;
     id: number;
     name: string;

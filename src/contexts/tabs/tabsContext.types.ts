@@ -1,4 +1,4 @@
-import { AllTabsInfo, NiftyTab, SessionNiftyCount } from '@/models';
+import { TabsCloud, NiftyTab, SessionNiftyCount } from '@/models';
 
 export enum TabSectionFilter {
     tabs = 'tabs',
@@ -16,7 +16,7 @@ export interface TabsStore {
     filterSection: TabSectionFilter;
     filterQuery: string;
     local: NiftyTab[];
-    cloud: AllTabsInfo[];
+    cloud: TabsCloud[];
     sessions: SessionNiftyCount[];
     tabSection: TabSectionFilter;
     typeOfStore: TypeOfStore;
@@ -53,7 +53,7 @@ export type TabsActionType =
     | { type: TabsActions.filterQuery; payload: string; }
 
     | { type: TabsActions.updateLocal; payload: NiftyTab[]; }
-    | { type: TabsActions.updateCloud; payload: AllTabsInfo[]; }
+    | { type: TabsActions.updateCloud; payload: TabsCloud[]; }
     | { type: TabsActions.updateSessions; payload: SessionNiftyCount[]; }
 
     | { type: TabsActions.deleteTabInCloud; payload: string; }
