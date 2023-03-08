@@ -1,1 +1,1 @@
-export * from './TabsFiltered';
+export * from './SearchResultsTabs';

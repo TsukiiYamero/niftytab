@@ -4,6 +4,7 @@ import { BarsIcon, FilterIcon } from '@/ui/atoms/icons';
 import { IconsSize } from '@/utils/icons/iconsPropertys';
 import { useState } from 'react';
 import { TabStoreSelection } from '../TabStoreSelection';
+import { useGetTabsContext } from '@/contexts/tabs/hooks';
 
 type TabsSelection = {
     smallView?: boolean;
@@ -17,6 +18,7 @@ enum TabSelectionOpts {
 
 const TabsFiltersSelection = () => {
     const [filter, setFilter] = useState<TabsSelection>({ smallView: true });
+    const { isFiltering } = useGetTabsContext();
 
     const changeActiveFilter = (ev: TabSelectionOpts) => {
         setFilter({
@@ -26,23 +28,29 @@ const TabsFiltersSelection = () => {
 
     return (
         <div className="tab-store-selection-container">
-            <TabStoreSelection />
-            <div className="tab-store-selection-filter-view">
-                <StandardButton
-                    active={filter.smallView}
-                    disabled={false}
-                    icon={<BarsIcon />}
-                    iconSize={IconsSize.small}
-                    onClick={() => changeActiveFilter(TabSelectionOpts.smallView)}
-                />
+            {
+                isFiltering
+                    ? null
+                    : <>
+                        <TabStoreSelection />
+                        <div className="tab-store-selection-filter-view">
+                            <StandardButton
+                                active={filter.smallView}
+                                disabled={false}
+                                icon={<BarsIcon />}
+                                iconSize={IconsSize.small}
+                                onClick={() => changeActiveFilter(TabSelectionOpts.smallView)}
+                            />
 
-                <StandardButton
-                    active={filter.normalView}
-                    icon={<FilterIcon />}
-                    iconSize={IconsSize.small}
-                    onClick={() => changeActiveFilter(TabSelectionOpts.normalView)}
-                />
-            </div>
+                            <StandardButton
+                                active={filter.normalView}
+                                icon={<FilterIcon />}
+                                iconSize={IconsSize.small}
+                                onClick={() => changeActiveFilter(TabSelectionOpts.normalView)}
+                            />
+                        </div>
+                    </>
+            }
         </div>
     );
 };

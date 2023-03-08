@@ -6,7 +6,8 @@ import { TabsActions } from '@/contexts/tabs';
 import { CancelRounded } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useDebounce } from '@/customHooks/useDebounce';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { SearchPath } from '@/utils';
 import './search_bar.css';
 
 const SearchBar = () => {
@@ -15,6 +16,12 @@ const SearchBar = () => {
     const navigateTo = useNavigate();
     const [searchWord, setSearchWord] = useState('');
     const debouncedValue: string = useDebounce({ value: searchWord, delay: 430 });
+    const location = useLocation();
+
+    useEffect(() => {
+        // Google Analytics
+        console.log('loc', location);
+    }, [location]);
 
     /**
      * Active and Filter tabs by the type of storage
@@ -22,19 +29,20 @@ const SearchBar = () => {
     const setFilterState = useCallback((query: string) => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
         dispatch({ type: TabsActions.filterQuery, payload: query });
-        navigateTo(`/filter/${filterSection}`);
+        navigateTo(`/${SearchPath}/${filterSection}`);
     }, [dispatch, navigateTo, filterSection]);
 
     useEffect(() => {
-        if (debouncedValue.trim().length > 0)
+        if (debouncedValue.trim().length > 0 && searchWord.trim().length > 0)
             setFilterState(debouncedValue);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedValue, setFilterState]);
 
     const cancelFilter = () => {
         dispatch({ type: TabsActions.isFiltering, payload: false });
         dispatch({ type: TabsActions.filterQuery, payload: '' });
         navigateTo('/tabs');
-        console.log('a');
     };
 
     const onSearch = (ev: ChangeEvent<HTMLInputElement>) => {

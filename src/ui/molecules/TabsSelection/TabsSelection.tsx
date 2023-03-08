@@ -7,7 +7,7 @@ import { TabsSelectionWrapper } from './styledComponents/TabsSelectionWrapper.st
 import { useNavigate } from 'react-router-dom';
 
 const TabsSelection = () => {
-    const { tabSection, loading } = useGetTabsContext();
+    const { tabSection, loading, isFiltering } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const TabsSelection = () => {
         <TabsSelectionWrapper>
             <StandardButton
                 active={tabSection === TabSectionFilter.tabs}
-                disabled={loading}
+                disabled={loading || isFiltering}
                 text="Tabs"
                 icon={<TabsIcon />}
                 onClick={() => changeActiveTab(TabSectionFilter.tabs)}
@@ -36,7 +36,7 @@ const TabsSelection = () => {
 
             <StandardButton
                 active={tabSection === TabSectionFilter.sessions}
-                disabled={loading}
+                disabled={loading || isFiltering}
                 text="Sessions"
                 icon={<SessionIcon />}
                 onClick={() => changeActiveTab(TabSectionFilter.sessions)}

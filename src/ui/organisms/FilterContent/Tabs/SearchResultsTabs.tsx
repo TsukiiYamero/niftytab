@@ -1,6 +1,6 @@
 import { TabsActions } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
-import { AllTabsInfo, NiftyTab } from '@/models';
+import { TabsCloud, NiftyTab } from '@/models';
 import { filterTabsByTitleOrUrl } from '@/utils';
 import { filterAllTabsInfo } from '@/utils/tabs/filterAllTabsInfo';
 import { Box } from '@mui/material';
@@ -10,14 +10,14 @@ import { CloudListings, TabsListings } from '../../TabsListings';
 import { useAuthState } from '@/contexts/auth';
 import { useTabsCloudOptionList } from '@/customHooks/tabs';
 
-export const TabsFiltered = () => {
+export const SearchResultTabs = () => {
     const { filterQuery, local, cloud, loading } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const makeTabsOptsList = useTabsCloudOptionList();
     const { user } = useAuthState();
     const [dataFiltered, setDataFiltered] = useState<{
         local: NiftyTab[],
-        cloud: AllTabsInfo[]
+        cloud: TabsCloud[]
     }>({
         local: [],
         cloud: []
