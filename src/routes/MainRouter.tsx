@@ -8,7 +8,7 @@ import MainPage from '@/pages/mainPage/MainPage';
 import { SettingsPage } from '@/pages/Settings';
 import { AccountInfo, Password } from '@/ui/molecules/Settings';
 import { SessionsCloudTemplate, SessionsTemplate, TabsCloudTemplate, TabsLocalTemplate, TabsTemplate } from '@/templates/MainTemplates';
-import { TabsTemplateFiltered } from '@/templates/FilterTemplates';
+import { SearchTabsTemplate } from '@/templates/SearchTemplates';
 
 const router = createMemoryRouter([
     {
@@ -41,7 +41,7 @@ const router = createMemoryRouter([
             },
             {
                 path: `${SearchPath}/tabs`,
-                element: <TabsTemplateFiltered />
+                element: <SearchTabsTemplate />
             }, {
                 path: `${SearchPath}/sessions`,
                 element: <SessionsCloudTemplate />
