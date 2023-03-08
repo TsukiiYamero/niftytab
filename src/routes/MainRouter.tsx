@@ -3,7 +3,7 @@ import {
     RouterProvider
 } from 'react-router-dom';
 import { ErrorPage } from '@/pages/ErrorPage';
-import { LocalStore, CloudStore } from '@/utils/niftyDefaults';
+import { LocalStore, CloudStore, SearchPath } from '@/utils/niftyDefaults';
 import MainPage from '@/pages/mainPage/MainPage';
 import { SettingsPage } from '@/pages/Settings';
 import { AccountInfo, Password } from '@/ui/molecules/Settings';
@@ -40,10 +40,10 @@ const router = createMemoryRouter([
                 ]
             },
             {
-                path: 'filter/tabs',
+                path: `${SearchPath}/tabs`,
                 element: <TabsTemplateFiltered />
             }, {
-                path: 'filter/sessions',
+                path: `${SearchPath}/sessions`,
                 element: <SessionsCloudTemplate />
             }
         ]
