@@ -1,12 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Typography } from '@mui/material';
 import { ExpandMore, ContentCopyOutlined } from '@mui/icons-material';
-import { AllTabsInfo, NiftyTab } from '@/models';
+import { TabsCloud, NiftyTab } from '@/models';
 import { TabsListing } from '@/ui/organisms/TabsListings';
 import { OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 import { useId } from 'react';
 
 type Props = {
-    cloudGroup: AllTabsInfo;
+    cloudGroup: TabsCloud;
     makeTabsOptsList: (tab: NiftyTab) => OptionBtnMenuList[];
 }
 
