@@ -31,9 +31,9 @@ export const TabsListingsCloud = ({ cloud, loading, dispatch }: props) => {
 
             if (error) return;
 
+            // handle objects name
             const groupTabs: AllTabsInfoSupabase[] = data[0]?.data || [];
-
-            const tabsToCloud: AllTabsInfo[] = groupTabs.map(group => {
+            const tabsToCloudStore: AllTabsInfo[] = groupTabs.map(group => {
                 return {
                     ...group,
                     countBadge: group.count_badge,
@@ -41,10 +41,10 @@ export const TabsListingsCloud = ({ cloud, loading, dispatch }: props) => {
                 };
             });
 
-            // moving default to first position
-            let tabsOrdered = tabsToCloud;
-            const groupDefaultIndex = tabsToCloud.findIndex(group => group.name === 'default');
-            if (groupDefaultIndex > -1) tabsOrdered = moveItem(tabsToCloud, groupDefaultIndex, 0);
+            // moving default group to first position
+            let tabsOrdered = tabsToCloudStore;
+            const groupDefaultIndex = tabsToCloudStore.findIndex(group => group.name === 'default');
+            if (groupDefaultIndex > -1) tabsOrdered = moveItem(tabsToCloudStore, groupDefaultIndex, 0);
 
             dispatch({ type: TabsActions.updateCloud, payload: tabsOrdered });
         };
