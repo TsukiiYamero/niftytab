@@ -3,18 +3,25 @@ import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { AllTabsInfo, NiftyTab } from '@/models';
 import { filterTabsByTitleOrUrl } from '@/utils';
 import { filterAllTabsInfo } from '@/utils/tabs/filterAllTabsInfo';
-import { MemoizedTabsListingsLocal, MemoizedTabsListingsCloud } from '@/ui/organisms/TabsListings/container';
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { DataNotFound } from '@/ui/atoms/DataNotFound';
+import { CloudListings, TabsListings } from '../../TabsListings';
+import { useAuthState } from '@/contexts/auth';
+import { useTabsCloudOptionList } from '@/customHooks/tabs';
 
 export const TabsFiltered = () => {
     const { filterQuery, local, cloud, loading } = useGetTabsContext();
+    const dispatch = useTabsDispatch();
+    const makeTabsOptsList = useTabsCloudOptionList();
+    const { user } = useAuthState();
     const [dataFiltered, setDataFiltered] = useState<{
         local: NiftyTab[],
         cloud: AllTabsInfo[]
-    }>();
-
-    const dispatch = useTabsDispatch();
+    }>({
+        local: [],
+        cloud: []
+    });
 
     useEffect(() => {
         dispatch({ type: TabsActions.requestTabs });
@@ -28,15 +35,29 @@ export const TabsFiltered = () => {
 
     return (
         <Box>
-            <MemoizedTabsListingsLocal
-                local={dataFiltered?.local ?? []}
-                loading={loading}
-                dispatch={dispatch} />
 
-            <MemoizedTabsListingsCloud
-                cloud={dataFiltered?.cloud ?? []}
-                loading={loading}
-                dispatch={dispatch} />
-        </Box>
+            {/* NO estoy seguro si deberia hacer esta parte de esta forma jumm
+                Basicamente es para que cada parte no muetre el astrounata de not found
+            */}
+
+            {
+                dataFiltered.local.length === 0
+                    ? null
+                    : <TabsListings loading={loading} tabs={dataFiltered.local} />
+            }
+
+            {
+                !user || dataFiltered.cloud.length === 0
+                    ? null
+                    : <CloudListings cloudGroup={dataFiltered.cloud} loading={loading} makeTabsOptsList={makeTabsOptsList} />
+            }
+
+            {
+                (!user || dataFiltered.cloud.length === 0) && dataFiltered.local.length === 0
+                    ? <DataNotFound />
+                    : null
+            }
+
+        </Box >
     );
 };
