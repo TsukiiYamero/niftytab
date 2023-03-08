@@ -3,7 +3,6 @@ import { TabsActionType, TabSectionFilter, TabsStore, TypeOfStore } from './tabs
 
 export const TabsStoreContext = createContext<TabsStore>({
     filterQuery: '',
-    filterSection: TabSectionFilter.tabs,
     local: [],
     cloud: [],
     sessions: [],

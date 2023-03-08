@@ -1,22 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChangeEvent, useEffect, useState, useCallback } from 'react';
-import { SearchBarWrapper } from './searchBarWrapper.styled';
-import { SearchInput } from './SearchInput.styled';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
-import { TabsActions } from '@/contexts/tabs';
+import { TabSectionFilter, TabsActions } from '@/contexts/tabs';
 import { CancelRounded } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { FormControl, IconButton, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import { useDebounce } from '@/customHooks/useDebounce';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchPath } from '@/utils';
 import './search_bar.css';
 
 const SearchBar = () => {
-    const { isFiltering, filterSection } = useGetTabsContext();
+    const { isFiltering, tabSection } = useGetTabsContext();
     const dispatch = useTabsDispatch();
     const navigateTo = useNavigate();
     const [searchWord, setSearchWord] = useState('');
     const debouncedValue: string = useDebounce({ value: searchWord, delay: 430 });
     const location = useLocation();
+
+    const changeSearchSection = (event: SelectChangeEvent) => {
+        const valueSelected = event.target.value as TabSectionFilter;
+        dispatch({ type: TabsActions.changeTabsSection, payload: valueSelected });
+        navigateTo(valueSelected);
+    };
 
     useEffect(() => {
         // Google Analytics
@@ -29,8 +34,8 @@ const SearchBar = () => {
     const setFilterState = useCallback((query: string) => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
         dispatch({ type: TabsActions.filterQuery, payload: query });
-        navigateTo(`/${SearchPath}/${filterSection}`);
-    }, [dispatch, navigateTo, filterSection]);
+        navigateTo(`/${SearchPath}/${tabSection}`);
+    }, [dispatch, navigateTo, tabSection]);
 
     useEffect(() => {
         if (debouncedValue.trim().length > 0 && searchWord.trim().length > 0)
@@ -42,7 +47,7 @@ const SearchBar = () => {
     const cancelFilter = () => {
         dispatch({ type: TabsActions.isFiltering, payload: false });
         dispatch({ type: TabsActions.filterQuery, payload: '' });
-        navigateTo('/tabs');
+        navigateTo(`/${tabSection}`);
     };
 
     const onSearch = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -58,21 +63,32 @@ const SearchBar = () => {
     };
 
     return (
-        <SearchBarWrapper>
-            <SearchInput
-                value={searchWord}
-                type="text"
-                onChange={onSearch}
-                placeholder="Search tab, group, session"
-            />
+        <>
+            <FormControl sx={{ minWidth: 120 }} size="small">
+                <Select
+                    value={tabSection}
+                    onChange={changeSearchSection}
+                    displayEmpty
+                >
+                    <MenuItem value={TabSectionFilter.tabs}>Tabs</MenuItem>
+                    <MenuItem value={TabSectionFilter.sessions}>Sessions</MenuItem>
+                </Select>
+            </FormControl>
 
-            {isFiltering
-                ? <IconButton onClick={cancelSearch} className='btn-cancel-search' color="primary" aria-label="Cancel search" component="label">
-                    <CancelRounded />
-                </ IconButton>
-                : null}
-
-        </SearchBarWrapper>
+            <FormControl fullWidth variant="outlined" size='small'>
+                <OutlinedInput
+                    id="outlined-adornment-SearchBar"
+                    value={searchWord}
+                    onChange={onSearch}
+                    placeholder={`Search in ${tabSection}`}
+                    endAdornment={isFiltering
+                        ? <IconButton onClick={cancelSearch} className='btn-cancel-search' color="primary" aria-label="Cancel search" component="label">
+                            <CancelRounded />
+                        </ IconButton>
+                        : null}
+                />
+            </FormControl>
+        </>
     );
 };
 

@@ -2,7 +2,6 @@ import { TabsActions, TabsActionType, TabSectionFilter, TabsStore, TypeOfStore }
 
 export const tabsInitialState: TabsStore = {
     isFiltering: false,
-    filterSection: TabSectionFilter.tabs,
     filterQuery: '',
     local: [],
     cloud: [],
@@ -53,12 +52,6 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
             return {
                 ...state,
                 isFiltering: action.payload,
-                loading: false
-            };
-        case TabsActions.changeFilterSection:
-            return {
-                ...state,
-                filterSection: action.payload,
                 loading: false
             };
         case TabsActions.filterQuery:
