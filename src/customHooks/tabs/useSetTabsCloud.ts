@@ -11,5 +11,6 @@ export const useSetTabsCloud = (TabsCloud: TabsCloud[] = []) => {
 
     useEffect(() => {
         dispatch({ type: TabsActions.updateCloud, payload: TabsCloud });
+        console.log('alaaa', TabsCloud);
     }, [TabsCloud, dispatch]);
 };

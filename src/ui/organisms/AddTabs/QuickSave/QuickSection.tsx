@@ -52,11 +52,13 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
         if (!defaultsIds || defaultIdsError.trim()) return;
 
         const tabsCreated = await saveTabs(TabsToSave, defaultsIds);
-        // adding tabs created to TabsCloud
+
+        // make arr TabsCloud to TabsReducer
         const tabsDefault = saved.map(tab => {
             if (tab.name === SESSION_DEFAULT) {
                 return {
                     ...tab,
+                    countBadge: tab.countBadge + 1,
                     tabs: [...tab.tabs, ...tabsCreated]
                 };
             }

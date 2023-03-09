@@ -34,7 +34,7 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
                 local: action.payload,
                 loading: false
             };
-        // cloud
+        // cloud group
         case TabsActions.updateCloud:
             return {
                 ...state,
@@ -44,7 +44,15 @@ export const tabsReducer = (state = tabsInitialState, action: TabsActionType): T
         case TabsActions.deleteTabInCloud:
             return {
                 ...state,
-                // cloud: state.cloud.filter(tab => tab.url !== action.payload),
+                cloud: state.cloud.map(group => {
+                    const tabs = group.tabs.filter(tab => tab.url !== action.payload);
+
+                    return {
+                        ...group,
+                        countBadge: group.countBadge - 1,
+                        tabs
+                    };
+                }),
                 loading: false
             };
         // filter
