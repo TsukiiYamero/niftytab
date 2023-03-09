@@ -8,7 +8,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ViewTimelineOutlinedIcon from '@mui/icons-material/ViewTimelineOutlined';
 import { useSnackbar } from '@/contexts/snackbar/hooks';
-import { SessionNifty, TabsSupabase } from '@/models';
+import { SessionCloud, TabsSupabase } from '@/models';
 import { deleteSessions } from '@/services/tabs/sessions/deleteSessions';
 import { EditOutlined } from '@mui/icons-material';
 import { deleteTabsBySessionId } from '@/services/tabs';
@@ -31,7 +31,7 @@ export const useSessionOptions = () => {
     }, [getTabsBySessionId]);
 
     const openAllSession = useCallback(
-        (session: SessionNifty) => {
+        (session: SessionCloud) => {
             return async () => {
                 const tabs: TabsSupabase[] = await getTabsFromSupabaseBySessionId(session.id);
 
@@ -47,21 +47,21 @@ export const useSessionOptions = () => {
         }, [getTabsFromSupabaseBySessionId, showSnackbar]
     );
 
-    const viewDetails = useCallback((session: SessionNifty) => {
+    const viewDetails = useCallback((session: SessionCloud) => {
         return async () => {
             showSnackbar('View Details are in construction');
             // console.log(data);
         };
     }, [showSnackbar]);
 
-    const editSession = useCallback((session: SessionNifty) => {
+    const editSession = useCallback((session: SessionCloud) => {
         return () => {
             showSnackbar('Edit are in construction');
         };
     }, [showSnackbar]);
 
     const deleteSession = useCallback(
-        (session: SessionNifty) => {
+        (session: SessionCloud) => {
             return async () => {
                 dispatch({ type: TabsActions.requestTabs });
 
@@ -84,7 +84,7 @@ export const useSessionOptions = () => {
         }, [callApi, dispatch, fetchDeleteTabs, showSnackbar]
     );
 
-    const optsList = useCallback((session: SessionNifty): OptionBtnMenuList[] => {
+    const optsList = useCallback((session: SessionCloud): OptionBtnMenuList[] => {
         return [{
             onClick: openAllSession(session), text: 'Open Session', Icon: OpenInNewIcon
         }, {

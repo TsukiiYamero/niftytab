@@ -1,7 +1,5 @@
-import React from 'react';
+import { SearchResultsSessions } from '@/ui/organisms/SearchContent';
 
 export const SearchSessionsTemplate = () => {
-    return (
-        <div>SearchSessionsTemplate</div>
-    );
+    return <SearchResultsSessions />;
 };
