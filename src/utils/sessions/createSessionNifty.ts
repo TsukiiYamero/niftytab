@@ -1,8 +1,8 @@
-import { SessionNifty, SessionSupabase } from '@/models';
 
-export const makeSessionNifty = (sessionSupabase: SessionSupabase[] = []): SessionNifty[] => {
+/* export const makeSessionNifty = (sessionSupabase: SessionSupabase[] = []): SessionNifty[] => {
     return sessionSupabase.map((session: SessionSupabase) => ({
         browserName: session.browser_name,
         id: session.id
     }));
-};
+}; */
+export { };
