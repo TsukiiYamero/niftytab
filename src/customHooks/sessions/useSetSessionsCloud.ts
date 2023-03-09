@@ -1,12 +1,19 @@
 import { TabsActions } from '@/contexts/tabs';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
-import { SessionCloud } from '@/models';
 import { useEffect } from 'react';
+import { useGetSessionsCloud } from './useGetSessionsCloud';
 
-export const useSetSessionsCloud = (SessionCloud: SessionCloud[] = []) => {
+export const useSetSessionsCloud = () => {
     const dispatch = useTabsDispatch();
+    const { sessionsCloud } = useGetSessionsCloud();
 
     useEffect(() => {
-        dispatch({ type: TabsActions.updateSessions, payload: SessionCloud });
-    }, [SessionCloud, dispatch]);
+        const getSessions = async () => {
+            dispatch({ type: TabsActions.requestTabs });
+            dispatch({ type: TabsActions.updateSessions, payload: sessionsCloud });
+            dispatch({ type: TabsActions.finishRequestTabs });
+        };
+
+        getSessions();
+    }, [dispatch, sessionsCloud]);
 };

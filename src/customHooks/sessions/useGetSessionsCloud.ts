@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useAuthState } from '@/contexts/auth';
 import { TabsActions } from '@/contexts/tabs';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
@@ -18,9 +17,8 @@ export const useGetSessionsCloud = () => {
         if (!user) return;
 
         dispatch({ type: TabsActions.requestTabs });
-        const { data, error } = await callApi(readAllSessions, user.id);
-        dispatch({ type: TabsActions.finishRequestTabs });
 
+        const { data, error } = await callApi(readAllSessions, user.id);
         if (error) return;
 
         const groupTabs: TabsCloudSupabase[] = data[0]?.data || [];
@@ -34,10 +32,10 @@ export const useGetSessionsCloud = () => {
         // remove default group
         const defaultSessionIndex = SessionCloud.findIndex(session => session.name === SESSION_DEFAULT);
         SessionCloud.splice(defaultSessionIndex, 1);
-        console.log('sessions executed local', SessionCloud);
 
         setSessionsCloud(SessionCloud);
-        // dispatch({ type: TabsActions.updateSessions, payload: SessionCloud });
+        dispatch({ type: TabsActions.updateSessions, payload: SessionCloud });
+        dispatch({ type: TabsActions.finishRequestTabs });
     }, [callApi, dispatch, user]);
 
     useEffect(() => {
