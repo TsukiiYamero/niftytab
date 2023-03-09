@@ -12,7 +12,7 @@ export const AddTabs = () => {
         <div>
             <StandardButton
                 icon={<CloudUploadOutlined />}
-                text={'Save Tabs'}
+                text={'Save'}
                 onClick={() => openModal()}
             />
 
