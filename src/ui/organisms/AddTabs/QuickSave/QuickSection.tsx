@@ -94,7 +94,7 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
 
         if (!sessionCreated) return;
 
-        // parsing to cloud
+        // parsing for store
         const sessionCreatedCloud: SessionCloud = {
             countBadge: sessionCreated.badgeContent,
             name: sessionCreated.browserName,
@@ -103,7 +103,8 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
 
         dispatch({ type: TabsActions.updateSessions, payload: [...sessions, sessionCreatedCloud] ?? [] });
         showSnackbar('Session saved', 'success');
-    }, [closeModal, saveSession, dispatch, sessions, showSnackbar]);
+        closeSaveModal();
+    }, [closeModal, saveSession, dispatch, sessions, showSnackbar, closeSaveModal]);
 
     return (
         <>
