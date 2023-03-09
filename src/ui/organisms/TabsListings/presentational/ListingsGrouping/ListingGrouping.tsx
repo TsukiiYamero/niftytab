@@ -1,11 +1,11 @@
-import { SessionNifty, SessionNiftyCount } from '@/models';
+import { SessionCloud } from '@/models';
 import { SessionItem } from '@/ui/atoms/SessionItem';
 import { OptionBtnMenu, OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 import { useMemo } from 'react';
 
 type Props = {
-    session: SessionNiftyCount;
-    sessionOptionsList: (session: SessionNifty) => OptionBtnMenuList[];
+    session: SessionCloud;
+    sessionOptionsList: (session: SessionCloud) => OptionBtnMenuList[];
 }
 
 export const ListingGrouping = ({ session, sessionOptionsList }: Props) => {
@@ -13,8 +13,8 @@ export const ListingGrouping = ({ session, sessionOptionsList }: Props) => {
 
     return (
         <SessionItem
-            title={session.browserName}
-            badgeContent={session.badgeContent}
+            title={session.name}
+            badgeContent={session.countBadge}
         >
             {
                 sessionOptionsList.length > 0

@@ -46,11 +46,11 @@ export const useSaveTabs = () => {
             return [];
         }
 
-        const result = await fetchCreateTabs(createTabs, tabsFiltered);
+        const { error } = await fetchCreateTabs(createTabs, tabsFiltered);
 
-        if (result.error) {
+        if (error) {
             showSnackbar(ERROR_MESSAGE, 'error');
-            console.error('Results All: ', result.error);
+            console.error('Results All: ', error);
             return [];
         }
 
@@ -58,5 +58,5 @@ export const useSaveTabs = () => {
         return tabsCreated;
     };
 
-    return { saveTabs };
+    return saveTabs;
 };

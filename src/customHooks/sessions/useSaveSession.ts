@@ -4,13 +4,12 @@ import { useSaveTabs } from '../tabs/useSaveTabs';
 import { useGetDefaultUserIds } from '../tabs/useGetDefaultsTabsId';
 import { createSession } from '@/services/tabs';
 import { useFetchWithCallback } from '../useFetchWithCallback';
-import { SessionNiftyCount, SessionTabsSupabase } from '@/models';
+import { SessionCloudSaveNifty, SessionTabsSupabase } from '@/models';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
-import { TabsActions } from '@/contexts/tabs';
 
 export const useSaveSession = () => {
     const { user } = useAuthState();
-    const { saveTabs } = useSaveTabs();
+    const saveTabs = useSaveTabs();
     const dispatch = useTabsDispatch();
     const { sessions } = useGetTabsContext();
     const { getDefaultUserIds } = useGetDefaultUserIds();
@@ -37,7 +36,7 @@ export const useSaveSession = () => {
 
         const tabs = await saveTabs(currentChromeTabs, { groupId: defaultsIds.groupId as number, sessionId: sessionId as number });
 
-        const sessionSaved: SessionNiftyCount = {
+        const sessionSaved: SessionCloudSaveNifty = {
             browserName: sessionName,
             id: sessionId,
             badgeContent: tabs.length
@@ -46,5 +45,5 @@ export const useSaveSession = () => {
         return sessionSaved;
     };
 
-    return { saveSession };
+    return saveSession;
 };

@@ -5,7 +5,7 @@ import { TabsCloud, TabsCloudSupabase } from '@/models';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsActions } from '@/contexts/tabs';
 import { readAllTabs } from '@/services/tabs';
-import { moveItem, supabaseTabsToNiftyTabs } from '@/utils';
+import { SESSION_DEFAULT, moveItem, supabaseTabsToNiftyTabs } from '@/utils';
 
 /**
  * Fetches data, transforms it, and return it.
@@ -38,7 +38,7 @@ export const useGetTabsCloud = () => {
 
         // moving default group to first position
         let tabsOrdered = tabsToCloudStore;
-        const groupDefaultIndex = tabsToCloudStore.findIndex(group => group.name === 'default');
+        const groupDefaultIndex = tabsToCloudStore.findIndex(group => group.name === SESSION_DEFAULT);
         if (groupDefaultIndex > -1) tabsOrdered = moveItem(tabsToCloudStore, groupDefaultIndex, 0);
 
         setTabsCloud(tabsOrdered);

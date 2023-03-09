@@ -72,6 +72,31 @@ export type SupabaseCommonResponse = {
     error: PostgrestError | null
 }
 
+// all session Info
+export interface SessionCloudSupabase {
+    count_badge: number;
+    id: number;
+    name: string;
+};
+
+export interface SessionCloud {
+    countBadge: number;
+    id: number;
+    name: string;
+}
+// session save
+export interface SessionCloudSaveSupabase {
+    browser_name: string;
+    id: number;
+    badge_content: number;
+
+}
+export interface SessionCloudSaveNifty {
+    browserName: string;
+    id: number;
+    badgeContent: number;
+}
+
 // All Tabs Info
 export interface TabsCloudSupabase {
     count_badge: number;

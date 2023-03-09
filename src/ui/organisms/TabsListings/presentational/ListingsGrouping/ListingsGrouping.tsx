@@ -1,12 +1,12 @@
-import { SessionNifty, SessionNiftyCount } from '@/models';
+import { SessionCloud } from '@/models';
 import { ListingGrouping } from './ListingGrouping';
 import { ListingsGrid } from '../ListingsGrid.styled';
 import { OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 import { DataNotFound } from '@/ui/atoms/DataNotFound';
 
 type Props = {
-    sessions: SessionNiftyCount[],
-    sessionOptionsList: (session: SessionNifty) => OptionBtnMenuList[];
+    sessions: SessionCloud[],
+    sessionOptionsList: (session: SessionCloud) => OptionBtnMenuList[];
 }
 
 export const ListingsGrouping = ({ sessions, sessionOptionsList }: Props) => {

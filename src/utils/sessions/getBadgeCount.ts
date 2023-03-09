@@ -1,4 +1,4 @@
-import { SessionNifty, SessionNiftyCount, NiftyTab } from '@/models';
+import { SessionCloud, NiftyTab } from '@/models';
 
 type uniqueSession = {
     id: number;
@@ -27,8 +27,8 @@ export const getBadgeCount = (data: NiftyTab[]) => {
 /**
  * To show the number of tabs in the session
  */
-export const makeListSessionWithBadgeCount = (dataSessions: SessionNifty[] = [], listOfCount: uniqueSession[] = []): SessionNiftyCount[] => {
-    return dataSessions.map((session: SessionNifty) => {
+export const makeListSessionWithBadgeCount = (dataSessions: SessionCloud[] = [], listOfCount: uniqueSession[] = []): SessionCloud[] => {
+    return dataSessions.map((session: SessionCloud) => {
         const sameSessionItem = listOfCount.find(sessionCount => Number(sessionCount.id) === session.id);
 
         return {

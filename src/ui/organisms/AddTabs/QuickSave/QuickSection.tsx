@@ -13,8 +13,9 @@ import { QuickSession } from './QuickSession';
 import { useCallback } from 'react';
 import { useGetDefaultUserIds } from '@/customHooks/tabs/useGetDefaultsTabsId';
 import { useSaveSession } from '@/customHooks/sessions/useSaveSession';
-import { SUCCESS_MESSAGE } from '@/utils';
+import { SESSION_DEFAULT, SUCCESS_MESSAGE } from '@/utils';
 import { useSnackbar } from '@/contexts/snackbar/hooks';
+import { SessionCloud } from '@/models';
 
 type Props = {
     closeModal: () => void
@@ -29,8 +30,8 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
     const { openAuthModal, setIsSignIn } = useAuthModal();
     const { isOpen, openModal, closeModal } = useModal();
 
-    const { saveTabs } = useSaveTabs();
-    const { saveSession } = useSaveSession();
+    const saveTabs = useSaveTabs();
+    const saveSession = useSaveSession();
 
     const handleSaveTabs = async (saveAll = true) => {
         if (!user) {
@@ -51,10 +52,21 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
         if (!defaultsIds || defaultIdsError.trim()) return;
 
         const tabsCreated = await saveTabs(TabsToSave, defaultsIds);
+        // adding tabs created to TabsCloud
+        const tabsDefault = saved.map(tab => {
+            if (tab.name === SESSION_DEFAULT) {
+                return {
+                    ...tab,
+                    tabs: [...tab.tabs, ...tabsCreated]
+                };
+            }
+
+            return tab;
+        });
 
         if (tabsCreated.length > 0) {
             showSnackbar(SUCCESS_MESSAGE, 'success');
-            dispatch({ type: TabsActions.updateCloud, payload: [...saved, ...tabsCreated] ?? [] });
+            dispatch({ type: TabsActions.updateCloud, payload: tabsDefault ?? [] });
         }
 
         dispatch({ type: TabsActions.finishRequestTabs });
@@ -80,7 +92,14 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
 
         if (!sessionCreated) return;
 
-        dispatch({ type: TabsActions.updateSessions, payload: [...sessions, sessionCreated] ?? [] });
+        // parsing to cloud
+        const sessionCreatedCloud: SessionCloud = {
+            countBadge: sessionCreated.badgeContent,
+            name: sessionCreated.browserName,
+            id: sessionCreated.id
+        };
+
+        dispatch({ type: TabsActions.updateSessions, payload: [...sessions, sessionCreatedCloud] ?? [] });
         showSnackbar('Session saved', 'success');
     }, [closeModal, saveSession, dispatch, sessions, showSnackbar]);
 

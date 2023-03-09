@@ -1,7 +1,7 @@
-import { SessionNiftyCount } from '@/models';
+import { SessionCloud } from '@/models';
 
-export const filterSession = (list: SessionNiftyCount[], keyword: string) => {
+export const filterSession = (list: SessionCloud[], keyword: string) => {
     return list.filter(session =>
-        session.browserName.toLowerCase().includes(keyword.toLowerCase())
+        session.name.toLowerCase().includes(keyword.toLowerCase())
     );
 };
