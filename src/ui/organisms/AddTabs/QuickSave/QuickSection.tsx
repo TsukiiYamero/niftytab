@@ -58,7 +58,7 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
             if (tab.name === SESSION_DEFAULT) {
                 return {
                     ...tab,
-                    countBadge: tab.countBadge + 1,
+                    countBadge: tab.countBadge + tabsCreated.length,
                     tabs: [...tab.tabs, ...tabsCreated]
                 };
             }
