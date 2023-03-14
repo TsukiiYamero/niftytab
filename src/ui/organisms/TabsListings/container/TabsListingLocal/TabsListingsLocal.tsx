@@ -1,25 +1,16 @@
 import { SimpleLoading } from '@/ui/atoms/Loadings';
 import { memo } from 'react';
 import { TabsListings } from '../../presentational';
-import { useGetTabsCloud } from '@/customHooks/tabs/useGetTabsCloud';
-import { useSetTabsCloud } from '@/customHooks/tabs/useSetTabsCloud';
-import { useGetTabsLocal } from '@/customHooks/tabs/useGetTabsLocal';
-import { useSetTabsLocal } from '@/customHooks/tabs/useSetTabsLocal';
+import { useGetTabsCloud, useGetTabsLocal } from '@/customHooks/tabs';
 
-type props = {
-  loading: boolean;
-}
-
-export const TabsListingsLocal = ({ loading }: props) => {
+export const TabsListingsLocal = () => {
   // fetching cloud because can search inmediately in local & cloud
-  const { tabsCloud } = useGetTabsCloud();
-  useSetTabsCloud(tabsCloud);
-  const tabsLocal = useGetTabsLocal();
-  useSetTabsLocal(tabsLocal);
+  useGetTabsCloud();
+  const { local, loading } = useGetTabsLocal();
 
   return (
     <>
-      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={tabsLocal} />}
+      {loading ? <SimpleLoading /> : <TabsListings loading={loading} tabs={local} />}
     </>
   );
 };

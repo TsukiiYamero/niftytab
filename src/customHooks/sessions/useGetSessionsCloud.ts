@@ -1,6 +1,6 @@
 import { useAuthState } from '@/contexts/auth';
 import { TabsActions } from '@/contexts/tabs';
-import { useTabsDispatch } from '@/contexts/tabs/hooks';
+import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { SessionCloud, TabsCloudSupabase } from '@/models';
 import { readAllSessions } from '@/services/tabs';
@@ -8,10 +8,11 @@ import { SESSION_DEFAULT } from '@/utils';
 import { useCallback, useEffect, useState } from 'react';
 
 export const useGetSessionsCloud = () => {
-    const { callApi } = useFetchWithCallback();
     const { user } = useAuthState();
+    const { loading } = useGetTabsContext();
+    const [dataToShow, setDataToShow] = useState<SessionCloud[]>([]);
+    const { callApi } = useFetchWithCallback();
     const dispatch = useTabsDispatch();
-    const [sessionsCloud, setSessionsCloud] = useState<SessionCloud[]>([]);
 
     const getSessions = useCallback(async () => {
         if (!user) return;
@@ -31,16 +32,16 @@ export const useGetSessionsCloud = () => {
 
         // remove default group
         const defaultSessionIndex = SessionCloud.findIndex(session => session.name === SESSION_DEFAULT);
-        SessionCloud.splice(defaultSessionIndex, 1);
+        SessionCloud.splice(defaultSessionIndex, 1); // cambiar por metodo inmutable
 
-        setSessionsCloud(SessionCloud);
         dispatch({ type: TabsActions.updateSessions, payload: SessionCloud });
         dispatch({ type: TabsActions.finishRequestTabs });
+        setDataToShow(SessionCloud);
     }, [callApi, dispatch, user]);
 
     useEffect(() => {
         getSessions();
     }, [callApi, dispatch, getSessions]);
 
-    return { sessionsCloud, requestSessions: getSessions };
+    return { sessions: dataToShow, loading, requestSessions: getSessions };
 };

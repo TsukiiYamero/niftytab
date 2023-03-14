@@ -1,16 +1,13 @@
 import { ListingsGrouping } from '../../presentational/ListingsGrouping';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
-import { useGetTabsContext } from '@/contexts/tabs/hooks';
 import { AuthenticatedContent } from '@/ui/atoms/AuthenticatedContent';
 import { useGetSessionsCloud, useSessionOptions } from '@/customHooks/sessions';
-// import { useSetSessionsCloud } from '@/customHooks/sessions/useSetSessionsCloud';
 
 /**
  * Stateful comp to get the session list and group
  */
 export const SessionListingCloud = () => {
-    const { sessions, loading } = useGetTabsContext();
-    useGetSessionsCloud();
+    const { sessions, loading } = useGetSessionsCloud();
     const sessionOptions = useSessionOptions();
 
     return (

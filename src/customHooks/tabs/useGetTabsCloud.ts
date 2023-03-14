@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useAuthState } from '@/contexts/auth';
 import { useFetchWithCallback } from '../useFetchWithCallback';
 import { useCallback, useEffect, useState } from 'react';
 import { TabsCloud, TabsCloudSupabase } from '@/models';
-import { useTabsDispatch } from '@/contexts/tabs/hooks';
+import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsActions } from '@/contexts/tabs';
 import { readAllTabs } from '@/services/tabs';
 import { SESSION_DEFAULT, moveItem, supabaseTabsToNiftyTabs } from '@/utils';
@@ -13,8 +14,9 @@ import { SESSION_DEFAULT, moveItem, supabaseTabsToNiftyTabs } from '@/utils';
  */
 export const useGetTabsCloud = () => {
     const { user } = useAuthState();
+    const { loading } = useGetTabsContext();
     const { callApi: fetchAllTabs } = useFetchWithCallback();
-    const [tabsCloud, setTabsCloud] = useState<TabsCloud[]>([]);
+    const [dataToShow, setDataToShow] = useState<TabsCloud[]>([]);
     const dispatch = useTabsDispatch();
 
     const fetchData = useCallback(async () => {
@@ -22,7 +24,6 @@ export const useGetTabsCloud = () => {
 
         dispatch({ type: TabsActions.requestTabs });
         const { data, error } = await fetchAllTabs(readAllTabs, user?.id);
-        dispatch({ type: TabsActions.finishRequestTabs });
 
         if (error) return;
 
@@ -41,12 +42,14 @@ export const useGetTabsCloud = () => {
         const groupDefaultIndex = tabsToCloudStore.findIndex(group => group.name === SESSION_DEFAULT);
         if (groupDefaultIndex > -1) tabsOrdered = moveItem(tabsToCloudStore, groupDefaultIndex, 0);
 
-        setTabsCloud(tabsOrdered);
+        dispatch({ type: TabsActions.updateCloud, payload: tabsOrdered });
+        dispatch({ type: TabsActions.finishRequestTabs });
+        setDataToShow(tabsOrdered);
     }, [dispatch, fetchAllTabs, user]);
 
     useEffect(() => {
         fetchData();
     }, [dispatch, fetchAllTabs, fetchData]);
 
-    return { tabsCloud, reFetchTabsCloud: fetchData };
+    return { cloud: dataToShow, loading, reFetchTabsCloud: fetchData };
 };
