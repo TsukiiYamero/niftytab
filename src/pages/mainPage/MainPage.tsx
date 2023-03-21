@@ -1,16 +1,11 @@
 import TabsSection from '@/templates/TabsSection/TabsSection';
 import Navbar from '@/ui/organisms/Navbar/Navbar';
 import { MainPageWrapper } from './MainPageWrapper.styled';
-import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { useNavigateToLocal } from '@/customHooks/routes/useNavigateToLocalAndSaved';
 
 const MainPage = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        navigate('/tabs/local');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    useNavigateToLocal();
 
     return (
         <MainPageWrapper>

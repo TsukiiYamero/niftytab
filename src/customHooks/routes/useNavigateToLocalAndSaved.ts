@@ -1,6 +1,6 @@
 import { TabsActions, TypeOfStore } from '@/contexts/tabs';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
-import { CloudStore, LocalStore } from '@/utils/niftyDefaults';
+import { CloudStore } from '@/utils/niftyDefaults';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export const useNavigateToLocal = () => {
 
     useEffect(() => {
         dispatch({ type: TabsActions.changeTypeOfStore, payload: TypeOfStore.local });
-        navigate(LocalStore);
+        navigate('/tabs');
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);

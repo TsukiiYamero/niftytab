@@ -34,7 +34,7 @@ const SearchBar = () => {
     const setFilterState = useCallback((query: string) => {
         dispatch({ type: TabsActions.isFiltering, payload: true });
         dispatch({ type: TabsActions.filterQuery, payload: query });
-        navigateTo(`/${SearchPath}/${tabSection}`);
+        navigateTo(`/${tabSection}/${SearchPath}`);
     }, [dispatch, navigateTo, tabSection]);
 
     useEffect(() => {

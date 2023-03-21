@@ -5,7 +5,6 @@ import { useAuthDispatch } from '../hooks';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LocalStore } from '@/utils/niftyDefaults';
 
 export const useLogOut = () => {
     const authDispatch = useAuthDispatch();
@@ -24,7 +23,7 @@ export const useLogOut = () => {
         tabsDispatch({ type: TabsActions.resetTabs });
         authDispatch({ type: AuthActions.logout });
 
-        navigateTo(`/tabs/${LocalStore}`);
+        navigateTo('/tabs');
     }, [authDispatch, tabsDispatch, navigateTo]);
 
     return logOut;
