@@ -39,6 +39,10 @@ const router = createMemoryRouter([
                     {
                         path: CloudStore,
                         element: <SessionsCloudTemplate />
+                    },
+                    {
+                        path: '',
+                        element: <SessionsCloudTemplate />
                     }
                 ]
             },
