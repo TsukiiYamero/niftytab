@@ -6,6 +6,7 @@ specifiers:
   '@emotion/styled': ^11.10.5
   '@mui/icons-material': ^5.10.14
   '@mui/material': ^5.10.14
+  '@rive-app/react-canvas': ^3.0.38
   '@supabase/supabase-js': 2.0.0-rc.12
   '@testing-library/react': ^13.4.0
   '@types/chrome': ^0.0.197
@@ -43,6 +44,7 @@ dependencies:
   '@emotion/styled': 11.10.5_v3jpmsyrrjbqlfjkmhxeo24tsy
   '@mui/icons-material': 5.10.14_6pjcf7h5tmcvgxih7gd3ueablm
   '@mui/material': 5.10.14_rrrb7hooev7eucxoqykubwnawy
+  '@rive-app/react-canvas': 3.0.38_react@18.2.0
   '@supabase/supabase-js': 2.0.0-rc.12
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -806,6 +808,19 @@ packages:
   /@remix-run/router/1.2.1:
     resolution: {integrity: sha512-XiY0IsyHR+DXYS5vBxpoBe/8veTeoRpMHP+vDosLZxL5bnpetzI0igkxkLZS235ldLzyfkxF+2divEwWHP3vMQ==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@rive-app/canvas/1.0.102:
+    resolution: {integrity: sha512-EoJ+rNHh6ORn6wH1dKoI9trNddwSPkmYnGrVA7ShZwaDKl3LTDP8eWwSJp1wYmB2HE3dBjHZHQabQpFW8ohX7g==}
+    dev: false
+
+  /@rive-app/react-canvas/3.0.38_react@18.2.0:
+    resolution: {integrity: sha512-V5+/I1ZJP416sp1uIQqm0kn9mA1fq1pNx1Il/f5AQYQw8Fu4P7Ume4+2HrMfWN1EHMvSqEgaBfsBUpFtYMQ1vw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@rive-app/canvas': 1.0.102
+      react: 18.2.0
     dev: false
 
   /@rollup/pluginutils/4.2.1:
