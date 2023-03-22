@@ -4,13 +4,14 @@ import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsCloud, NiftyTab } from '@/models';
 import { filterTabsByTitleOrUrl } from '@/utils';
 import { filterAllTabsInfo } from '@/utils/tabs/filterAllTabsInfo';
-import { Box } from '@mui/material';
+import { Box, FormHelperText } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { DataNotFound } from '@/ui/atoms/DataNotFound';
 import { CloudListings, TabsListings } from '../../TabsListings';
 import { useAuthState } from '@/contexts/auth';
 import { useTabsCloudOptionList } from '@/customHooks/tabs';
 import { SimpleLoading } from '@/ui/atoms/Loadings';
+import { DEFAULT_SESSION_NAME } from '@/services/tabs';
 
 export const SearchResultTabs = () => {
     const { filterQuery, local, cloud, loading } = useGetTabsContext();
@@ -19,10 +20,12 @@ export const SearchResultTabs = () => {
     const { user } = useAuthState();
     const [dataFiltered, setDataFiltered] = useState<{
         local: NiftyTab[],
-        cloud: TabsCloud[]
+        cloud: TabsCloud[],
+        cloudUngrouped: TabsCloud[],
     }>({
         local: [],
-        cloud: []
+        cloud: [],
+        cloudUngrouped: []
     });
 
     useEffect(() => {
@@ -34,7 +37,15 @@ export const SearchResultTabs = () => {
         const listLocalFiltered = filterTabsByTitleOrUrl(local, filterQuery);
         const listCloudFiltered = filterAllTabsInfo(cloud, filterQuery);
 
-        setDataFiltered({ local: listLocalFiltered, cloud: listCloudFiltered });
+        // handling default group, if exist remove and create a new array for it
+        const ungroupedIndex = listCloudFiltered.findIndex(sessionName => sessionName.name === DEFAULT_SESSION_NAME);
+        let listCloudUngrouped: TabsCloud[] = [];
+        if (ungroupedIndex > -1) {
+            listCloudUngrouped = [listCloudFiltered[ungroupedIndex]];
+            listCloudFiltered.splice(ungroupedIndex, 1);
+        }
+
+        setDataFiltered({ local: listLocalFiltered, cloud: listCloudFiltered, cloudUngrouped: listCloudUngrouped });
         dispatch({ type: TabsActions.finishRequestTabs });
     }, [cloud, dispatch, filterQuery, local]);
 
@@ -49,16 +60,34 @@ export const SearchResultTabs = () => {
                 loading
                     ? <SimpleLoading />
                     : <>
+
                         {
                             dataFiltered.local.length === 0
                                 ? null
-                                : <TabsListings tabs={dataFiltered.local} />
+                                : <>
+                                    <FormHelperText>Results in your tabs opened</FormHelperText>
+                                    <TabsListings tabs={dataFiltered.local} />
+                                </>
                         }
 
                         {
                             !user || dataFiltered.cloud.length === 0
                                 ? null
-                                : <CloudListings cloudGroup={dataFiltered.cloud} makeTabsOptsList={makeTabsOptsList} />
+                                : <>
+                                    <FormHelperText>Results in Tabs Ungrouped</FormHelperText>
+
+                                    <CloudListings cloudGroup={dataFiltered.cloudUngrouped} makeTabsOptsList={makeTabsOptsList} />
+                                </>
+                        }
+
+                        {
+                            !user || dataFiltered.cloud.length === 0
+                                ? null
+                                : <>
+                                    <FormHelperText>Results in Sessions</FormHelperText>
+
+                                    <CloudListings cloudGroup={dataFiltered.cloud} makeTabsOptsList={makeTabsOptsList} />
+                                </>
                         }
 
                         {
