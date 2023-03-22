@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabSectionFilter, TabsActions } from '@/contexts/tabs';
-import { CancelRounded } from '@mui/icons-material';
+import { CancelRounded, SearchOutlined } from '@mui/icons-material';
 import { FormControl, IconButton, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import { useDebounce } from '@/customHooks/useDebounce';
 import { useNavigate } from 'react-router-dom';
@@ -79,11 +79,15 @@ const SearchBar = () => {
                     value={searchWord}
                     onChange={onSearch}
                     placeholder={placeholderSearch}
-                    endAdornment={isFiltering
-                        ? <IconButton onClick={cancelSearch} className='btn-cancel-search' color="primary" aria-label="Cancel search" component="label">
-                            <CancelRounded />
-                        </ IconButton>
-                        : null}
+                    endAdornment={
+                        isFiltering
+                            ? <IconButton onClick={cancelSearch} className='btn-cancel-search' color="primary" aria-label="Cancel search" component="label">
+                                <CancelRounded />
+                            </ IconButton>
+                            : <IconButton onClick={cancelSearch} className='btn-cancel-search' disabled aria-label="Search Icon" component="label">
+                                <SearchOutlined />
+                            </ IconButton>
+                    }
                 />
             </FormControl>
         </>
