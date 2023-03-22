@@ -9,11 +9,11 @@ import { ContentNotFound } from '@/ui/atoms/ContentNotFound';
 
 type Props = {
     tabs: NiftyTab[];
-    loading: boolean;
+    loading?: boolean;
     makeTabsOptsList?: (tab: NiftyTab) => OptionBtnMenuList[];
 };
 
-export const TabsListings = ({ tabs = [], loading, makeTabsOptsList }: Props) => {
+export const TabsListings = ({ tabs = [], loading = false, makeTabsOptsList }: Props) => {
     return (
         <>
             {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TabsActions } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { TabsCloud, NiftyTab } from '@/models';
@@ -9,6 +10,7 @@ import { DataNotFound } from '@/ui/atoms/DataNotFound';
 import { CloudListings, TabsListings } from '../../TabsListings';
 import { useAuthState } from '@/contexts/auth';
 import { useTabsCloudOptionList } from '@/customHooks/tabs';
+import { SimpleLoading } from '@/ui/atoms/Loadings';
 
 export const SearchResultTabs = () => {
     const { filterQuery, local, cloud, loading } = useGetTabsContext();
@@ -24,6 +26,9 @@ export const SearchResultTabs = () => {
     });
 
     useEffect(() => {
+        // ni idea ~ nose por que entra vacio el filterQuery siempre
+        if (filterQuery.length === 0) return;
+
         dispatch({ type: TabsActions.requestTabs });
 
         const listLocalFiltered = filterTabsByTitleOrUrl(local, filterQuery);
@@ -41,21 +46,27 @@ export const SearchResultTabs = () => {
             */}
 
             {
-                dataFiltered.local.length === 0
-                    ? null
-                    : <TabsListings loading={loading} tabs={dataFiltered.local} />
-            }
+                loading
+                    ? <SimpleLoading />
+                    : <>
+                        {
+                            dataFiltered.local.length === 0
+                                ? null
+                                : <TabsListings tabs={dataFiltered.local} />
+                        }
 
-            {
-                !user || dataFiltered.cloud.length === 0
-                    ? null
-                    : <CloudListings cloudGroup={dataFiltered.cloud} loading={loading} makeTabsOptsList={makeTabsOptsList} />
-            }
+                        {
+                            !user || dataFiltered.cloud.length === 0
+                                ? null
+                                : <CloudListings cloudGroup={dataFiltered.cloud} makeTabsOptsList={makeTabsOptsList} />
+                        }
 
-            {
-                (!user || dataFiltered.cloud.length === 0) && dataFiltered.local.length === 0
-                    ? <DataNotFound />
-                    : null
+                        {
+                            (!user || dataFiltered.cloud.length === 0) && dataFiltered.local.length === 0
+                                ? <DataNotFound />
+                                : null
+                        }
+                    </>
             }
 
         </Box >

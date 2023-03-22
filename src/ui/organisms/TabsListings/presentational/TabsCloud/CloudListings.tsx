@@ -7,11 +7,11 @@ import { Box } from '@mui/material';
 
 type Props = {
     cloudGroup: TabsCloud[],
-    loading: boolean,
+    loading?: boolean,
     makeTabsOptsList: (tab: NiftyTab) => OptionBtnMenuList[];
 }
 
-export const CloudListings = ({ cloudGroup, loading, makeTabsOptsList }: Props) => {
+export const CloudListings = ({ cloudGroup, loading = false, makeTabsOptsList }: Props) => {
     return (
         <Box sx={{
             overflow: 'auto'
