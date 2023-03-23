@@ -29,7 +29,7 @@ export const SearchResultsSessions = () => {
     }, [dispatch, filterQuery, sessions]);
 
     return (
-        <Box>
+        <Box sx={{ overflow: 'auto' }}>
             <AuthenticatedContent>
                 {
                     loading

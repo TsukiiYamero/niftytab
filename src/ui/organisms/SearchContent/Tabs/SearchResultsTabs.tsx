@@ -50,7 +50,7 @@ export const SearchResultTabs = () => {
     }, [cloud, dispatch, filterQuery, local]);
 
     return (
-        <Box>
+        <Box sx={{ overflow: 'auto' }}>
 
             {/* NO estoy seguro si deberia hacer esta parte de esta forma jumm
                 Basicamente es para que cada parte no muetre el astrounata de not found
