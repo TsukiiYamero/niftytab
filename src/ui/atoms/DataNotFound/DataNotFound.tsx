@@ -1,5 +1,6 @@
 // import ImgAstro from '@/assets/img/astronaut.png';
 import { useRive } from '@rive-app/react-canvas';
+import NotResultsFile from '@/assets/rive/not-found/cat_no_results_found.riv?url';
 
 type Props = {
     msg?: string
@@ -7,7 +8,7 @@ type Props = {
 
 export const DataNotFound = ({ msg = 'Ops... No results found' }: Props) => {
     const { RiveComponent } = useRive({
-        src: '/src/assets/rive/not-found/cat_no_results_found.riv',
+        src: NotResultsFile,
         autoplay: true,
         animations: 'State Machine 1'
     });
