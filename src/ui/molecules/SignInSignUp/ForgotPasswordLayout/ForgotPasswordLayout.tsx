@@ -1,64 +1,30 @@
-import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
-import { Box, Button, FormHelperText, TextField } from '@mui/material';
-import { useEffect, useRef, useState, FormEvent } from 'react';
-import { EmailValidation } from '@/utils/authValidations';
+import { Box, Button, TextField } from '@mui/material';
+import { useState } from 'react';
+import { PatternEmail } from '@/utils/authValidations';
 import { useSnackbar } from '@/contexts/snackbar/hooks';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { resetPassword } from '@/services/authProviders';
 import './forgot_password_layout.css';
+import { useForm } from 'react-hook-form';
 
 export const ForgotPasswordLayout = () => {
-  const [timeToRetry, setTimeToRetry] = useState('');
   const showSnackbar = useSnackbar();
   const { callApi } = useFetchWithCallback();
   const [disableBtn, setDisableBtn] = useState(false);
-  const emailRecoveryRef = useRef<HTMLInputElement>(null);
 
-  const { data, errors, isValid, pristine, handelSetData } = useFormAdvanced<{ email: string }>({
-    validations: EmailValidation.validations,
-    initialValues: {
-      email: emailRecoveryRef.current?.value ?? ''
+  const { register, handleSubmit, getValues, formState: { errors } } = useForm({
+    defaultValues: {
+      email: ''
     }
   });
 
-  useEffect(() => {
-    if (!isValid) return;
+  const onSendRecoveryLink = async () => {
+    const { error } = await callApi(resetPassword, getValues().email);
 
-    const timeForAllowRecovery = localStorage.getItem('time_re');
-    if (timeForAllowRecovery) {
-      const actualTime = new Date();
+    if (error) return;
 
-      if (Number(timeForAllowRecovery) > actualTime.getTime()) {
-        const timeAllowed = new Date(Number(timeForAllowRecovery));
-        const timeToShow = `${timeAllowed.getHours()}:${timeAllowed.getMinutes()}`;
-        setTimeToRetry(`Try again after ${timeToShow}`);
-        return;
-      };
-    }
-
-    const timeForRetryLink = new Date();
-    const timeToSave = timeForRetryLink.setSeconds(timeForRetryLink.getSeconds() + 35);
-    localStorage.setItem('time_re', `${timeToSave}`);
-
-    setTimeToRetry('');
+    showSnackbar('Recovery Link sent successfully', 'success');
     setDisableBtn(true);
-
-    const sendEmailRecovery = async () => {
-      const { data, error } = await callApi(resetPassword, emailRecoveryRef?.current?.value ?? '');
-
-      if (error) return;
-
-      showSnackbar('Recovery Link sent successfully', 'success');
-      console.log(data, error);
-    };
-
-    sendEmailRecovery();
-  }, [setDisableBtn, showSnackbar, callApi, data, isValid]);
-
-  const onSendRecoveryLink = (formEv: FormEvent) => {
-    formEv.preventDefault();
-    const email = emailRecoveryRef.current?.value;
-    handelSetData({ email });
   };
 
   return (
@@ -69,26 +35,29 @@ export const ForgotPasswordLayout = () => {
         component="form"
         noValidate
       >
-        {
-          timeToRetry ? <FormHelperText>{timeToRetry}</FormHelperText> : null
-        }
         <TextField
-          inputRef={emailRecoveryRef}
+          {...register('email', {
+            required: 'Please Provide an email',
+            pattern: {
+              value: PatternEmail,
+              message: 'Please enter a valid email'
+            }
+          })}
           id="email_recovery"
-          error={!!errors.email && !pristine}
+          error={!!errors.email}
           fullWidth
           label="Email"
           variant="outlined"
           type="email"
           required
-          helperText={errors.email && !pristine ? errors.email : ''}
+          helperText={errors.email?.message}
         />
         <Button
           fullWidth
           disabled={disableBtn}
           type='submit'
           variant="contained"
-          onClick={onSendRecoveryLink}
+          onClick={handleSubmit(onSendRecoveryLink)}
         >Send Recovery Link</Button>
       </Box>
     </div>
