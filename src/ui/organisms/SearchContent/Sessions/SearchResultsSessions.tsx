@@ -16,6 +16,9 @@ export const SearchResultsSessions = () => {
     const [dataFiltered, setDataFiltered] = useState<SessionCloud[]>([]);
 
     useEffect(() => {
+        // ni idea ~ nose por que entra vacio el filterQuery siempre
+        if (filterQuery.trim().length === 0) return;
+
         dispatch({ type: TabsActions.requestTabs });
 
         const sessionsFiltered = filterSession(sessions, filterQuery);

@@ -30,7 +30,7 @@ export const SearchResultTabs = () => {
 
     useEffect(() => {
         // ni idea ~ nose por que entra vacio el filterQuery siempre
-        if (filterQuery.length === 0) return;
+        if (filterQuery.trim().length === 0) return;
 
         dispatch({ type: TabsActions.requestTabs });
 
