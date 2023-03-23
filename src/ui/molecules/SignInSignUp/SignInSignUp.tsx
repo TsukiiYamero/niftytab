@@ -1,15 +1,12 @@
 import { startSignUpWithEmail, useAuthDispatch, useAuthState } from '@/contexts/auth';
-import { useFormAdvanced } from '@/customHooks/useFormAdvanced';
 import { Modal, useModal, useModalContext } from '@/ui/molecules/Modal';
-import { authValidationsBasic } from '@/utils/authValidations';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { LoginLayout } from './LoginLayout';
 import { startSignInWithEmail } from '@/contexts/auth/thunks/signInWithEmail';
 import { signInWithGoogle } from '@/services/authProviders';
 import { ForgotPasswordLayout } from './ForgotPasswordLayout';
 import { AuthActions } from '@/contexts/auth/auth.types';
-
-type SignUpForm = { email: string, password: string }
+import { useForm } from 'react-hook-form';
 
 export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     const [isSignIn, setIsSignIn] = useState(signIn);
@@ -18,45 +15,28 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     const { isOpen, openModal: openModalForgotPassword, closeModal: closeModalForgotPassword } = useModal();
     const dispatch = useAuthDispatch();
 
-    const emailRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
-
-    const { data, errors, isValid, pristine, handelSetData, resetForm } = useFormAdvanced<SignUpForm>({
-        validations: authValidationsBasic.validations,
-        initialValues: {
-            email: emailRef.current?.value ?? '',
-            password: passwordRef.current?.value ?? ''
+    const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm({
+        defaultValues: {
+            email: '',
+            password: ''
         }
     });
 
-    useEffect(() => {
-        const signUp = async () => {
-            if (!isValid) return;
+    const signUp = async () => {
+        const { email, password } = getValues();
 
-            const userCredentials = {
-                email: data.email ?? '',
-                password: data.password ?? ''
-            };
-
-            let isOk = false;
-
-            isSignIn
-                ? isOk = await startSignInWithEmail(dispatch, userCredentials)
-                : isOk = await startSignUpWithEmail(dispatch, userCredentials);
-
-            isOk && closeModal();
+        const userCredentials = {
+            email,
+            password
         };
-        signUp();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isValid, data, dispatch, closeModal]);
 
-    const onSubmit = () => {
-        const email = emailRef.current?.value;
-        const password = passwordRef.current?.value;
+        let isOk = false;
 
-        handelSetData({
-            email, password
-        });
+        isSignIn
+            ? isOk = await startSignInWithEmail(dispatch, userCredentials)
+            : isOk = await startSignUpWithEmail(dispatch, userCredentials);
+
+        isOk && closeModal();
     };
 
     const onSignInWithGoogle = async () => {
@@ -75,12 +55,7 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
     };
 
     const resetLoginData = async () => {
-        if (emailRef.current)
-            emailRef.current.value = '';
-        if (passwordRef.current)
-            passwordRef.current.value = '';
-
-        resetForm();
+        reset();
         dispatch({ type: AuthActions.resetMsg });
     };
 
@@ -94,12 +69,10 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
                 title={isSignIn ? 'SIGN IN' : 'Create Account'}
                 isSignIn={isSignIn}
                 loading={loading}
-                emailRef={emailRef}
-                passwordRef={passwordRef}
-                pristine={pristine}
+                register={register}
                 errors={errors}
                 errorMessage={errorMessage}
-                onSubmit={onSubmit}
+                onSubmit={handleSubmit(signUp)}
                 googleSignIn={onSignInWithGoogle}
                 onSignIn={onSignIn}
                 onSignUp={onSignUp}

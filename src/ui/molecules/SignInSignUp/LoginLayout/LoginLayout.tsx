@@ -1,52 +1,60 @@
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { FormEvent, RefObject } from 'react';
+import { FormEvent, useState } from 'react';
 import './login_layout.css';
 
-import { Box, FormHelperText } from '@mui/material';
+import { Box, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { BsGoogle } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { VisibilityOffRounded, VisibilityRounded } from '@mui/icons-material';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { PatternPassword } from '@/utils';
 
 type Props = {
-    emailRef: RefObject<HTMLInputElement>;
-    passwordRef: RefObject<HTMLInputElement>;
-    errors: any,
+    errors: FieldErrors<{
+        email: string;
+        password: string;
+    }>,
     loading: boolean,
     errorMessage: string,
-    pristine: boolean,
     title: string,
     isSignIn: boolean,
     onSignUp: () => void,
     onSignIn: () => void,
     onSubmit: () => void;
     googleSignIn: () => void,
-    forgotPassword: () => void
+    forgotPassword: () => void,
+    register: UseFormRegister<{
+        email: string;
+        password: string;
+    }>
 }
 
 export const LoginLayout = ({
-    emailRef, passwordRef, errors, loading,
-    errorMessage, pristine, title, isSignIn,
-    onSubmit, onSignUp, onSignIn, googleSignIn, forgotPassword
+    errors, loading, errorMessage,
+    title, isSignIn,
+    onSubmit, onSignUp, register,
+    onSignIn, googleSignIn, forgotPassword
 }: Props) => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
     const onSubmitForm = (ev: FormEvent) => {
         ev.preventDefault();
         onSubmit();
     };
 
-    const onClickGoogle = (ev: FormEvent) => {
+    /* const onClickGoogle = (ev: FormEvent) => {
         ev.preventDefault();
         googleSignIn();
-    };
+    }; */
 
     const onForgotPassword = () => {
         forgotPassword();
-    };
-
-    const inputStyle = {
-        boxShadow: 'var(--bg-color) 0 0 0 1000px inset',
-        WebkitTextFillColor: 'var(--main-text-color)'
     };
 
     return (
@@ -66,29 +74,52 @@ export const LoginLayout = ({
                     className={'container-login-form'}
                 >
                     <TextField
-                        inputRef={emailRef}
                         id="login_Email"
-                        error={errors.email && !pristine}
+                        error={!!errors.email}
                         fullWidth
                         label="Email"
                         variant="outlined"
                         required
-                        inputProps={{ style: inputStyle }}
-                        helperText={errors.email && !pristine ? errors.email : ''}
+                        {...register('email', {
+                            required: 'Please Provide an email',
+                            pattern: {
+                                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                message: 'Please enter a valid email'
+                            }
+                        })}
+                        helperText={errors.email?.message}
                     />
 
-                    <TextField
-                        inputRef={passwordRef}
-                        id="login_Password"
-                        error={errors.email && !pristine}
-                        fullWidth
-                        label="Password"
-                        variant="outlined"
-                        type="password"
-                        required
-                        inputProps={{ style: inputStyle }}
-                        helperText={errors.password && !pristine ? errors.password : ''}
-                    />
+                    <FormControl fullWidth variant="outlined">
+                        <InputLabel error={!!errors.password} htmlFor="outlined-adornment-login_Password">Password</InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            error={!!errors.password}
+                            {...register('password', {
+                                required: 'Please Provide a password',
+                                pattern: {
+                                    value: PatternPassword,
+                                    message: 'Password must be at least 8 characters long, and must include 1 letter & 1 number.'
+                                }
+                            })}
+                            id="outlined-adornment-login_Password"
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOffRounded /> : <VisibilityRounded />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                        />
+                        <FormHelperText error={!!errors.password}>{errors.password?.message}</FormHelperText>
+                    </FormControl>
 
                     <Button
                         fullWidth
