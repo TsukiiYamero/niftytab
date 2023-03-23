@@ -1,11 +1,10 @@
 import { Box } from '@mui/material';
 import { useRive } from '@rive-app/react-canvas';
-
-// import RIVER_LOADER from '@/assets/rive/loaders/simple-loader.riv';
+import LoaderFile from '@/assets/rive/loaders/flame-loader.riv?url';
 
 export const SimpleLoading = () => {
     const { RiveComponent } = useRive({
-        src: '/src/assets/rive/loaders/flame-loader.riv',
+        src: LoaderFile,
         autoplay: true
     });
 
