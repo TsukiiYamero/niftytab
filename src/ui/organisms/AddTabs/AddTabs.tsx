@@ -1,7 +1,7 @@
 import { StandardButton } from '@/ui/atoms/Buttons';
 import './addTabs.css';
 import { QuickSection } from './QuickSave/QuickSection';
-import { CustomSaveTabs } from './CustomSave/CustomSaveTabs';
+// import { CustomSaveTabs } from './CustomSave/CustomSaveTabs';
 import { Modal, useModal } from '@/ui/molecules/Modal';
 import { CloudUploadOutlined } from '@mui/icons-material';
 
@@ -31,11 +31,11 @@ export const AddTabs = () => {
                 >
                     <QuickSection closeModal={closeModal}></QuickSection>
 
-                    <div className='custom-line'>
+                    {/* <div className='custom-line'>
                         <span>Or Custom</span>
                     </div>
 
-                    <CustomSaveTabs></CustomSaveTabs>
+                    <CustomSaveTabs></CustomSaveTabs> */}
 
                 </div>
             </Modal>

@@ -4,7 +4,7 @@ import { TabsActions } from '@/contexts/tabs';
 import { useGetTabsContext, useTabsDispatch } from '@/contexts/tabs/hooks';
 import { useSaveTabs } from '@/customHooks/tabs/useSaveTabs';
 import { getActiveTab, getAllChromeTabs } from '@/utils/chrome';
-import { Box, Button } from '@mui/material';
+import { Box, Button, FormHelperText } from '@mui/material';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
 import InboxOutlinedIcon from '@mui/icons-material/InboxOutlined';
@@ -112,12 +112,14 @@ export const QuickSection = ({ closeModal: closeSaveModal }: Props) => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
                     flexWrap: 'wrap',
                     gap: '10px'
                 }}>
+                <FormHelperText>Ungrouped</FormHelperText>
                 <Button fullWidth startIcon={<ArticleOutlinedIcon />} onClick={() => { handleSaveTabs(false); }} variant="contained">Save active tab</Button>
                 <Button fullWidth startIcon={<FilterNoneOutlinedIcon />} onClick={() => { handleSaveTabs(); }} variant="contained">Save all tabs</Button>
+
+                <FormHelperText>Grouped</FormHelperText>
                 <Button fullWidth startIcon={<InboxOutlinedIcon />} onClick={() => { onClickSession(); }} variant="contained">Save tabs in session</Button>
             </Box>
 
