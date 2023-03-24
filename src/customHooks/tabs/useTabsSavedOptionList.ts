@@ -23,7 +23,7 @@ export const useTabsCloudOptionList = () => {
         (tab: NiftyTab) => {
             return () => {
                 createChromeTab(tab.url);
-                console.log(tab);
+                // console.log(tab);
             };
         }, []
     );

@@ -8,7 +8,7 @@ import { supabaseUrl } from '@/api/config';
  */
 export const getIdentityGoogle = async () => {
     const redirectUri = chrome?.identity?.getRedirectURL('supabase-auth');
-    console.log('redirectUri', redirectUri); // add this to your supabase auth redirect URLs list
+    // console.log('redirectUri', redirectUri); // add this to your supabase auth redirect URLs list
     const options = {
         provider: 'google',
         redirect_to: redirectUri
@@ -27,7 +27,7 @@ export const getIdentityGoogle = async () => {
             }
         );
     });
-    console.log(authorizeResult);
+    // console.log(authorizeResult);
     if (!authorizeResult) {
         return { error: 'No authorizeResult' };
     }
