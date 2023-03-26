@@ -1,12 +1,11 @@
 import { TabsActions } from '@/contexts/tabs';
 import { useTabsDispatch } from '@/contexts/tabs/hooks';
-import { NiftyTab } from '@/models';
-import { chromeTabsToNiftyTabs, getAllChromeTabs } from '@/utils';
+import { getAllChromeTabs } from '@/utils';
 import { useEffect, useState } from 'react';
 
 export const useGetTabsLocal = () => {
     const dispatch = useTabsDispatch();
-    const [local, setLocal] = useState<NiftyTab[]>([]);
+    const [local, setLocal] = useState<chrome.tabs.Tab[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -15,10 +14,10 @@ export const useGetTabsLocal = () => {
             setLoading(true);
 
             const resp = await getAllChromeTabs();
-            const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
+            // const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
 
-            setLocal(dataTabs);
-            dispatch({ type: TabsActions.updateLocal, payload: dataTabs });
+            setLocal(resp);
+            dispatch({ type: TabsActions.updateLocal, payload: resp });
             dispatch({ type: TabsActions.finishRequestTabs });
             setLoading(false);
         };

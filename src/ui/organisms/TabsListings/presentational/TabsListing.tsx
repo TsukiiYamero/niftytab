@@ -3,7 +3,7 @@ import { TabSmallView } from '@/ui/atoms/TabSmallView';
 import { OptionBtnMenu, OptionBtnMenuList } from '@/ui/molecules/OptionBtnMenu';
 
 type Props = {
-    tab: NiftyTab;
+    tab: NiftyTab | chrome.tabs.Tab;
     makeTabsOptsList: OptionBtnMenuList[];
 };
 
