@@ -12,7 +12,7 @@ export const useTabsLocalOptionsList = () => {
         (tab: chrome.tabs.Tab) => {
             return () => {
                 updateTab(tab);
-                console.log(tab);
+                // console.log(tab);
             };
         }, []
     );
