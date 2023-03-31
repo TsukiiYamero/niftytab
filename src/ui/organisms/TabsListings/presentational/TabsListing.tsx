@@ -8,12 +8,17 @@ type Props = {
 };
 
 export const TabsListing = ({ tab, makeTabsOptsList }: Props) => {
+    const validateFavicon = (faviconUrl: string | undefined) =>
+        faviconUrl
+            ? faviconUrl.includes('chrome-extension:') ? '' : faviconUrl
+            : '';
+
     return (
         <>
             <TabSmallView
                 title={tab.title ?? ''}
                 urlText={tab.url ?? ''}
-                imgSrc={tab.favIconUrl ?? ''}
+                imgSrc={validateFavicon(tab.favIconUrl)}
             >
                 {
                     makeTabsOptsList && <OptionBtnMenu optionsMenu={makeTabsOptsList} />

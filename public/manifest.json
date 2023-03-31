@@ -14,11 +14,8 @@
     },
     "permissions": [
         "storage",
-        "activeTab",
         "tabs",
-        "sessions",
-        "tabGroups",
-        "favicon"
+        "sessions"
     ],
     "web_accessible_resources": [
         {
