@@ -2,6 +2,8 @@
 
 La extensión Niftytab para Chrome es una poderosa herramienta diseñada para mejorar tu experiencia de navegación y optimizar el rendimiento de tu navegador. Esta innovadora extensión, desarrollada con tecnologías de vanguardia como React, Material-UI (Mui), JavaScript y Supabase, proporciona una solución elegante para uno de los desafíos más comunes en la navegación web: la gestión de pestañas.
 
+https://chrome.google.com/webstore/detail/niftytab/gpgapcjglpkhnojckhkpfghhonjjgkgd
+
 ## Características Clave
 
 1. **Guardado Inteligente de Pestañas:** Con un solo clic, puedes guardar tus pestañas abiertas actualmente en sesiones organizadas y etiquetadas. Olvídate de la confusión causada por docenas de pestañas abiertas, y accede rápidamente a tus sesiones guardadas en cualquier momento.
