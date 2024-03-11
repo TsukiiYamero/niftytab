@@ -1,12 +1,11 @@
-import './App.css';
-import { AuthProvider } from './contexts/auth';
+/* import { AuthProvider } from './contexts/auth';
 import { TabsProvider } from './contexts/tabs';
 import { SnackbarProvider } from './contexts/snackbar/provider';
 import { CustomThemeProvider } from './theme/provider/CustomThemeProvider';
 import { AuthModalProvider } from './contexts/authModal';
-import { MainRouter } from './routes/MainRouter';
+import { MainRouter } from './routes/MainRouter'; */
 
-export const App = () => {
+/* export const App = () => {
     return (
         <AuthProvider>
             <CustomThemeProvider>
@@ -19,6 +18,13 @@ export const App = () => {
                 </SnackbarProvider>
             </CustomThemeProvider>
         </AuthProvider>
+    );
+}; */
+export const App = () => {
+    return (
+        <div>
+            <h1 className="text-5xl font-bold">Testing Tailwind</h1>
+        </div>
     );
 };
 

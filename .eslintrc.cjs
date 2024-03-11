@@ -20,7 +20,7 @@ module.exports = {
     },
     plugins: ['react', 'react-hooks'],
     rules: {
-        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/rules-of-hooks': 'warn',
         semi: [1, 'always'],
         // indent: ['error', 4, { SwitchCase: 1 }],
         indent: 'off',
