@@ -20,6 +20,11 @@ module.exports = {
         }
     },
     plugins: ['react', 'react-hooks'],
+    settings: {
+        react: {
+            version: 'detect'
+        }
+    },
     rules: {
         'react-hooks/rules-of-hooks': 'warn',
         semi: [1, 'always'],
