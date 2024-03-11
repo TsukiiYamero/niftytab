@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: SignikaNegative;
   src: url(assets/fonts/Signika_Negative/static/SignikaNegative-Medium.ttf);
