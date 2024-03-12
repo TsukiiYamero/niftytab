@@ -1,4 +1,3 @@
-
 // innerType
 export interface AuthUser {
     email: string;
@@ -13,6 +12,7 @@ export type AuthInitialState = {
     loading: boolean;
     errorMessage: string;
 };
+
 export enum AuthActions {
     resetMsg = 'reset_msg',
     requestLogin = 'request_login',

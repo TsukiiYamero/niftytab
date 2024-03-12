@@ -1,5 +1,5 @@
-import { createContext, Dispatch } from 'react';
-import { AuthActionType, AuthInitialState } from './auth.types';
+import { createContext, type Dispatch } from 'react';
+import type { AuthActionType, AuthInitialState } from './auth.types';
 import { authInitialState } from './reducer';
 
 export const AuthStateContext =

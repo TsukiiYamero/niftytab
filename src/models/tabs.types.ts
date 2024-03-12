@@ -1,4 +1,4 @@
-import { PostgrestError } from '@supabase/supabase-js';
+import type { PostgrestError } from '@supabase/supabase-js';
 
 // Initial model of tabs
 export type ChromeTabs = {
@@ -77,7 +77,7 @@ export interface SessionCloudSupabase {
     count_badge: number;
     id: number;
     name: string;
-};
+}
 
 export interface SessionCloud {
     countBadge: number;
@@ -103,7 +103,7 @@ export interface TabsCloudSupabase {
     id: number;
     name: string;
     tabs: TabsSupabase[];
-};
+}
 
 export interface TabsCloud {
     countBadge: number;

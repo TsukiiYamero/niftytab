@@ -32,6 +32,7 @@ module.exports = {
         indent: 'off',
         quotes: ['error', 'single'],
         curly: 'off',
+        '@typescript-eslint/space-before-function-paren': 'off',
         '@typescript-eslint/semi': 'off',
         '@typescript-eslint/consistent-type-definitions': 'off',
         '@typescript-eslint/indent': 'off',

@@ -1,5 +1,5 @@
 import { supabase } from '@/api/config';
-import { ReactNode, useEffect, useReducer } from 'react';
+import { type ReactNode, useEffect, useReducer } from 'react';
 import { AuthDispatchContext, AuthStateContext } from '../authContexts';
 import { authInitialState, authReducer } from '../reducer';
 import { startSetSession } from '../thunks/setSession';

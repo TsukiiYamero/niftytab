@@ -1,4 +1,5 @@
-import { AuthActions, AuthActionType, AuthInitialState } from '../auth.types';
+import { AuthActions } from '../auth.types';
+import type { AuthActionType, AuthInitialState } from '../auth.types';
 
 export const authInitialState: AuthInitialState = {
     errorMessage: '',

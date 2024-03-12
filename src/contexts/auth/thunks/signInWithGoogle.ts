@@ -1,8 +1,10 @@
+import type { Dispatch } from 'react';
+import type { OAuthResponse } from '@supabase/supabase-js';
+import type { AuthActionType, UserCredentials } from '../auth.types';
+
 import { supabase } from '@/api/config';
 import { signInWithGoogle } from '@/services/authProviders';
-import { OAuthResponse } from '@supabase/supabase-js';
-import { Dispatch } from 'react';
-import { AuthActions, AuthActionType, UserCredentials } from '../auth.types';
+import { AuthActions } from '../auth.types';
 import { startSetSession } from './setSession';
 
 /**
@@ -27,6 +29,6 @@ export const startSignInWithGoogle = async (dispatch: Dispatch<AuthActionType>, 
 
     const resultSession = await supabase.auth.getSession();
 
-    if (!resultSession.data || !resultSession.data.session)
+    if (!resultSession.data?.session)
         startSetSession(dispatch, resultSession);
 };

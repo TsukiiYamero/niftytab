@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import { FormEvent, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import './login_layout.css';
 
 import { Box, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { VisibilityOffRounded, VisibilityRounded } from '@mui/icons-material';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { type FieldErrors, type UseFormRegister } from 'react-hook-form';
 import { PatternPassword } from '@/utils';
 
 type Props = {
@@ -37,7 +37,7 @@ export const LoginLayout = ({
 }: Props) => {
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword = () => { setShowPassword((show) => !show); };
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

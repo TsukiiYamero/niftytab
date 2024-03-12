@@ -1,14 +1,14 @@
-/* import { AuthProvider } from './contexts/auth';
-import { TabsProvider } from './contexts/tabs';
+import { AuthProvider } from './contexts/auth';
+/* import { TabsProvider } from './contexts/tabs';
 import { SnackbarProvider } from './contexts/snackbar/provider';
 import { CustomThemeProvider } from './theme/provider/CustomThemeProvider';
 import { AuthModalProvider } from './contexts/authModal';
 import { MainRouter } from './routes/MainRouter'; */
 
-/* export const App = () => {
+export const App = () => {
     return (
         <AuthProvider>
-            <CustomThemeProvider>
+            {/* <CustomThemeProvider>
                 <SnackbarProvider>
                     <TabsProvider>
                         <AuthModalProvider>
@@ -16,15 +16,11 @@ import { MainRouter } from './routes/MainRouter'; */
                         </AuthModalProvider>
                     </TabsProvider>
                 </SnackbarProvider>
-            </CustomThemeProvider>
+            </CustomThemeProvider> */}
+            <p className='text-3xl font-bold'>
+                Testeando ANdo
+            </p>
         </AuthProvider>
-    );
-}; */
-export const App = () => {
-    return (
-        <div>
-            <h1 className="text-5xl font-bold">Testing Tailwind</h1>
-        </div>
     );
 };
 

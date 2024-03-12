@@ -1,39 +1,32 @@
+import type { LoginWithEmailSupabaseResponse } from '@/models/auth.types';
+import type { UserCredentials } from '@/contexts/auth';
+
 import { supabase } from '@/api/config';
-import { UserCredentials } from '@/contexts/auth';
-import { AuthResponse } from '@supabase/supabase-js';
+import { ValidationError, handleErrorsAuth } from '@/errors/authError';
 
-export const signUpWithEmail = async (data: UserCredentials) => {
-    let result: AuthResponse = {
-        data: {
-            session: null,
-            user: null
-        },
-        error: null
-    };
-
+export const signUpWithEmail = async (data: UserCredentials): Promise<LoginWithEmailSupabaseResponse> => {
     try {
-        result = await supabase.auth.signUp(data);
-    } catch (error) {
-        console.error(error);
-    }
+        const result = await supabase.auth.signUp(data);
 
-    return result;
+        if (result.error) {
+            throw new ValidationError(result.error.message);
+        }
+        return result;
+    } catch (error: any) {
+        return handleErrorsAuth(error);
+    }
 };
 
-export const signInWithEmail = async (data: any) => {
-    let result: AuthResponse = {
-        data: {
-            session: null,
-            user: null
-        },
-        error: null
-    };
-
+export const signInWithEmail = async (data: { email: string; password: string }): Promise<LoginWithEmailSupabaseResponse> => {
     try {
-        result = await supabase.auth.signInWithPassword(data);
-    } catch (error) {
-        console.error(error);
-    }
+        const result = await supabase.auth.signInWithPassword(data);
 
-    return result;
+        if (result.error) {
+            throw new ValidationError(result.error.message);
+        }
+
+        return result;
+    } catch (error: any) {
+        return handleErrorsAuth(error);
+    }
 };
