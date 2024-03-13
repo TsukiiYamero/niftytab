@@ -1,50 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-redeclare */
+import { useHandlePassword } from '@/customHooks/forms/useHandlePassword';
 import './login_layout.css';
 /* import { type FormEvent, useState } from 'react'; */
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 /* import { PatternPassword } from '@/utils'; */
 
 type Props = {
-    errors: FieldErrors<{
-        email: string;
-        password: string;
-    }>,
     loading: boolean,
     errorMessage: string,
-    title: string,
     isSignIn: boolean,
     onSignUp: () => void,
     onSignIn: () => void,
     onSubmit: () => void;
-    googleSignIn: () => void,
-    forgotPassword: () => void,
-    register: UseFormRegister<{
-        email: string;
-        password: string;
-    }>
+    onForgotPassword: () => void,
 }
 
-export const LoginLayout = ({
-    errors, loading, errorMessage,
-    title, isSignIn,
-    onSubmit, onSignUp, register,
-    onSignIn, googleSignIn, forgotPassword
+export const LoginForm = ({
+    loading, errorMessage,
+    isSignIn, onSubmit, onSignUp,
+    onSignIn, onForgotPassword
 }: Props) => {
-    /*     const [showPassword, setShowPassword] = useState(false);
+    const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm({
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    });
 
-        const handleClickShowPassword = () => { setShowPassword((show) => !show); };
-
-        const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-            event.preventDefault();
-        };
-
-        const onSubmitForm = (ev: FormEvent) => {
-            ev.preventDefault();
-            onSubmit();
-        };
-
-        const onForgotPassword = () => {
-            forgotPassword();
-        }; */
+    const { showPassword, handleClickShowPassword } = useHandlePassword();
 
     return (
         <div className={'container-login'}>
@@ -52,7 +36,7 @@ export const LoginLayout = ({
 
                 {loading && <h1>Loading...</h1>}
 
-                <h2 className='title-login-space'>{title}</h2>
+                <h2 className='title-login-space'>{isSignIn ? 'Sign In' : 'Sign Up'}</h2>
 
                 {/* <FormHelperText className={'error-msg-login'} >{errorMessage}</FormHelperText>
 
@@ -142,12 +126,6 @@ export const LoginLayout = ({
                     <div className='custom-line'>
                         <span>Or</span>
                     </div>
-
-                    {/*                     <div className='social-media-btns'>
-                        <Button fullWidth variant="outlined" onClick={onClickGoogle} startIcon={<BsGoogle />}>
-                            Continue with Google
-                        </Button>
-                    </div> */}
 
                     <div className='login-others-opts'>
                         {isSignIn

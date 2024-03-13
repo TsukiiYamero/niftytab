@@ -1,5 +1,6 @@
-import { AuthProvider } from './contexts/auth';
-import { AuthModalProvider } from './contexts/authModal';
+import { AuthProvider } from '@/contexts/auth';
+import { AuthModalProvider } from '@/contexts/authModal';
+import { UserNoAuthenticatedMessage } from '@/ui/molecules/UserNotAuthenticatedMessage';
 /* import { TabsProvider } from './contexts/tabs';
 import { SnackbarProvider } from './contexts/snackbar/provider';
 import { CustomThemeProvider } from './theme/provider/CustomThemeProvider'; */
@@ -18,9 +19,7 @@ export const App = () => {
                 </SnackbarProvider>
             </CustomThemeProvider> */}
             <AuthModalProvider>
-                <p className='text-3xl font-bold'>
-                    Testeando ANdo
-                </p>
+                < UserNoAuthenticatedMessage />
             </AuthModalProvider>
         </AuthProvider>
     );
