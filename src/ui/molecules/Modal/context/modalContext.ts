@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { ModalInitialState } from './modal.types';
+import type { ModalInitialState } from './modal.types';
 
 export const ModalContext = createContext<ModalInitialState>({
     closable: true,

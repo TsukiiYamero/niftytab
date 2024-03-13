@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AuthModalInitialState } from './authModal.types';
+import type { AuthModalInitialState } from './authModal.types';
 
 export const authModalInitialState: AuthModalInitialState = {
     isOpen: false,

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const MainPageWrapper = styled.div`
     display: grid;
@@ -8,3 +8,4 @@ export const MainPageWrapper = styled.div`
     height: 568px;
     position: absolute;
 `;
+ */

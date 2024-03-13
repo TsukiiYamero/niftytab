@@ -1,10 +1,14 @@
 import './modal.css';
-import { memo, MouseEvent, useCallback, useRef } from 'react';
+import { type MouseEvent, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { WrapperAnimation } from './WrapperAnimation';
-import { IconButtonSimple } from '@/ui/atoms/Buttons';
-import { CloseIcon } from '@/ui/atoms/icons';
 import { ModalProvider } from './context/provider/ModalProvider';
+
+const wrapperAnimationProps = {
+    animationBgColor: 'rgba(18, 21, 25, 0.5)',
+    top: 0,
+    left: 0
+};
 
 export interface PropsModal {
     isOpen: boolean;
@@ -12,128 +16,94 @@ export interface PropsModal {
     closable?: boolean;
     closeByClickOutside?: boolean;
     closeByIcon?: boolean;
+    className?: string;
     children?: any;
-    bgColorClass?: string;
-    modalAnimationClass?: string;
-    position?: 'centered' | 'custom';
-    modalClassSize?: string;
-    ClassSizeAuto?: boolean;
     animationWrapper?: boolean;
-    animationBgColor?: string;
-    topModal?: number;
-    leftModal?: number;
-    posAnimationWrapper?: { top: number; left: number };
     titleIconElement?: any;
+    // for close wherever
     id?: string;
-    modalCustomClass?: string;
     displayLevel?: number;
 }
 /**
  * Have to be used with the custom hook useModal
  * Example: `const { isOpen, openModal, closeModal } = useModal();`
  */
-export const Modal = memo(
-    ({
-        isOpen,
-        children,
-        closable = true,
-        // prefer to receive a useCallback
-        onClose,
-        closeByClickOutside = true,
-        closeByIcon = true,
-        displayLevel = 1,
-        animationBgColor = 'rgba(18, 21, 25, 0.5)',
-        bgColorClass = 'modal__bg-color',
-        animationWrapper = true,
-        modalAnimationClass = '',
-        position = 'centered',
-        modalClassSize = '',
-        ClassSizeAuto = false,
-        topModal = 0,
-        leftModal = 0,
-        posAnimationWrapper = { top: 0, left: 0 },
-        id = '',
-        modalCustomClass = ''
-    }: PropsModal) => {
-        const onCloseMemoized = useRef(onClose);
+export const Modal = ({
+    isOpen,
+    children,
+    closable = true,
+    onClose,
+    closeByClickOutside = true,
+    closeByIcon = true,
+    displayLevel = 1,
+    animationWrapper = true,
+    className = '',
+    id = ''
+}: PropsModal) => {
+    const onCloseMemoized = useRef(onClose);
 
-        const wrapperAnimationProps = {
-            animationWrapper,
-            ...posAnimationWrapper,
-            animationBgColor
-        };
+    const closableModal = useCallback(
+        () => {
+            closable && onCloseMemoized.current?.();
+        },
+        [closable, onCloseMemoized]
+    );
 
-        const positionModal = {
-            top: `${topModal}px`,
-            left: `${leftModal}px`
-        };
+    const handleCloseModal = () => {
+        closeByIcon && closableModal();
+    };
 
-        const closableModal = useCallback(
-            () => {
-                closable && onCloseMemoized.current?.();
-            },
-            [closable, onCloseMemoized]
-        );
+    const handleCloseModalClickOutsider = () => {
+        closeByClickOutside && closableModal();
+    };
 
-        const handleCloseModal = () => {
-            closeByIcon && closableModal();
-        };
+    const handleClosePropagation = (ev: MouseEvent<HTMLDivElement>) => {
+        ev.stopPropagation();
+    };
 
-        const handleCloseModalClickOutsider = () => {
-            closeByClickOutside && closableModal();
-        };
+    return createPortal(
+        <ModalProvider CloseFn={closableModal} isOpen closable>
+            {isOpen && (
+                <div className="modal__container">
+                    <WrapperAnimation displayLevel={displayLevel} animationWrapper={animationWrapper} {...wrapperAnimationProps} />
 
-        const handleClosePropagation = (ev: MouseEvent<HTMLDivElement>) => {
-            ev.stopPropagation();
-        };
-
-        return createPortal(
-            <ModalProvider CloseFn={closableModal} isOpen closable>
-                {isOpen && (
-                    <div className="modal__container">
-                        <WrapperAnimation displayLevel={displayLevel} {...wrapperAnimationProps} />
-
+                    <div
+                        id={id}
+                        className={'modal__container-content'}
+                        style={{ zIndex: `${displayLevel}05` }}
+                        onClick={handleCloseModalClickOutsider}
+                    >
                         <div
-                            id={id}
-                            className={`modal__container-content ${modalCustomClass}`}
-                            style={{ zIndex: `${displayLevel}05` }}
-                            onClick={handleCloseModalClickOutsider}
+                            /* be careful with the space */
+                            className={
+                                `modal__default-padding
+                                 modal__bg-color
+                                 modal__place-self-center`
+                            }
+                            onClick={handleClosePropagation}
                         >
-                            <div
-                                /* be careful with the space */
-                                className={
-                                    `modal__default-padding
-                                    ${bgColorClass}
-                                    ${modalAnimationClass}
-                                    ${position === 'centered' && 'modal__place-self-center'}
-                                    ${ClassSizeAuto ? '' : 'modal__layout-default-sizes'}
-                                    ${modalClassSize}`
-                                }
-                                style={
-                                    position === 'custom' ? positionModal : {}
-                                }
-                                onClick={handleClosePropagation}
-                            >
-                                {closeByIcon && (
-                                    <div
-                                        className="modal__close-btn"
-                                        onClick={handleCloseModal}
-                                    >
-                                        <IconButtonSimple>
-                                            <CloseIcon className={'close-icon'} />
-                                        </IconButtonSimple>
-                                    </div>
-                                )}
+                            {closeByIcon && <IconSection handleCloseModal={handleCloseModal} />}
 
-                                {children}
-                            </div>
+                            {children}
                         </div>
                     </div>
-                )}
-            </ModalProvider>,
-            document.querySelector('#root') as HTMLBodyElement
-        );
-    }
-);
+                </div>
+            )}
+        </ModalProvider>,
+        document.querySelector('#root')!
+    );
+};
 
-Modal.displayName = 'Modal';
+Modal.displayName = 'CustomModal';
+
+const IconSection = ({ handleCloseModal }: { handleCloseModal: () => void }) => (
+    <div
+        className="modal__close-btn"
+        onClick={handleCloseModal}
+    >
+        <button className='flex border-0 outline-0 p-0 bg-transparent cursor-pointer'>
+            {/* <CloseIcon className={'close-icon'} /> */}
+            X
+        </button>
+    </div>
+);

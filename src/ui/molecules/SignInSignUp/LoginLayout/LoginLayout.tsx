@@ -1,13 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
-import { type FormEvent, useState } from 'react';
 import './login_layout.css';
-
-import { Box, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { VisibilityOffRounded, VisibilityRounded } from '@mui/icons-material';
-import { type FieldErrors, type UseFormRegister } from 'react-hook-form';
-import { PatternPassword } from '@/utils';
+/* import { type FormEvent, useState } from 'react'; */
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+/* import { PatternPassword } from '@/utils'; */
 
 type Props = {
     errors: FieldErrors<{
@@ -35,27 +29,22 @@ export const LoginLayout = ({
     onSubmit, onSignUp, register,
     onSignIn, googleSignIn, forgotPassword
 }: Props) => {
-    const [showPassword, setShowPassword] = useState(false);
+    /*     const [showPassword, setShowPassword] = useState(false);
 
-    const handleClickShowPassword = () => { setShowPassword((show) => !show); };
+        const handleClickShowPassword = () => { setShowPassword((show) => !show); };
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+        const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault();
+        };
 
-    const onSubmitForm = (ev: FormEvent) => {
-        ev.preventDefault();
-        onSubmit();
-    };
+        const onSubmitForm = (ev: FormEvent) => {
+            ev.preventDefault();
+            onSubmit();
+        };
 
-    /* const onClickGoogle = (ev: FormEvent) => {
-        ev.preventDefault();
-        googleSignIn();
-    }; */
-
-    const onForgotPassword = () => {
-        forgotPassword();
-    };
+        const onForgotPassword = () => {
+            forgotPassword();
+        }; */
 
     return (
         <div className={'container-login'}>
@@ -65,7 +54,7 @@ export const LoginLayout = ({
 
                 <h2 className='title-login-space'>{title}</h2>
 
-                <FormHelperText className={'error-msg-login'} >{errorMessage}</FormHelperText>
+                {/* <FormHelperText className={'error-msg-login'} >{errorMessage}</FormHelperText>
 
                 <Box
                     component="form"
@@ -128,12 +117,12 @@ export const LoginLayout = ({
                         variant="contained"
                         onClick={onSubmitForm}
                     >{title}</Button>
-                </Box>
+                </Box> */}
 
             </div>
 
             <div className='bottom-login-container'>
-                {
+                {/*  {
                     isSignIn
                         ? <FormHelperText onClick={onForgotPassword} className='forgot-msg-login'>Forgot your password?</FormHelperText>
                         : (
@@ -147,7 +136,7 @@ export const LoginLayout = ({
                                 </FormHelperText>
                             </Box>
                         )
-                }
+                } */}
 
                 <div className='login-social-media'>
                     <div className='custom-line'>

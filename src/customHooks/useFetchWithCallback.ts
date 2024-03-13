@@ -1,5 +1,4 @@
-import { useSnackbar } from '@/contexts/snackbar/hooks';
-import { SupabaseCommonResponse } from '@/models';
+import type { SupabaseCommonResponse } from '@/models';
 import { abortController } from '@/utils/abortController';
 import { useCallback, useEffect, useRef } from 'react';
 
@@ -11,7 +10,6 @@ type fetchApi = (controller: AbortController, payload?: any) => any;
  */
 export const useFetchWithCallback = () => {
     const refAbortController = useRef<AbortController>();
-    const showSnackbar = useSnackbar();
 
     // func that make the fetch call
     const callApi = useCallback(async <T>(fetchFunc: fetchApi, payload?: T): Promise<SupabaseCommonResponse> => {
@@ -26,16 +24,14 @@ export const useFetchWithCallback = () => {
             result = await fetchFunc(refAbortController.current, payload);
 
             if (result.error) {
-                showSnackbar('Ops... something went wrong.', 'error');
                 console.error(result.error.message);
             }
         } catch (error) {
-            showSnackbar(`Ops.. something went wrong, ${error} `, 'error');
             console.error(error);
         }
 
         return result;
-    }, [showSnackbar]);
+    }, []);
 
     useEffect(() => {
         return () => {

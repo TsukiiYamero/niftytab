@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const TabsSelectionWrapper = styled.div`
     display: flex;
@@ -6,4 +6,4 @@ export const TabsSelectionWrapper = styled.div`
     > div {
         margin-left: auto;
     }
-`;
+`; */

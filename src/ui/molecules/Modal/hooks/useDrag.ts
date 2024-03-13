@@ -104,7 +104,7 @@ export const useDrag = () => {
      * @param _ MouseEvent
      * @returns void
      */
-    const onMouseUp = (_: MouseEvent) => setState(DraggingState.finished);
+    const onMouseUp = (_: MouseEvent) => { setState(DraggingState.finished); };
 
     /**
      * That's a fix for touch pads that transfer touches to click.
@@ -114,18 +114,18 @@ export const useDrag = () => {
      * @param _ MouseEvent
      * @returns void
      */
-    const onClick = (_: MouseEvent) => setState(DraggingState.finished);
+    const onClick = (_: MouseEvent) => { setState(DraggingState.finished); };
 
     /**
      * Set the ref of the element that will be dragged
      */
-    const measuredRef = useCallback((node: HTMLDivElement) => setRef(node), []);
+    const measuredRef = useCallback((node: HTMLDivElement) => { setRef(node); }, []);
 
     /**
      * Set the ref of the element that will trigger the drag event
      */
     const measuredRefTrigger = useCallback(
-        (node: HTMLDivElement) => setRefTrigger(node),
+        (node: HTMLDivElement) => { setRefTrigger(node); },
         []
     );
 

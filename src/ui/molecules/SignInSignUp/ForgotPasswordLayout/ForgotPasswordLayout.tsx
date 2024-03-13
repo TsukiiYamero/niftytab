@@ -1,14 +1,12 @@
-import { Box, Button, TextField } from '@mui/material';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { PatternEmail } from '@/utils/authValidations';
-import { useSnackbar } from '@/contexts/snackbar/hooks';
 import { useFetchWithCallback } from '@/customHooks/useFetchWithCallback';
 import { resetPassword } from '@/services/authProviders';
 import './forgot_password_layout.css';
 import { useForm } from 'react-hook-form';
 
 export const ForgotPasswordLayout = () => {
-  const showSnackbar = useSnackbar();
   const { callApi } = useFetchWithCallback();
   const [disableBtn, setDisableBtn] = useState(false);
 
@@ -23,7 +21,6 @@ export const ForgotPasswordLayout = () => {
 
     if (error) return;
 
-    showSnackbar('Recovery Link sent successfully', 'success');
     setDisableBtn(true);
   };
 
@@ -31,7 +28,7 @@ export const ForgotPasswordLayout = () => {
     <div className="forgot-password-container">
       <h3>Recovery Password</h3>
 
-      <Box
+      {/* <Box
         component="form"
         noValidate
       >
@@ -59,7 +56,7 @@ export const ForgotPasswordLayout = () => {
           variant="contained"
           onClick={handleSubmit(onSendRecoveryLink)}
         >Send Recovery Link</Button>
-      </Box>
+      </Box> */}
     </div>
   );
 };

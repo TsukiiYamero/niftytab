@@ -19,7 +19,7 @@ export const WrapperAnimation = ({
     const [isShown, setIsShown] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => setIsShown(true), 5);
+        setTimeout(() => { setIsShown(true); }, 5);
     }, []);
 
     return (

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const SearchBarWrapper = styled.div`
     position: relative;
@@ -8,4 +8,4 @@ export const SearchBarWrapper = styled.div`
     border-radius: var(--border-radius-primary);
     background-color: var(--bg-color-inputs);
     flex: 1;
-`;
+`; */

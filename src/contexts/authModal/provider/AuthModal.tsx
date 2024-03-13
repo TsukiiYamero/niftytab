@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from 'react';
+import { type ReactNode, useCallback, useState } from 'react';
 import { AuthModalContext } from '../authModalContext';
 import { useAuthDispatch, useAuthState } from '@/contexts/auth/hooks';
 import { Modal, useModal } from '@/ui/molecules/Modal';
@@ -42,7 +42,6 @@ export const AuthModalProvider = ({ children }: Props) => {
                 closeByIcon={true}
                 closeByClickOutside={false}
                 onClose={onCloseModal}
-                modalClassSize='custom_modal_login'
             >
                 <SignInSignUp signIn={isSignIn} />
             </Modal>

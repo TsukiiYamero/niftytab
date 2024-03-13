@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const Nav = styled.nav`
     position: sticky;
@@ -7,4 +7,4 @@ export const Nav = styled.nav`
     width: 100%;
     display: flex;
     align-items: center;
-`;
+`; */

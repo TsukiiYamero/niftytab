@@ -37,7 +37,6 @@ export const SignInSignUp = ({ signIn = true }: { signIn: boolean }) => {
                 onClose={closeModalForgotPassword}
                 closeByClickOutside={false}
                 displayLevel={2}
-                ClassSizeAuto={true}
             >
                 <ForgotPasswordLayout />
             </Modal>

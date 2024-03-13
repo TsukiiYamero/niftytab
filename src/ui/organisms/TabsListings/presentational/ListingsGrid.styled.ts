@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const ListingsGrid = styled.div`
     width: fit-content;
@@ -9,4 +9,4 @@ export const ListingsGrid = styled.div`
     gap: 9px;
     padding: 10px 1px;
     overflow: auto;
-`;
+`; */

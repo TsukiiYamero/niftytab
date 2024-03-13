@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const SearchInput = styled.input`
     font-size: var(--font-size-semi-title);
@@ -11,4 +11,4 @@ export const SearchInput = styled.input`
         outline: 0;
         border: 0;
     }
-`;
+`; */
