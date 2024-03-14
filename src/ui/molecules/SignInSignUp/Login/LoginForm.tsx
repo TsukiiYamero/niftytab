@@ -4,7 +4,10 @@ import { useHandlePassword } from '@/customHooks/forms/useHandlePassword';
 import './login_layout.css';
 /* import { type FormEvent, useState } from 'react'; */
 import { useForm } from 'react-hook-form';
+import { Button, Input } from '@nextui-org/react';
 /* import { PatternPassword } from '@/utils'; */
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { PatternPassword } from '@/utils';
 
 type Props = {
     loading: boolean,
@@ -28,31 +31,32 @@ export const LoginForm = ({
         }
     });
 
-    const { showPassword, handleClickShowPassword } = useHandlePassword();
+    const title = isSignIn ? 'Sign In' : 'Create Account';
+
+    const { isVisible, togglePassword } = useHandlePassword();
 
     return (
-        <div className={'container-login'}>
+        <div className={'px-[3px] py-[16px]'}>
             <div>
 
                 {loading && <h1>Loading...</h1>}
 
-                <h2 className='title-login-space'>{isSignIn ? 'Sign In' : 'Sign Up'}</h2>
+                <h2 className='title-login-space'>{title}</h2>
 
-                {/* <FormHelperText className={'error-msg-login'} >{errorMessage}</FormHelperText>
+                <p className={'error-msg-login'} >{errorMessage}</p>
 
-                <Box
-                    component="form"
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
                     noValidate
-                    width={'330px'}
-                    className={'container-login-form'}
+                    className={'flex flex-col gap-4'}
                 >
-                    <TextField
-                        id="login_Email"
-                        error={!!errors.email}
-                        fullWidth
+                    <Input
+                        size={'lg'}
+                        type="email"
                         label="Email"
-                        variant="outlined"
-                        required
+                        isInvalid={!!errors.email}
+                        color={errors.email ? 'danger' : 'success'}
+                        errorMessage={errors.email?.message}
                         {...register('email', {
                             required: 'Please Provide an email',
                             pattern: {
@@ -60,67 +64,64 @@ export const LoginForm = ({
                                 message: 'Please enter a valid email'
                             }
                         })}
-                        helperText={errors.email?.message}
                     />
 
-                    <FormControl fullWidth variant="outlined">
-                        <InputLabel error={!!errors.password} htmlFor="outlined-adornment-login_Password">Password</InputLabel>
-                        <OutlinedInput
-                            fullWidth
-                            error={!!errors.password}
-                            {...register('password', {
-                                required: 'Please Provide a password',
-                                pattern: {
-                                    value: PatternPassword,
-                                    message: 'Password must be at least 8 characters long, and must include 1 letter & 1 number.'
-                                }
-                            })}
-                            id="outlined-adornment-login_Password"
-                            type={showPassword ? 'text' : 'password'}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        {showPassword ? <VisibilityOffRounded /> : <VisibilityRounded />}
-                                    </IconButton>
-                                </InputAdornment>
+                    <Input
+                        label="Password"
+                        variant="bordered"
+                        size='lg'
+                        isInvalid={!!errors.password}
+                        color={errors.password ? 'danger' : 'success'}
+                        errorMessage={errors.password?.message}
+                        type={isVisible ? 'text' : 'password'}
+                        className="max-w-xs"
+                        {...register('password', {
+                            required: 'Please Provide a password',
+                            pattern: {
+                                value: PatternPassword,
+                                message: 'Password must be at least 8 characters long, and must include 1 letter & 1 number.'
                             }
-                            label="Password"
-                        />
-                        <FormHelperText error={!!errors.password}>{errors.password?.message}</FormHelperText>
-                    </FormControl>
+                        })}
+                        endContent={
+                            <button className="focus:outline-none" type="button" onClick={togglePassword}>
+                                {
+                                    isVisible
+                                        ? (
+                                            <IconEyeOff className="text-2xl text-default-400 pointer-events-none" />
+                                        )
+                                        : (
+                                            <IconEye className="text-2xl text-default-400 pointer-events-none" />
+                                        )}
+                            </button>
+                        }
+                    />
 
                     <Button
                         fullWidth
                         disabled={loading}
                         type='submit'
-                        variant="contained"
-                        onClick={onSubmitForm}
+                        variant="solid"
                     >{title}</Button>
-                </Box> */}
+                </form>
 
             </div>
 
             <div className='bottom-login-container'>
-                {/*  {
+                {
                     isSignIn
-                        ? <FormHelperText onClick={onForgotPassword} className='forgot-msg-login'>Forgot your password?</FormHelperText>
+                        ? <p onClick={onForgotPassword} className='forgot-msg-login'>Forgot your password?</p>
                         : (
-                            <Box className='tos-privacy'>
-                                <FormHelperText>
-                                    By clicking "Create account", I agree to NiftyTab's
-                                </FormHelperText>
-                                <FormHelperText>
+                            <div className='tos-privacy'>
+                                <p>
+                                    By clicking&quot;Create account&quot;, I agree to NiftyTab&quot;s
+                                </p>
+                                <p>
                                     <a href={'https://niftytab.netlify.app/terms#termsSection'} target='_blank' rel="noreferrer">TOS</a> and
                                     <a href={'https://niftytab.netlify.app/privacy#termsSection'} target='_blank' rel="noreferrer">Privacy Policy</a>.
-                                </FormHelperText>
-                            </Box>
+                                </p>
+                            </div>
                         )
-                } */}
+                }
 
                 <div className='login-social-media'>
                     <div className='custom-line'>

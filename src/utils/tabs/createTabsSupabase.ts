@@ -1,5 +1,5 @@
-import { AuthUser } from '@/contexts/auth';
-import { TabsSupabase } from '@/models';
+import type { AuthUser } from '@/contexts/auth';
+import type { TabsSupabase } from '@/models';
 
 /**
  * Create the tabs structure for save in supabase Tabs

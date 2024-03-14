@@ -1,4 +1,4 @@
-import { TabsSupabase } from '@/models';
+import type { TabsSupabase } from '@/models';
 
 /**
  * Filters the tabs that are already in the database `tabsInSupabase` with the `tabs` given

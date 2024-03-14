@@ -1,4 +1,4 @@
-import { NiftyTab } from '@/models';
+import type { NiftyTab } from '@/models';
 
 export const filterTabsByTitleOrUrl = (tabs: NiftyTab[] | chrome.tabs.Tab[], keyword: string) =>
     (tabs as NiftyTab[]).filter((tab) =>

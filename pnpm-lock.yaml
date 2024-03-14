@@ -11,9 +11,9 @@ dependencies:
   '@supabase/supabase-js':
     specifier: 2.39.7
     version: 2.39.7
-  '@tabler/icons':
-    specifier: ^3.0.0
-    version: 3.0.0
+  '@tabler/icons-react':
+    specifier: ^3.0.1
+    version: 3.0.1(react@18.2.0)
   framer-motion:
     specifier: ^11.0.8
     version: 11.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -3164,8 +3164,17 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tabler/icons@3.0.0:
-    resolution: {integrity: sha512-DT27tfUt7v6wqn+NVBp5zSxYwfVuyImdgih0ULTbs0qQrAANmjobyMSrD+ATWvIsS5QuhbA+lX4hv8pEe7Lm/w==}
+  /@tabler/icons-react@3.0.1(react@18.2.0):
+    resolution: {integrity: sha512-CaB72mZo3t+DCYfwelPHBp3dCfghocSKESau0AZZGKLozNnh7nOtVk4riH0+UBN2Gu0hKq9DZzIU4dUW8uq+mw==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      '@tabler/icons': 3.0.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons@3.0.1:
+    resolution: {integrity: sha512-K/ZgJkxWcrMWdkgvS7VmgZ4F6SXM5UPolh2Y/dPTJnRpjMSySzfi93+XvfP2YfAzH7bd4ilqmTp7TADPLHrn0A==}
     dev: false
 
   /@testing-library/dom@9.3.4:

@@ -1,4 +1,4 @@
-import { SessionCloud, NiftyTab } from '@/models';
+import type { SessionCloud, NiftyTab } from '@/models';
 
 type uniqueSession = {
     id: number;
@@ -17,6 +17,7 @@ export const getBadgeCount = (data: NiftyTab[]) => {
     });
     const uniqueSessions: uniqueSession[] = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     Object.entries(countObj).forEach(([id, count]: any) => {
         uniqueSessions.push({ id, count });
     });

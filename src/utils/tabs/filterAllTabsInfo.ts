@@ -1,4 +1,4 @@
-import { TabsCloud } from '@/models';
+import type { TabsCloud } from '@/models';
 import { filterTabsByTitleOrUrl } from './filterTabsByTitleOrUrl';
 
 export const filterAllTabsInfo = (AllTabsInfo: TabsCloud[] = [], query: string): TabsCloud[] => {

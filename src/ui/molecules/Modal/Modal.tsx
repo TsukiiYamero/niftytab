@@ -76,9 +76,7 @@ export const Modal = ({
                         <div
                             /* be careful with the space */
                             className={
-                                `modal__default-padding
-                                 modal__bg-color
-                                 modal__place-self-center`
+                                'modal__default-padding modal__place-self-center text-foreground bg-background'
                             }
                             onClick={handleClosePropagation}
                         >

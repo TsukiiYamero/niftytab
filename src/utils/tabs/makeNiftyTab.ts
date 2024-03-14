@@ -1,4 +1,4 @@
-import { NiftyTab, TabsSupabase } from '@/models';
+import type { NiftyTab, TabsSupabase } from '@/models';
 
 export const supabaseTabsToNiftyTabs = (tabs: TabsSupabase[] = []): NiftyTab[] => {
     return tabs.map((tab) => ({

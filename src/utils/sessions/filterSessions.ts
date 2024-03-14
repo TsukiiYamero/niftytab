@@ -1,4 +1,4 @@
-import { SessionCloud } from '@/models';
+import type { SessionCloud } from '@/models';
 
 export const filterSession = (list: SessionCloud[], keyword: string) => {
     return list.filter(session =>

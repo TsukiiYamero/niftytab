@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 export const useHandlePassword = () => {
-    const [showPassword, setShowPassword] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
-    const handleClickShowPassword = () => { setShowPassword((show) => !show); };
+    const togglePassword = () => { setIsVisible((show) => !show); };
 
     return {
-        showPassword,
-        handleClickShowPassword
+        isVisible,
+        togglePassword
     };
 };

@@ -1,7 +1,3 @@
-.container-login {
-    padding: 3px 16px;
-}
-
 .container-login-form {
     align-items: flex-start;
     display: flex;
@@ -46,7 +42,7 @@ p.forgot-msg-login {
     right: -56%;
     cursor: pointer;
     color: var(--main-text-color);
-    font-size: 13px;
+    font-size: var(--font-size-small);
     width: 138px;
     margin: 0;
 }
