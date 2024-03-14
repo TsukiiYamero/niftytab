@@ -1,9 +1,9 @@
 import { type ReactNode, useCallback, useState } from 'react';
 import { AuthModalContext } from '../authModalContext';
 import { useAuthDispatch, useAuthState } from '@/contexts/auth/hooks';
-import { Modal, useModal } from '@/ui/molecules/Modal';
 import { AuthActions } from '@/contexts/auth/auth.types';
 import { SignInSignUp } from '@/ui/molecules/SignInSignUp';
+import { Modal, ModalBody, ModalContent, useDisclosure } from '@nextui-org/react';
 
 type Props = {
     children: ReactNode;
@@ -14,24 +14,24 @@ export const AuthModalProvider = ({ children }: Props) => {
     const { user } = useAuthState();
     const [isSignIn, setIsSignIn] = useState(true);
 
-    const { isOpen, openModal, closeModal } = useModal();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const onCloseModal = () => {
         dispatch({ type: AuthActions.resetMsg });
-        closeModal();
+        onClose();
     };
 
     const onOpenModal = useCallback(() => {
         if (user) return;
 
-        openModal();
-    }, [openModal, user]);
+        onOpen();
+    }, [onOpen, user]);
 
     return (
         <AuthModalContext.Provider value={{
             isOpen,
             setIsSignIn,
-            closeModal,
+            closeModal: onCloseModal,
             openModal: onOpenModal
         }}>
 
@@ -39,11 +39,15 @@ export const AuthModalProvider = ({ children }: Props) => {
 
             <Modal
                 isOpen={isOpen}
-                closeByIcon={true}
-                closeByClickOutside={false}
-                onClose={onCloseModal}
+                isDismissable={false}
+                onOpenChange={onCloseModal}
+                backdrop='blur'
             >
-                <SignInSignUp signIn={isSignIn} />
+                <ModalContent>
+                    <ModalBody>
+                        <SignInSignUp signIn={isSignIn} />
+                    </ModalBody>
+                </ModalContent>
             </Modal>
         </AuthModalContext.Provider>
     );
