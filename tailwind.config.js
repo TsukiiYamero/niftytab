@@ -8,6 +8,9 @@ export default {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
+    fontSize: {
+      'font-size-small': 'var(--font-size-small)'
+    },
     extend: {}
   },
   darkMode: 'class',

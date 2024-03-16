@@ -42,6 +42,7 @@ export const AuthModalProvider = ({ children }: Props) => {
                 isDismissable={false}
                 onOpenChange={onCloseModal}
                 backdrop='blur'
+                size='sm'
             >
                 <ModalContent>
                     <ModalBody>

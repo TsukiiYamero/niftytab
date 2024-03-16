@@ -9,11 +9,6 @@
     color: var(--error-color-primary-100);
 }
 
-.title-login-space {
-    padding-block: 6px 24px;
-    color: var(--main-text-color);
-}
-
 p.error-msg-login {
     position: relative;
     bottom: 19px;
@@ -23,16 +18,7 @@ p.error-msg-login {
 
 /* bottom after login btn */
 
-.bottom-login-container {
-    padding-top: 8px;
-}
-
-.tos-privacy p:nth-child(2) {
-    display: flex;
-    gap: 5px;
-}
-
-.tos-privacy p:nth-child(2) a {
+.tos-privacy a {
     color: var(--primary-color);
     text-decoration: underline;
 }
@@ -69,11 +55,6 @@ p.forgot-msg-login:hover {
     color: var(--main-text-color);
 }
 
-.login-others-opts span {
-    border-bottom: 1px solid var(--neutral-color-secondary);
-}
-
 .login-others-opts span:hover {
     color: var(--primary-color);
-    border-bottom: 1px solid var(--primary-color);
 }

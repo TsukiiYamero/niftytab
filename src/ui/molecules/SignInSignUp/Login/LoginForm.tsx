@@ -36,24 +36,26 @@ export const LoginForm = ({
     const { isVisible, togglePassword } = useHandlePassword();
 
     return (
-        <div className={'px-[3px] py-[16px]'}>
+        <div className={'px-[16px] py-[16px] max-w-[380px]'}>
             <div>
 
                 {loading && <h1>Loading...</h1>}
 
-                <h2 className='title-login-space'>{title}</h2>
+                <h2 className='text-[length:var(--font-size-title)] mb-5'>{title}</h2>
 
                 <p className={'error-msg-login'} >{errorMessage}</p>
 
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
-                    className={'flex flex-col gap-4'}
+                    className={'flex flex-col gap-5'}
                 >
                     <Input
-                        size={'lg'}
+                        size={'md'}
                         type="email"
                         label="Email"
+                        variant="bordered"
+                        fullWidth
                         isInvalid={!!errors.email}
                         color={errors.email ? 'danger' : 'success'}
                         errorMessage={errors.email?.message}
@@ -67,14 +69,14 @@ export const LoginForm = ({
                     />
 
                     <Input
+                        size='md'
                         label="Password"
                         variant="bordered"
-                        size='lg'
+                        fullWidth
                         isInvalid={!!errors.password}
                         color={errors.password ? 'danger' : 'success'}
                         errorMessage={errors.password?.message}
                         type={isVisible ? 'text' : 'password'}
-                        className="max-w-xs"
                         {...register('password', {
                             required: 'Please Provide a password',
                             pattern: {
@@ -98,27 +100,27 @@ export const LoginForm = ({
 
                     <Button
                         fullWidth
+                        color='primary'
                         disabled={loading}
                         type='submit'
                         variant="solid"
+                        className='mt-2'
                     >{title}</Button>
                 </form>
 
             </div>
 
-            <div className='bottom-login-container'>
+            <div className='pt-[11px]'>
                 {
                     isSignIn
                         ? <p onClick={onForgotPassword} className='forgot-msg-login'>Forgot your password?</p>
                         : (
-                            <div className='tos-privacy'>
+                            <div className='tos-privacy text-font-size-small'>
                                 <p>
                                     By clicking&quot;Create account&quot;, I agree to NiftyTab&quot;s
                                 </p>
-                                <p>
-                                    <a href={'https://niftytab.netlify.app/terms#termsSection'} target='_blank' rel="noreferrer">TOS</a> and
-                                    <a href={'https://niftytab.netlify.app/privacy#termsSection'} target='_blank' rel="noreferrer">Privacy Policy</a>.
-                                </p>
+                                <a className='pl-1' href={'https://niftytab.netlify.app/terms#termsSection'} target='_blank' rel="noreferrer">TOS</a> and
+                                <a className='pl-1' href={'https://niftytab.netlify.app/privacy#termsSection'} target='_blank' rel="noreferrer">Privacy Policy</a>.
                             </div>
                         )
                 }
@@ -130,8 +132,8 @@ export const LoginForm = ({
 
                     <div className='login-others-opts'>
                         {isSignIn
-                            ? <span onClick={onSignUp}> Don&apos;t have an account yet?</span>
-                            : <span onClick={onSignIn}> Already a user?</span>}
+                            ? <span className='underline text-[length:var(--font-size-common)]' onClick={onSignUp}> Don&apos;t have an account yet?</span>
+                            : <span className='underline text-[length:var(--font-size-common)]' onClick={onSignIn}> Already a user?</span>}
                     </div>
                 </div>
             </div>
