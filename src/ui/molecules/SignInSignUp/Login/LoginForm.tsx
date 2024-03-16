@@ -3,7 +3,7 @@
 import { useHandlePassword } from '@/customHooks/forms/useHandlePassword';
 import './login_layout.css';
 /* import { type FormEvent, useState } from 'react'; */
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Button, Input } from '@nextui-org/react';
 /* import { PatternPassword } from '@/utils'; */
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
@@ -23,7 +23,7 @@ export const LoginForm = ({
     isSignIn, onSubmit, toggleSignInSignUp,
     onForgotPassword
 }: Props) => {
-    const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, getValues, reset, control, formState: { errors } } = useForm({
         defaultValues: {
             email: '',
             password: ''
@@ -49,52 +49,66 @@ export const LoginForm = ({
                     noValidate
                     className={'flex flex-col gap-5'}
                 >
-                    <Input
-                        size={'md'}
-                        type="email"
-                        label="Email"
-                        variant="bordered"
-                        fullWidth
-                        isInvalid={!!errors.email}
-                        color={errors.email ? 'danger' : 'success'}
-                        errorMessage={errors.email?.message}
-                        {...register('email', {
+                    <Controller
+                        name="email"
+                        control={control}
+                        rules={{
                             required: 'Please Provide an email',
                             pattern: {
                                 value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
                                 message: 'Please enter a valid email'
                             }
-                        })}
+                        }}
+                        render={({ field }: any) => (
+                            <Input
+                                size={'md'}
+                                type="email"
+                                label="Email"
+                                variant="bordered"
+                                fullWidth
+                                isInvalid={!!errors.email}
+                                color={errors.email ? 'danger' : 'success'}
+                                errorMessage={errors.email?.message}
+                                {...field}
+                            />
+                        )}
                     />
 
-                    <Input
-                        size='md'
-                        label="Password"
-                        variant="bordered"
-                        fullWidth
-                        isInvalid={!!errors.password}
-                        color={errors.password ? 'danger' : 'success'}
-                        errorMessage={errors.password?.message}
-                        type={isVisible ? 'text' : 'password'}
-                        {...register('password', {
+                    <Controller
+                        name="password"
+                        control={control}
+                        rules={{
                             required: 'Please Provide a password',
                             pattern: {
                                 value: PatternPassword,
                                 message: 'Password must be at least 8 characters long, and must include 1 letter & 1 number.'
                             }
-                        })}
-                        endContent={
-                            <button className="focus:outline-none" type="button" onClick={togglePassword}>
-                                {
-                                    isVisible
-                                        ? (
-                                            <IconEyeOff className="text-2xl text-default-400 pointer-events-none" />
-                                        )
-                                        : (
-                                            <IconEye className="text-2xl text-default-400 pointer-events-none" />
-                                        )}
-                            </button>
-                        }
+                        }}
+                        render={({ field }: any) => (
+                            <Input
+                                size='md'
+                                label="Password"
+                                variant="bordered"
+                                fullWidth
+                                isInvalid={!!errors.password}
+                                color={errors.password ? 'danger' : 'success'}
+                                errorMessage={errors.password?.message}
+                                type={isVisible ? 'text' : 'password'}
+                                {...field}
+                                endContent={
+                                    <button className="focus:outline-none" type="button" onClick={togglePassword}>
+                                        {
+                                            isVisible
+                                                ? (
+                                                    <IconEyeOff className="text-2xl text-default-400 pointer-events-none" />
+                                                )
+                                                : (
+                                                    <IconEye className="text-2xl text-default-400 pointer-events-none" />
+                                                )}
+                                    </button>
+                                }
+                            />
+                        )}
                     />
 
                     <Button
