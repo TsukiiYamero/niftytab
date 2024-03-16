@@ -13,16 +13,15 @@ type Props = {
     loading: boolean,
     errorMessage: string,
     isSignIn: boolean,
-    onSignUp: () => void,
-    onSignIn: () => void,
+    toggleSignInSignUp: (signIn?: boolean) => void,
     onSubmit: () => void;
     onForgotPassword: () => void,
 }
 
 export const LoginForm = ({
     loading, errorMessage,
-    isSignIn, onSubmit, onSignUp,
-    onSignIn, onForgotPassword
+    isSignIn, onSubmit, toggleSignInSignUp,
+    onForgotPassword
 }: Props) => {
     const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -132,8 +131,12 @@ export const LoginForm = ({
 
                     <div className='login-others-opts'>
                         {isSignIn
-                            ? <span className='underline text-[length:var(--font-size-common)]' onClick={onSignUp}> Don&apos;t have an account yet?</span>
-                            : <span className='underline text-[length:var(--font-size-common)]' onClick={onSignIn}> Already a user?</span>}
+                            ? <span className='underline text-[length:var(--font-size-common)]'
+                                onClick={() => { toggleSignInSignUp(false); }}>
+                                Don&apos;t have an account yet?</span>
+                            : <span className='underline text-[length:var(--font-size-common)]'
+                                onClick={() => { toggleSignInSignUp(true); }}>
+                                Already a user?</span>}
                     </div>
                 </div>
             </div>

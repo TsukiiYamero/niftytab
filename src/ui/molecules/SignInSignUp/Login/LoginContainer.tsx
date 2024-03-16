@@ -13,15 +13,15 @@ export const LoginContainer = ({ isInitialSigIn = true }: { isInitialSigIn: bool
     } = useModal();
 
     const {
-        loading, errorMessage, onSignIn
+        loading, errorMessage
     } = useAuthHandler(isSignIn);
 
     const forgotPassword = () => {
         openModalForgotPassword();
     };
 
-    const toggleSignInSignUp = () => {
-        setIsSignIn(!isSignIn);
+    const toggleSignInSignUp = (signIn = true) => {
+        setIsSignIn(signIn);
     };
 
     const onSubmit = () => {
@@ -35,8 +35,7 @@ export const LoginContainer = ({ isInitialSigIn = true }: { isInitialSigIn: bool
                 loading={loading}
                 errorMessage={errorMessage}
                 onSubmit={onSubmit}
-                onSignIn={onSignIn}
-                onSignUp={toggleSignInSignUp}
+                toggleSignInSignUp={toggleSignInSignUp}
                 onForgotPassword={forgotPassword}
             />
 
