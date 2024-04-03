@@ -1,15 +1,8 @@
-import { Box } from '@mui/material';
-
 export const CommonLine = () => {
     return (
-        <Box sx={{
-            borderWidth: '1px',
-            borderColor: '#ccc9c952',
-            borderStyle: 'solid',
-            marginTop: '1.5rem',
-            marginBottom: '1rem',
-            borderRadius: '1rem'
-        }}>
-        </Box>
+        <div
+            className='border-line my-[1rem] border-solid border-[color:#ccc9c952] border-[width:1px] radius-[1px]'
+        >
+        </div>
     );
 };

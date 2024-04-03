@@ -1,18 +1,8 @@
-// import ImgAstro from '@/assets/img/astronaut.png';
-import { useRive } from '@rive-app/react-canvas';
-import NotResultsFile from '@/assets/rive/not-found/cat_no_results_found.riv?url';
-
 type Props = {
     msg?: string
 }
 
 export const DataNotFound = ({ msg = 'Ops... No results found' }: Props) => {
-    const { RiveComponent } = useRive({
-        src: NotResultsFile,
-        autoplay: true,
-        animations: 'State Machine 1'
-    });
-
     return (
         <div className='tabs-not-found-results'>
             {/* https://www.mothershipcorp.com/images/slider-6.png */}
@@ -20,7 +10,7 @@ export const DataNotFound = ({ msg = 'Ops... No results found' }: Props) => {
 
             {/* credits for webksherrish at https://rive.app/community/4597-9318-no-results-found/ */}
             <div>
-                <RiveComponent />
+                <p>LOADING...</p>
             </div>
             <span>{msg}</span>
         </div>

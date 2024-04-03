@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState, useCallback } from 'react';
+import { type ChangeEvent, useEffect, useState, useCallback } from 'react';
 
 type ErrorRecord<T> = Partial<Record<keyof T, string>>;
 
@@ -17,9 +17,9 @@ interface Validation {
     };
 }
 
-type Validations<T extends {}> = Partial<Record<keyof T, Validation>>;
+type Validations<T extends Record<string, unknown>> = Partial<Record<keyof T, Validation>>;
 
-export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
+export const useFormAdvanced = <T extends Record<keyof T, any> = Record<string, unknown>>(options: {
     validations?: Validations<T>;
     initialValues: Partial<T>;
     onSubmit?: () => void;
@@ -30,7 +30,7 @@ export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
     const [pristine, setPristine] = useState(true);
 
     const handleChange =
-        useCallback(<S extends unknown>(key: keyof T, sanitizeFn: (value: string) => S) =>
+        useCallback(<S>(key: keyof T, sanitizeFn: (value: string) => S) =>
             (e: ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
                 const value = sanitizeFn
                     ? sanitizeFn(e.target.value)
@@ -41,7 +41,7 @@ export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
                 });
             }, [data]);
 
-    const handelSetData = useCallback(<T extends Record<keyof T, any> = {}>(data: Partial<T>) => {
+    const handelSetData = useCallback(<T extends Record<keyof T, any> = Record<string, unknown>>(data: Partial<T>) => {
         if (!data) return;
 
         setData(data);
@@ -77,6 +77,7 @@ export const useFormAdvanced = <T extends Record<keyof T, any> = {}>(options: {
             }
 
             if (!valid) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                 setErrors(newErrors);
                 setIsValid(false);
                 return;

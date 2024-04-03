@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect, useMemo } from 'react';
+/* import { useState, type ChangeEvent, useEffect, useMemo } from 'react';
 
 export const useForm = <T>(initialForm: T, formValidations: any = {}) => {
     const [formState, setFormState] = useState(initialForm);
@@ -29,7 +29,7 @@ export const useForm = <T>(initialForm: T, formValidations: any = {}) => {
         });
     };
 
-    const onResetForm = () => setFormState(initialForm);
+    const onResetForm = () => { setFormState(initialForm); };
 
     const createValidators = () => {
         const formCheckedValues: any = {};
@@ -55,4 +55,4 @@ export const useForm = <T>(initialForm: T, formValidations: any = {}) => {
         formValidation,
         isFormValid
     };
-};
+}; */
