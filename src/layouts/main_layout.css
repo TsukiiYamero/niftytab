@@ -1,5 +1,14 @@
 .main-layout {
     height: 100%;
     display: grid;
+    /* grid-template-areas: "sidebar header"
+                         "sidebar main"; */
     grid-template-columns: 60px auto;
+    /* grid-template-rows: 80px auto; */
+
+}
+
+.main-content {
+    /* grid-row: 2 / -1;
+    grid-column: 2 / -1; */
 }

@@ -2,7 +2,7 @@ import { MainLayout } from '@/layouts';
 
 const Home = () => {
     return (
-        <MainLayout>
+        <MainLayout titleHeader='Dashboard Homepage'>
             <div>
                 texteando ando
             </div>
