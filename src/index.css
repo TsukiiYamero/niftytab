@@ -50,10 +50,11 @@
   --error-color-primary-15: #f2747445;
 
   --neutral-color-primary: #646464;
-  --neutral-color-secondary: #64646465;
+  --neutral-color-secondary: #01000065;
   --neutral-color-third: #515050;
 
   --border-color-primary: #cdcdcd;
+  --border-color-alt-primary: #DCDCDC;
   --border-color-secondary: #b8b1b1;
   --border-color-third: #dfdfdf;
 
@@ -86,6 +87,11 @@
 
   --border-radius-primary: 8px;
   --border-radius-secondary: 44px;
+
+  --width-app: 690px;
+  --height-app: 440px;
+
+  --top-space-layout: 18px; 
 }
 
 [data-theme="light"] {
@@ -160,8 +166,8 @@ p {
 
 body {
   margin: 0;
-  width: 712px;
-  height: 568px;
+  width: var(--width-app);
+  height: var(--height-app);
   font-family: var(--main-font-family);
   background-color: var(--bg-color);
   color: var(--main-text-color);

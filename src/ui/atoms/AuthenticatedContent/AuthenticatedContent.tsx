@@ -1,6 +1,6 @@
 import { useAuthState } from '@/contexts/auth';
 import { UserNoAuthenticatedMessage } from '@/ui/molecules/UserNotAuthenticatedMessage';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 type Props = {
     children: ReactNode;
