@@ -1,8 +1,8 @@
 import { getAllChromeTabs } from '@/utils';
 import { useEffect, useState } from 'react';
 
-export const useGetTabsLocal = () => {
-    const [local, setLocal] = useState<chrome.tabs.Tab[]>([]);
+export const useGetAllTabs = () => {
+    const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -12,11 +12,11 @@ export const useGetTabsLocal = () => {
             const resp = await getAllChromeTabs();
             // const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
 
-            setLocal(resp);
+            setTabs(resp);
             setLoading(false);
         };
         getTabs();
     }, []);
 
-    return { local, loading };
+    return { tabs, loading };
 };
