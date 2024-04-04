@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fontsource/poppins':
+    specifier: ^5.0.13
+    version: 5.0.13
   '@nextui-org/react':
     specifier: ^2.2.10
     version: 2.2.10(@types/react@18.2.64)(framer-motion@11.0.8)(react-dom@18.2.0)(react@18.2.0)(tailwind-variants@0.2.0)(tailwindcss@3.4.1)
@@ -610,6 +613,10 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource/poppins@5.0.13:
+    resolution: {integrity: sha512-8G9odFoxH43oZpvq43fpGucm8iHm6iatu0M1LIshb+tx3/y6YBXenVED7CI4resvPz6hyDu8a2vHSh9vrpe+wQ==}
+    dev: false
 
   /@formatjs/ecma402-abstract@1.18.2:
     resolution: {integrity: sha512-+QoPW4csYALsQIl8GbN14igZzDbuwzcpWrku9nyMXlaqAlwRBgl5V+p0vWMGFqHOw37czNXaP/lEk4wbLgcmtA==}
