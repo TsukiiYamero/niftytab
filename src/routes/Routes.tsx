@@ -1,4 +1,5 @@
 import Home from '@/pages/Home/Home';
+import { Suspend } from '@/pages/Suspend';
 import { HomeRoute, SaveTabsRoute, SuspendRoute } from '@/utils';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const Routes = createBrowserRouter([{
     index: true
 }, {
     path: SuspendRoute,
-    element: <Home />
+    element: <Suspend />
 }, {
     path: SaveTabsRoute,
     element: <Home />
