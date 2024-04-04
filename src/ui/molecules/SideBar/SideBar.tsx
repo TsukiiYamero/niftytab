@@ -5,15 +5,15 @@ import { NavLink } from 'react-router-dom';
 const itemsMenu = [{
     title: 'Home',
     path: HomeRoute,
-    icon: <IconHome className='text-[legth:var(--icons-size-primary)] text-[--neutral-color-primary]' />
+    icon: <IconHome className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
 }, {
     title: 'Suspend Tabs',
     path: SuspendRoute,
-    icon: <IconBrandSpeedtest className='text-[legth:var(--icons-size-primary)] text-[--neutral-color-primary]' />
+    icon: <IconBrandSpeedtest className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
 }, {
     title: 'Save Tabs',
     path: SaveTabsRoute,
-    icon: <IconInbox className='text-[legth:var(--icons-size-primary)] text-[--neutral-color-primary]' />
+    icon: <IconInbox className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
 }];
 
 export const SideBar = () => {

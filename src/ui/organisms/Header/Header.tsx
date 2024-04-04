@@ -1,3 +1,4 @@
+import { IconBell, IconUserCircle } from '@tabler/icons-react';
 import type { FC } from 'react';
 
 interface MainLayoutProps { textDescription: string, title: string }
@@ -13,11 +14,9 @@ export const Header: FC<MainLayoutProps> = ({ textDescription, title }) => {
             </section>
 
             <div className="flex gap-6">
-                <div className="rounded bg-slate-400 w-7 h-7">
-                </div>
+                <IconBell className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
 
-                <div className="rounded bg-slate-400 w-7 h-7">
-                </div>
+                <IconUserCircle strokeWidth={2} className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
             </div>
         </nav>
     );
