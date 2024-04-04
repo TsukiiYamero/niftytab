@@ -7,3 +7,8 @@ export const moveItem = <T>(arr: T[] = [], from = 0, to = 0) => {
 
     return newArr;
 };
+
+/* PATHS */
+export const HomeRoute = '/';
+export const SuspendRoute = '/suspend';
+export const SaveTabsRoute = '/save';

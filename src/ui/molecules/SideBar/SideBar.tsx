@@ -1,17 +1,18 @@
+import { HomeRoute, SaveTabsRoute, SuspendRoute } from '@/utils';
 import { IconHome, IconBrandSpeedtest, IconInbox } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 
 const itemsMenu = [{
     title: 'Home',
-    path: '/home',
+    path: HomeRoute,
     icon: <IconHome className='text-[legth:var(--icons-size-primary)] text-[--neutral-color-primary]' />
 }, {
     title: 'Suspend Tabs',
-    path: '/suspend',
+    path: SuspendRoute,
     icon: <IconBrandSpeedtest className='text-[legth:var(--icons-size-primary)] text-[--neutral-color-primary]' />
 }, {
     title: 'Save Tabs',
-    path: '/save',
+    path: SaveTabsRoute,
     icon: <IconInbox className='text-[legth:var(--icons-size-primary)] text-[--neutral-color-primary]' />
 }];
 
