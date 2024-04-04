@@ -245,3 +245,11 @@ body {
   font-size: 14px;
   z-index: 2;
 }
+
+#sidebar li:has(> a.active)  {
+  background-color: #ba68c859;
+}
+
+#sidebar a.active svg{
+  color: var(--primary-color);
+}

@@ -1,6 +1,6 @@
 import { HomeRoute, SaveTabsRoute, SuspendRoute } from '@/utils';
 import { IconHome, IconBrandSpeedtest, IconInbox } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const itemsMenu = [{
     title: 'Home',
@@ -23,11 +23,13 @@ export const SideBar = () => {
                 X
             </div>
 
-            <ul className='flex flex-col items-center gap-8'>
+            <ul id='sidebar' className='flex flex-col items-center gap-8'>
                 {
                     itemsMenu.map((item) => (
-                        <li key={item.title} className='p-[3px]'>
-                            <Link to={item.path}>{item.icon}</Link>
+                        <li key={item.title} className='p-[6px] rounded-full'>
+                            <NavLink to={item.path}>
+                                {item.icon}
+                            </NavLink>
                         </li>
                     ))
                 }
