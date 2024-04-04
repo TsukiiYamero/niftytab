@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useGetChromeTab = () => {
+export const useGetActiveTab = () => {
     const [tabActive, setTabActive] = useState<chrome.tabs.Tab>(null!);
 
     useEffect(() => {
