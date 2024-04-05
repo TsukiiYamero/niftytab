@@ -5,10 +5,10 @@ interface MainLayoutProps { textDescription: string, title: string }
 
 export const Header: FC<MainLayoutProps> = ({ textDescription, title }) => {
     return (
-        <nav className="flex justify-between items-center h-[70px]">
+        <nav className="flex justify-between items-center h-[60px]">
             <section className='flex flex-col'>
                 <h1 className='text-[length:var(--font-size-secondary-title)] font-bold'>{title}</h1>
-                <p className='text-[length:14px] text-[--neutral-color-alt-primary]'>
+                <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>
                     {textDescription}
                 </p>
             </section>

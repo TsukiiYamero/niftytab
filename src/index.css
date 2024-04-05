@@ -18,6 +18,7 @@
   --white: #fff;
 
   --primary-color: #ba68c8;
+  --primary-color-45:#ba68c859;
   --secondary-color: #181818;
   --third-color: #5cb8e4;
   --aux-primary-color: #f2f2f2;
@@ -60,11 +61,12 @@
 
   /* general font sizes  */
 
-  --font-size-title: 26px;
-  --font-size-secondary-title: 22px;
-  --font-size-semi-title: 20px;
+  --font-size-title: 24px;
+  --font-size-secondary-title: 20px;
+  --font-size-semi-title: 18px;
   --font-size-common: 16px;
-  --font-size-small: 11px;
+  --font-size-small: 10px;
+  --font-size-tiny: 13px;
   --font-size-standard: 18px;
 
   /* others sizes */
@@ -247,9 +249,14 @@ body {
 }
 
 #sidebar li:has(> a.active)  {
-  background-color: #ba68c859;
+  background-color: var(--primary-color-45);
 }
 
 #sidebar a.active svg{
+  color: var(--primary-color);
+}
+
+
+[aria-selected="true"] svg{
   color: var(--primary-color);
 }

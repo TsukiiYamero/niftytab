@@ -1,5 +1,6 @@
 import { useGetAllTabs } from '@/customHooks/tabs';
 import { MainLayout } from '@/layouts';
+import { TabsTracker } from '@/ui/organisms/TabsTracker';
 
 export const Suspend = () => {
     const tabs = useGetAllTabs();
@@ -8,9 +9,9 @@ export const Suspend = () => {
 
     return (
         <MainLayout textDescription='Reduce memory usage by suspending tabs' title='Suspend Tabs'>
-            <div>
-                a
-            </div>
+            <section>
+                <TabsTracker />
+            </section>
         </MainLayout>
     );
 };

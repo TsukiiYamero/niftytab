@@ -11,13 +11,11 @@ export const MainLayout: FC<MainLayoutProps> = ({ children, textDescription, tit
         <div className='main-layout'>
             <SideBar />
 
-            <div className='mx-5'>
+            <div className='mx-3 pt-1'>
                 <Header textDescription={textDescription} title={title} />
 
-                <main className='main-content'>
-                    <div className='mt-5'>
-                        {children}
-                    </div>
+                <main className='main-content mt-4'>
+                    {children}
                 </main>
             </div>
         </div>

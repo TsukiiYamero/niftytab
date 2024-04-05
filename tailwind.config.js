@@ -7,9 +7,23 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
-  theme: {
+  themes: {
     fontSize: {
       'font-size-small': 'var(--font-size-small)'
+    },
+    light: {
+      colors: {
+        primary: {
+          foreground: '#ba68c8'
+        }
+      }
+    },
+    dark: {
+      colors: {
+        primary: {
+          foreground: '#ba68c8'
+        }
+      }
     },
     extend: {}
   },
