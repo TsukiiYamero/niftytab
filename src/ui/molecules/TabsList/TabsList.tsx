@@ -26,6 +26,7 @@ import { useCallback, useState } from 'react';
 
 import { useGetAllTabs } from '@/customHooks/tabs';
 import { IconCpu, IconDotsVertical, IconPanoramaHorizontal } from '@tabler/icons-react';
+import { successColorIfTrue } from '@/utils';
 
 const StatusColorMap: Record<string, ChipProps['color']> = {
     active: 'success',
@@ -100,9 +101,17 @@ export const TabsList = () => {
                                     </div>
                                 </div>
                             </TableCell>
-                            <TableCell className='text-[length:var(--font-size-table-content)]'>1%</TableCell>
-                            <TableCell className='text-[length:var(--font-size-table-content)]'>100mb</TableCell>
-                            <TableCell className='text-[length:var(--font-size-table-content)]'>Suspended</TableCell>
+                            <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
+                                1%
+                            </TableCell>
+                            <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
+                                100mb
+                            </TableCell>
+                            <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
+                                {
+                                    item.discarded ? 'Suspended' : 'Active'
+                                }
+                            </TableCell>
                             <TableCell>
                                 <div className="relative flex justify-end items-center gap-2">
                                     <Dropdown>
