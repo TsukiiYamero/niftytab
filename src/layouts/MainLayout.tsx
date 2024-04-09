@@ -14,7 +14,7 @@ export const MainLayout: FC<MainLayoutProps> = ({ children, textDescription, tit
             <div className='mx-3 pt-1'>
                 <Header textDescription={textDescription} title={title} />
 
-                <main className='main-content mt-4'>
+                <main className='main-content my-4'>
                     {children}
                 </main>
             </div>

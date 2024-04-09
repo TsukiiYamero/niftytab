@@ -1,17 +1,17 @@
 import { TabsList } from '@/ui/molecules/TabsList';
-import { Tabs, Tab } from '@nextui-org/react';
-import { IconCpu, IconPanoramaHorizontal } from '@tabler/icons-react';
+/* import { Tabs, Tab } from '@nextui-org/react';
+import { IconCpu, IconPanoramaHorizontal } from '@tabler/icons-react'; */
 
 export const TabsTracker = () => {
     return (
-        <article className="max-w-[320px] bg-[#121019] p-3 rounded-md border-1 border-[--primary-color-45]">
+        <article className=" bg-[#121019] p-3 rounded-md border-1 border-[--primary-color-45]">
 
             <div>
                 <h3 className='text-[length:var(--font-size-semi-title)] font-semibold'>Tabs Tracker</h3>
                 <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>Watch tabs that steal your resources.</p>
             </div>
 
-            <Tabs className='mt-4'
+            {/*             <Tabs className='mt-4'
                 classNames={{
                     cursor: 'bg-[--primary-color-45]',
                     tabContent: 'group-data-[selected=true]:text-[--primary-color]'
@@ -34,9 +34,9 @@ export const TabsTracker = () => {
                         </div>
                     }
                 />
-            </Tabs>
+            </Tabs> */}
 
-            <TabsList className='mt-4 h-[180px]' />
+            <TabsList />
 
         </article>
     );

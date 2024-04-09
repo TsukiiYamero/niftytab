@@ -68,6 +68,7 @@
   --font-size-small: 10px;
   --font-size-tiny: 13px;
   --font-size-standard: 18px;
+  --font-size-table-content: 11px;
 
   /* others sizes */
 
@@ -149,7 +150,10 @@ p {
   padding: 0;
   margin: 0;
 }
-
+html,body, #root {
+  max-width: var(--width-app);
+  height: var(--height-app);
+}
 body {
   margin: 0;
   width: var(--width-app);

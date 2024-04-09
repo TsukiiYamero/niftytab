@@ -1,24 +1,130 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { FC } from 'react';
 
-import { useGetAllTabs } from '@/customHooks/tabs';
+import {
+    Table,
+    TableHeader,
+    TableColumn,
+    TableBody,
+    TableRow,
+    TableCell,
+    Input,
+    Button,
+    DropdownTrigger,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Chip,
+    User,
+    Pagination,
+    Selection,
+    type ChipProps,
+    SortDescriptor,
+    Spinner
+} from '@nextui-org/react';
+import { useCallback, useState } from 'react';
 
-export const TabsList: FC<{ className: string }> = ({ className }) => {
-    const { tabs } = useGetAllTabs();
+import { useGetAllTabs } from '@/customHooks/tabs';
+import { IconCpu, IconDotsVertical, IconPanoramaHorizontal } from '@tabler/icons-react';
+
+const StatusColorMap: Record<string, ChipProps['color']> = {
+    active: 'success',
+    inactive: 'default'
+};
+
+export const TabsList = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const { tabs, loading } = useGetAllTabs();
+
+    const renderCell = useCallback((value: string) => {
+
+    }, []);
 
     return (
-        <ul className={`flex flex-col gap-2 overflow-x-hidden ${className}`}>
-            {
-                tabs.map((tab) =>
-                    <li className='flex gap-1 items-center' key={tab.id}>
-                        <img src={tab.favIconUrl} alt={tab.title} className='w-4 h-4' />
+        <Table
+            isHeaderSticky
+            aria-label="Show resources consumption"
+            classNames={{
+                table: 'min-h-[200px]',
+                base: 'max-h-[270px]  max-w-[580px]'
+            }}
+        >
+            <TableHeader>
+                <TableColumn key="tabs" allowsSorting className='text-[length:var(--font-size-table-content)]'>
+                    Tabs
+                </TableColumn>
 
-                        <div className='flex flex-col overflow-hidden pl-1'>
-                            <p className='text-[length:12px] whitespace-nowrap' title={tab.title} >{tab.title}</p>
-                            <p className='text-[length:var(--font-size-small)] whitespace-nowrap' title={tab.url} >{tab.url}</p>
-                        </div>
-                    </li>
-                )
-            }
-        </ul>
+                <TableColumn key="gpu" allowsSorting width={60}>
+                    <div className='inline-flex items-center gap-1'>
+                        <IconCpu className="h-4 w-4 text-[--neutral-color-primary]" />
+                        <span className='text-[length:var(--font-size-table-content)] font-medium'>GPU</span>
+                    </div>
+                </TableColumn>
+
+                <TableColumn key="ram" allowsSorting width={60}>
+                    <div className='inline-flex items-center gap-1'>
+                        <IconPanoramaHorizontal className="h-4 w-4 text-[--neutral-color-primary]" />
+                        <span className='text-[length:var(--font-size-table-content)] font-medium'>Ram</span>
+                    </div>
+                </TableColumn>
+
+                <TableColumn key="status" allowsSorting width={66} className='text-[length:var(--font-size-table-content)]'>
+                    Status
+                </TableColumn>
+
+                <TableColumn key="actions" width={60} className='text-[length:var(--font-size-table-content)]'>
+                    Actions
+                </TableColumn>
+            </TableHeader>
+
+            <TableBody
+                isLoading={loading}
+                items={tabs}
+                loadingContent={<Spinner label="Loading..." />}
+
+            >
+                {
+                    (item) => (
+                        <TableRow key={item.id}>
+                            <TableCell>
+                                <div className='flex gap-2 max-w-[204px] items-center overflow-hidden'>
+                                    <img className='h-4 w-4' src={`${item.favIconUrl}`} alt={item.title} />
+
+                                    <div className='flex flex-col overflow-hidden'>
+                                        <p title={item.title} className='text-[length:var(--font-size-table-content)] font-medium text-ellipsis overflow-hidden whitespace-nowrap'>
+                                            {item.title}
+                                        </p>
+                                        <small title={item.url} className='text-[length:9px] text-[--neutral-color-alt-primary] text-ellipsis overflow-hidden whitespace-nowrap'>
+                                            {item.url}
+                                        </small>
+                                    </div>
+                                </div>
+                            </TableCell>
+                            <TableCell className='text-[length:var(--font-size-table-content)]'>1%</TableCell>
+                            <TableCell className='text-[length:var(--font-size-table-content)]'>100mb</TableCell>
+                            <TableCell className='text-[length:var(--font-size-table-content)]'>Suspended</TableCell>
+                            <TableCell>
+                                <div className="relative flex justify-end items-center gap-2">
+                                    <Dropdown>
+                                        <DropdownTrigger>
+                                            <Button isIconOnly size="sm" variant="light">
+                                                <IconDotsVertical className="h-4 w-4 text-[--neutral-color-primary]" />
+                                            </Button>
+                                        </DropdownTrigger>
+
+                                        <DropdownMenu>
+                                            <DropdownItem>Suspend</DropdownItem>
+                                            <DropdownItem>Unsuspend</DropdownItem>
+                                            <DropdownItem>Never suspend </DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                </div>
+                            </TableCell>
+
+                        </TableRow>
+                    )
+                }
+            </TableBody>
+        </Table >
     );
 };
