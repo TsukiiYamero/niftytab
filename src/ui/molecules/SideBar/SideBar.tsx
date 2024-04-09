@@ -18,7 +18,7 @@ const itemsMenu = [{
 
 export const SideBar = () => {
     return (
-        <nav aria-label="Sidebar Menu" className='w-[60px] h-full flex flex-col gap-14 pt-[var(--top-space-layout)] border-r-2 border-[#cdcdcd4f]'>
+        <nav aria-label="Sidebar Menu" className='w-[60px] h-full flex flex-col gap-14 pt-[var(--top-space-layout)] bg-[--aside-bg-color]'>
             <div className='flex justify-center'>
                 X
             </div>
