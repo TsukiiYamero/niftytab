@@ -86,13 +86,16 @@ export const TabsList = () => {
             >
                 {
                     (item) => (
-                        <TableRow key={item.id}>
+
+                        <TableRow key={item.id} onClick={() => {
+
+                        }}>
                             <TableCell>
                                 <div className='flex gap-2 max-w-[204px] items-center overflow-hidden'>
                                     <img className='h-4 w-4' src={`${item.favIconUrl}`} alt={item.title} />
 
                                     <div className='flex flex-col overflow-hidden'>
-                                        <p title={item.title} className='text-[length:var(--font-size-table-content)] font-medium text-ellipsis overflow-hidden whitespace-nowrap'>
+                                        <p title={item.title} className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)] font-medium text-ellipsis overflow-hidden whitespace-nowrap`}>
                                             {item.title}
                                         </p>
                                         <small title={item.url} className='text-[length:9px] text-[--neutral-color-alt-primary] text-ellipsis overflow-hidden whitespace-nowrap'>
@@ -102,10 +105,10 @@ export const TabsList = () => {
                                 </div>
                             </TableCell>
                             <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
-                                1%
+                                🚧
                             </TableCell>
                             <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
-                                100mb
+                                🚧
                             </TableCell>
                             <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
                                 {
@@ -137,3 +140,45 @@ export const TabsList = () => {
         </Table >
     );
 };
+
+/* ESTA EN BETA O ALGO ASI toca esperar, aca esta el codigo como deberia funcionar */
+// ts-expect-error TODO
+/* chrome.processes.getProcessIdForTab(item.id, (processId: number) => {
+    console.log(processId);
+});
+ */
+const noSeuSa = () => {
+    // @ts-expect-error TODO
+    chrome?.processes?.getProcessInfo(
+        [],
+        true,
+        (processes: object) => { console.log(processes); }
+    );
+
+    chrome?.system?.memory?.getInfo((memoryInfo) => { });
+    chrome?.system?.cpu?.getInfo((cpuInfo) => { });
+};
+
+// Obtener la información de procesos
+// ts-expect-error TODO
+/* chrome.system.memory.getInfo((memoryInfo) => {
+    const totalMemoryMB = memoryInfo.capacity / (1024 * 1024);
+
+    chrome.processes.getProcessInfo([], true, (processes) => {
+        console.log('processes: ', processes);
+
+        for (const processId in processes) {
+            const process = processes[processId];
+            if (process.type === 'renderer') {
+                const tabId = process.tasks[0].tabId;
+                const processMemoryUsageMB = process.privateMemory / (1024 * 1024);
+                const percentageOfTotalMemory = (processMemoryUsageMB / totalMemoryMB) * 100;
+
+                console.log(
+                    'tabID: ', tabId,
+                    '%', percentageOfTotalMemory,
+                    'MB', processMemoryUsageMB);
+            }
+        }
+    });
+}); */

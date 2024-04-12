@@ -14,7 +14,10 @@
     },
     "permissions": [
         "storage",
-        "tabs"
+        "tabs",
+        "processes",
+        "system.cpu",
+        "system.memory"
     ],
     "web_accessible_resources": [
         {
