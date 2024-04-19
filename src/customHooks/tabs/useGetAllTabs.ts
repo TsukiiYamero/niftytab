@@ -1,4 +1,4 @@
-import { getAllChromeTabs } from '@/utils';
+import { getAllBrowserTabs } from '@/utils';
 import { useEffect, useState } from 'react';
 
 export const useGetAllTabs = () => {
@@ -9,7 +9,7 @@ export const useGetAllTabs = () => {
         const getTabs = async () => {
             setLoading(true);
 
-            const resp = await getAllChromeTabs();
+            const resp = await getAllBrowserTabs();
             // const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
 
             setTabs(resp);
