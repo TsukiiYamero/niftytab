@@ -1,4 +1,3 @@
-
 export const removeTab = (tab: chrome.tabs.Tab) => {
     if (!tab.id) return;
 
