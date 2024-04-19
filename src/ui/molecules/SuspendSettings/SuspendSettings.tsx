@@ -9,7 +9,7 @@ export const SuspendSettings = () => {
     return (
         <div className='flex flex-col gap-2'>
             <div className='flex flex-col gap-1'>
-                <p className='text-[length:var(--font-size-standard)] text-[--neutral-color-alt-primary]'>
+                <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>
                     Suspend tabs
                 </p>
 
@@ -20,7 +20,7 @@ export const SuspendSettings = () => {
                 >
                     <Radio value="keep" className='w-full'>
                         <div className='flex items-center gap-2'>
-                            <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-common)] w-[132px]'>
+                            <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)] w-[132px]'>
                                 Keep maximum of
                             </p>
 
@@ -39,14 +39,14 @@ export const SuspendSettings = () => {
                                 }
                             </Select>
 
-                            <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-common)]'>
+                            <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
                                 recent tabs in memory and suspend the rest
                             </p>
                         </div>
 
                     </Radio>
                     <Radio value="sydney">
-                        <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-common)]'>
+                        <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
                             In Progress
                         </p></Radio>
                 </RadioGroup>
@@ -63,19 +63,19 @@ export const SuspendSettings = () => {
                     defaultValue={['buenos-aires']}
                 >
                     <Checkbox value="media">
-                        <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-common)]'>
+                        <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
                             Never suspend tabs that are playing a video or audio
                         </p>
                     </Checkbox>
                     <Checkbox value="custom">
-                        <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-common)]'>
+                        <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
                             Never suspend tabs from this list
                         </p>
                     </Checkbox>
                 </CheckboxGroup>
 
                 <div className='flex h-[70px] p-3 rounded-md border-1 border-[--primary-color-45]'>
-                    <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-common)]'>
+                    <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
                         https://gmail.com
                     </p>
                 </div>

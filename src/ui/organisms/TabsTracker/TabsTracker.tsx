@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { TabsList } from '@/ui/molecules/TabsList';
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch, useDisclosure } from '@nextui-org/react';
 import { IconBrandSpeedtest, IconSettings } from '@tabler/icons-react';
@@ -7,9 +9,15 @@ import { SuspendSettings } from '@/ui/molecules/SuspendSettings';
 
 export const TabsTracker = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [selected, setIsSelected] = useState(false);
 
     const handleOpen = () => {
         onOpen();
+    };
+
+    const handleToggle = (value: boolean) => {
+        setIsSelected(value);
+        // console.log(value);
     };
 
     return (
@@ -35,6 +43,8 @@ export const TabsTracker = () => {
                             defaultSelected
                             size="md"
                             color="secondary"
+                            isSelected={selected}
+                            onValueChange={handleToggle}
                             startContent={<IconBrandSpeedtest className='h-4 w-4' />}
                         >
                         </Switch>
@@ -80,33 +90,7 @@ export const TabsTracker = () => {
                 </div>
             </div>
 
-            {/*             <Tabs className='mt-4'
-                classNames={{
-                    cursor: 'bg-[--primary-color-45]',
-                    tabContent: 'group-data-[selected=true]:text-[--primary-color]'
-                }} aria-label="Tabs Info Options" color='primary' radius="full">
-                <Tab
-                    key="gpu"
-                    title={
-                        <div className="flex items-center space-x-2">
-                            <IconCpu className="h-5 w-5 text-[--neutral-color-primary]" />
-                            <span className='text-[length:var(--font-size-tiny)] font-medium'>GPU</span>
-                        </div>
-                    }
-                />
-                <Tab
-                    key="ram"
-                    title={
-                        <div className="flex items-center space-x-2">
-                            <IconPanoramaHorizontal className="h-5 w-5 text-[--neutral-color-primary]" />
-                            <span className='text-[length:var(--font-size-tiny)] font-medium'>Ram</span>
-                        </div>
-                    }
-                />
-            </Tabs> */}
-
             <TabsList />
-
         </article>
     );
 };
