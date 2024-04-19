@@ -1,4 +1,3 @@
-
 export const updateTab = (tab: chrome.tabs.Tab): void => {
     if (!tab.id) return;
 
