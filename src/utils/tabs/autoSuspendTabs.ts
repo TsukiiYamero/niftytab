@@ -11,13 +11,15 @@ import { getAllBrowserTabs, suspendTab } from '@/utils/chrome';
 export const autoSuspendTabs = async (excludeRecentTabs: number) => {
     const tabs = await getAllBrowserTabs();
 
-    const recentTabs = tabs.sort((a, b) => {
+    const tabsLastAccess = tabs.sort((a, b) => {
         const aLastAccessed = a.lastAccessed ?? 0;
         const bLastAccessed = b.lastAccessed ?? 0;
         return bLastAccessed - aLastAccessed;
     });
 
-    const tabsToSuspend = recentTabs.slice(0, excludeRecentTabs);
+    const tabsToSuspend = tabsLastAccess.slice(excludeRecentTabs);
+    console.log(tabsToSuspend, ' tabs to suspend');
+    console.log(tabsLastAccess.slice(0, excludeRecentTabs), ' tabs to Not suspend');
 
     const suspendedTabsPromises: Array<Promise<chrome.tabs.Tab>> = [];
     let suspended = 0;
@@ -27,10 +29,10 @@ export const autoSuspendTabs = async (excludeRecentTabs: number) => {
         suspendedTabsPromises.push(suspendTab(tab.id));
     });
 
-    const suspendedTabs = await Promise.all(suspendedTabsPromises);
+    const suspendedTabs = await Promise.allSettled(suspendedTabsPromises);
 
     suspendedTabs.forEach((tab) => {
-        if (tab) suspended++;
+        if (tab.status === 'fulfilled') suspended++;
     });
 
     return suspended;

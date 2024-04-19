@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { FC } from 'react';
-
 import {
     Table,
     TableHeader,
@@ -14,17 +12,11 @@ import {
     Dropdown,
     DropdownMenu,
     DropdownItem,
-    Chip,
-    User,
-    Pagination,
-    Selection,
     type ChipProps,
-    SortDescriptor,
     Spinner
 } from '@nextui-org/react';
 import { useCallback, useState } from 'react';
 
-import { useGetAllTabs } from '@/customHooks/tabs';
 import { IconCpu, IconDotsVertical, IconPanoramaHorizontal } from '@tabler/icons-react';
 import { successColorIfTrue } from '@/utils';
 
@@ -33,9 +25,8 @@ const StatusColorMap: Record<string, ChipProps['color']> = {
     inactive: 'default'
 };
 
-export const TabsList = () => {
+export const TabsList = ({ tabs }: { tabs: chrome.tabs.Tab[] }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const { tabs, loading } = useGetAllTabs();
 
     const renderCell = useCallback((value: string) => {
 
@@ -79,7 +70,7 @@ export const TabsList = () => {
             </TableHeader>
 
             <TableBody
-                isLoading={loading}
+                /* isLoading={loading} */
                 items={tabs}
                 loadingContent={<Spinner label="Loading..." />}
 

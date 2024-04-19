@@ -6,18 +6,28 @@ import { IconBrandSpeedtest, IconSettings } from '@tabler/icons-react';
 /* import { Tabs, Tab } from '@nextui-org/react';
 import { IconCpu, IconPanoramaHorizontal } from '@tabler/icons-react'; */
 import { SuspendSettings } from '@/ui/molecules/SuspendSettings';
+import { autoSuspendTabs } from '@/utils/tabs/autoSuspendTabs';
+import { useGetAllTabs } from '@/customHooks/tabs';
 
 export const TabsTracker = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { tabs, updateTabs } = useGetAllTabs();
     const [selected, setIsSelected] = useState(false);
 
     const handleOpen = () => {
         onOpen();
     };
 
-    const handleToggle = (value: boolean) => {
+    const handleToggle = async (value: boolean) => {
         setIsSelected(value);
-        // console.log(value);
+        if (value) {
+            const suspendedTabs = await autoSuspendTabs(3);
+
+            if (suspendedTabs > 0)
+                console.log(suspendedTabs, ' Tabs was suspended');
+
+            updateTabs();
+        }
     };
 
     return (
@@ -90,7 +100,7 @@ export const TabsTracker = () => {
                 </div>
             </div>
 
-            <TabsList />
+            <TabsList tabs={tabs} />
         </article>
     );
 };

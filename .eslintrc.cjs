@@ -43,6 +43,7 @@ module.exports = {
         '@typescript-eslint/member-delimiter-style': 'off',
         '@typescript-eslint/no-floating-promises': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
-        '@typescript-eslint/restrict-template-expressions': 'off'
+        '@typescript-eslint/restrict-template-expressions': 'off',
+        'no-trailing-spaces': 'off'
     }
 };

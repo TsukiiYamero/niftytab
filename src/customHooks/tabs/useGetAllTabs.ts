@@ -5,18 +5,22 @@ export const useGetAllTabs = () => {
     const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const getTabs = async () => {
+        setLoading(true);
+
+        const resp = await getAllBrowserTabs();
+
+        setTabs(resp);
+        setLoading(false);
+    };
+
     useEffect(() => {
-        const getTabs = async () => {
-            setLoading(true);
-
-            const resp = await getAllBrowserTabs();
-            // const dataTabs = chromeTabsToNiftyTabs(resp ?? []);
-
-            setTabs(resp);
-            setLoading(false);
-        };
         getTabs();
     }, []);
 
-    return { tabs, loading };
+    const updateTabs = async () => {
+        getTabs();
+    };
+
+    return { tabs, loading, updateTabs };
 };
