@@ -7,14 +7,15 @@ const Routes = createMemoryRouter([{
     path: HomeRoute,
     element: <Home />,
     children: [{
-        path: SuspendRoute,
         index: true,
+        path: SuspendRoute,
+        errorElement: <>Error no page found</>,
         element: <Suspend />
     }, {
         path: SaveTabsRoute,
         element: <Home />
     }]
 }
-]);
+], { initialEntries: [`${HomeRoute}${SuspendRoute}`] });
 
 export default Routes;
