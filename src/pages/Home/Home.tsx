@@ -1,12 +1,18 @@
-import { MainLayout } from '@/layouts';
+import { Header } from '@/ui/organisms/Header';
+import { Outlet } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <MainLayout textDescription='Dashboard Homepage' title='Good Morning, Diego!'>
-            <div>
-                texteando ando
-            </div>
-        </MainLayout>
+        <div className='h-full'>
+            <header>
+                <Header />
+                <>Tab Selection</>
+            </header>
+
+            <main>
+                <Outlet />
+            </main>
+        </div>
     );
 };
 

@@ -1,16 +1,11 @@
 import { IconBell, IconUserCircle } from '@tabler/icons-react';
 import type { FC } from 'react';
 
-interface MainLayoutProps { textDescription: string, title: string }
-
-export const Header: FC<MainLayoutProps> = ({ textDescription, title }) => {
+export const Header: FC = () => {
     return (
         <nav className="flex justify-between items-center h-[60px]">
             <section className='flex flex-col'>
-                <h1 className='text-[length:var(--font-size-secondary-title)] font-bold'>{title}</h1>
-                <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>
-                    {textDescription}
-                </p>
+                <h1 className='text-[length:var(--font-size-secondary-title)] font-bold'>NiftyTab</h1>
             </section>
 
             <div className="flex gap-6">

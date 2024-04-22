@@ -6,13 +6,14 @@ import { createMemoryRouter } from 'react-router-dom';
 const Routes = createMemoryRouter([{
     path: HomeRoute,
     element: <Home />,
-    index: true
-}, {
-    path: SuspendRoute,
-    element: <Suspend />
-}, {
-    path: SaveTabsRoute,
-    element: <Home />
+    children: [{
+        path: SuspendRoute,
+        index: true,
+        element: <Suspend />
+    }, {
+        path: SaveTabsRoute,
+        element: <Home />
+    }]
 }
 ]);
 
