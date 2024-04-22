@@ -1,4 +1,5 @@
-import { IconBell, IconUserCircle } from '@tabler/icons-react';
+import { Button } from '@nextui-org/react';
+import { IconSettings, IconUserCircle } from '@tabler/icons-react';
 import type { FC } from 'react';
 
 export const Header: FC = () => {
@@ -9,9 +10,13 @@ export const Header: FC = () => {
             </section>
 
             <div className="flex gap-6">
-                <IconBell className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
+                <Button isIconOnly size='sm' variant='light' onClick={() => { }}>
+                    <IconSettings className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-alt-primary]' />
+                </Button>
 
-                <IconUserCircle strokeWidth={2} className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-primary]' />
+                <Button isIconOnly size='sm' variant='light' onClick={() => { }}>
+                    <IconUserCircle strokeWidth={2} className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-alt-primary]' />
+                </Button>
             </div>
         </nav>
     );

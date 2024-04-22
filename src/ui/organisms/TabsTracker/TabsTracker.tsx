@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
 import { TabsList } from '@/ui/molecules/TabsList';
@@ -40,7 +41,7 @@ export const TabsTracker = () => {
                 </div>
 
                 <div className='flex items-center gap-1'>
-                    <div className='flex items-center gap-[10px]'>
+                    {/* <div className='flex items-center gap-[10px]'>
                         <div className='text-right space-x-2'>
                             <p className='text-[length:var(--font-size-common)] text-[--neutral-color-alt-primary]'>
                                 Auto
@@ -58,12 +59,12 @@ export const TabsTracker = () => {
                             startContent={<IconBrandSpeedtest className='h-4 w-4' />}
                         >
                         </Switch>
-                    </div>
+                    </div> 
 
-                    {/* # Modal */}
                     <Button isIconOnly size='sm' onClick={handleOpen}>
                         <IconSettings className='h-4 w-4 text-[--neutral-color-alt-primary]' />
                     </Button>
+                    */}
 
                     <Modal size={'xl'}
                         isOpen={isOpen}
