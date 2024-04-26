@@ -1,16 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useGetAllTabs } from '@/customHooks/tabs';
+import { RadialGauge } from '@/ui/atoms/RadialGauge';
+import { ModalSettings } from '@/ui/organisms/ModalSettings';
 import { TabsTracker } from '@/ui/organisms/TabsTracker';
-import { Switch, cn } from '@nextui-org/react';
+import { autoSuspendTabs } from '@/utils/tabs/autoSuspendTabs';
+import { Switch, cn, useDisclosure } from '@nextui-org/react';
+import { useState } from 'react';
 
 export const Suspend = () => {
-    const tabs = useGetAllTabs();
+    const [valor, setValor] = useState(50);
 
-    console.log(tabs);
+    const { tabs, updateTabs } = useGetAllTabs();
+
+    const handleToggle = async () => {
+        /* setIsSelected(value); */
+
+        const suspendedTabs = await autoSuspendTabs(3);
+
+        if (suspendedTabs === 0) return;
+
+        console.log(suspendedTabs, ' Tabs was suspended');
+        updateTabs();
+    };
 
     return (
-        <section className='grid justify-items-center'>
+        <section className='grid justify-items-center gap-5'>
             <div className='flex flex-col gap-1 items-center'>
                 <Switch
+                    onChange={() => {
+                        handleToggle();
+                    }}
                     classNames={{
                         base: cn(
                             'max-w-md items-center',
@@ -27,6 +46,7 @@ export const Suspend = () => {
                     }}
                 >
                 </Switch>
+
                 <div className="flex flex-col text-center">
                     <p className="font-bold text-[length:var(--font-size-semi-title)]">Auto Suspend</p>
 
@@ -34,11 +54,13 @@ export const Suspend = () => {
                 </div>
             </div>
 
-            <div className='w-full h-[180px]'>
-
+            <div className='grid justify-items-center'>
+                <div className='w-[300px] h-[130px] overflow-hidden'>
+                    <RadialGauge value={valor} trackSizeDeg={150} />
+                </div>
             </div>
 
-            <TabsTracker />
+            <TabsTracker tabs={tabs} />
         </section>
     );
 };
