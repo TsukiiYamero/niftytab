@@ -11,7 +11,8 @@ export const moveItem = <T>(arr: T[] = [], from = 0, to = 0) => {
 /* PATHS */
 export const HomeRoute = '/';
 export const SuspendRoute = 'suspend';
-export const SaveTabsRoute = '/save';
+export const SaveTabsRoute = 'save';
+export const ShowTabsRoute = 'showTabs';
 
 export const successColorIfTrue = (condition: boolean) => {
     return condition ? 'text-[#74DFA2]' : '';

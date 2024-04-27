@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useGetAllTabs } from '@/customHooks/tabs';
 import { RadialGauge } from '@/ui/atoms/RadialGauge';
-import { ModalSettings } from '@/ui/organisms/ModalSettings';
-import { TabsTracker } from '@/ui/organisms/TabsTracker';
 import { autoSuspendTabs } from '@/utils/tabs/autoSuspendTabs';
-import { Switch, cn, useDisclosure } from '@nextui-org/react';
+import { Switch, cn } from '@nextui-org/react';
 import { useState } from 'react';
 
 export const Suspend = () => {
     const [valor, setValor] = useState(50);
-
-    const { tabs, updateTabs } = useGetAllTabs();
 
     const handleToggle = async () => {
         /* setIsSelected(value); */
@@ -20,7 +15,7 @@ export const Suspend = () => {
         if (suspendedTabs === 0) return;
 
         console.log(suspendedTabs, ' Tabs was suspended');
-        updateTabs();
+        // updateTabs();
     };
 
     return (
@@ -59,8 +54,6 @@ export const Suspend = () => {
                     <RadialGauge value={valor} trackSizeDeg={150} />
                 </div>
             </div>
-
-            <TabsTracker tabs={tabs} />
         </section>
     );
 };
