@@ -138,7 +138,6 @@ a:link,
 a:active,
 a:focus {
   text-decoration: none;
-  color: initial;
   outline: 0;
 }
 
@@ -254,14 +253,30 @@ body {
   z-index: 2;
 }
 
-#sidebar li:has(> a.active)  {
-  background-color: var(--primary-color-45);
+/* menu */
+.item-menu {  
+  border-radius: 28px;
+  padding-block: 4px;
+  padding-inline: 12px;
 }
 
-#sidebar a.active svg{
+.item-menu:has(.item-active)  {
+  background-color: rgba(217, 217, 217, 0.17);
+  transition: 0.4s ease;
+}
+.item-menu > a:hover:not(.item-active) {
+  color: #909090bf;
+  transition: 0.4s ease;
+}
+
+.item-active {
   color: var(--primary-color);
 }
 
+
+/* .on-hover-item {
+  color: var(--white);
+} */
 
 [aria-selected="true"] svg{
   color: var(--primary-color);

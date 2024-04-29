@@ -21,19 +21,7 @@ const Home = () => {
                 <Header />
             </header>
 
-            <div className='flex flex-col overflow-auto'>
-                <div className='flex flex-col items-center gap-3'>
-                    <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-table-content)]'>Want more features?</p>
-
-                    <Tabs aria-label="Options" onSelectionChange={handleOnTabChange} defaultSelectedKey={'suspend'}>
-                        <Tab key={SuspendRoute} title="Suspend" />
-
-                        <Tab key={ShowTabsRoute} title="Show Tabs" />
-
-                        <Tab key={SaveTabsRoute} title="Save Tabs" />
-                    </Tabs>
-                </div>
-
+            <div className='grid overflow-auto'>
                 <main className='h-full py-4'>
                     <Outlet />
                 </main>
