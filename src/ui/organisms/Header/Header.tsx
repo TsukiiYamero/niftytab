@@ -33,7 +33,7 @@ export const Header: FC = () => {
                 {
                     Routes.map(({ path, title }) => (
                         <li key={title} className={'item-menu flex'}>
-                            <NavLink to={path} className={({ isActive }) => `${isActive ? 'item-active' : ''} text-[0.8125rem] text-[var(--neutral-color-alt-primary)]`}>
+                            <NavLink to={path} className={({ isActive }) => `${isActive ? 'item-active' : ''} text-[14px] text-[var(--neutral-color-alt-primary)]`}>
                                 {title}
                             </NavLink>
                         </li>
