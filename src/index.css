@@ -281,3 +281,8 @@ body {
 [aria-selected="true"] svg{
   color: var(--primary-color);
 }
+
+.hover-transition-text {
+  transition: 0.4s ease;
+}
+

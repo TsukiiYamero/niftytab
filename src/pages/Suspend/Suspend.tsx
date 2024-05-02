@@ -21,7 +21,7 @@ export const Suspend = () => {
     return (
         <section className='grid justify-items-center gap-5'>
             <div className='flex flex-col gap-2 items-center'>
-                <div className="flex flex-col text-center">
+                <div className="flex flex-col text-center gap-1">
                     <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>Reduce memory usage by suspending tabs</p>
 
                     <p className="font-bold text-[length:var(--font-size-secondary-title)]">Auto Suspend</p>
