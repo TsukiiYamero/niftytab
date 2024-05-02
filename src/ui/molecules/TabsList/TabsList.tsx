@@ -6,39 +6,28 @@ import {
     TableBody,
     TableRow,
     TableCell,
-    Input,
     Button,
     DropdownTrigger,
     Dropdown,
     DropdownMenu,
     DropdownItem,
-    type ChipProps,
     Spinner
 } from '@nextui-org/react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { IconCpu, IconDotsVertical, IconPanoramaHorizontal } from '@tabler/icons-react';
 import { successColorIfTrue } from '@/utils';
 
-const StatusColorMap: Record<string, ChipProps['color']> = {
-    active: 'success',
-    inactive: 'default'
-};
-
 export const TabsList = ({ tabs }: { tabs: chrome.tabs.Tab[] }) => {
     const [isLoading, setIsLoading] = useState(true);
-
-    const renderCell = useCallback((value: string) => {
-
-    }, []);
 
     return (
         <Table
             isHeaderSticky
             aria-label="Show resources consumption"
             classNames={{
-                table: 'min-h-[200px]',
-                base: 'max-h-[270px]  max-w-[580px]'
+                table: 'min-h-[188px]',
+                base: 'max-h-[270px] min-h-[250px] max-w-[580px]'
             }}
         >
             <TableHeader>
@@ -46,12 +35,12 @@ export const TabsList = ({ tabs }: { tabs: chrome.tabs.Tab[] }) => {
                     Tabs
                 </TableColumn>
 
-                <TableColumn key="gpu" allowsSorting width={60}>
+                {/* <TableColumn key="gpu" allowsSorting width={60}>
                     <div className='inline-flex items-center gap-1'>
                         <IconCpu className="h-4 w-4 text-[--neutral-color-primary]" />
                         <span className='text-[length:var(--font-size-table-content)] font-medium'>GPU</span>
                     </div>
-                </TableColumn>
+                </TableColumn> */}
 
                 <TableColumn key="ram" allowsSorting width={60}>
                     <div className='inline-flex items-center gap-1'>
@@ -82,7 +71,7 @@ export const TabsList = ({ tabs }: { tabs: chrome.tabs.Tab[] }) => {
 
                         }}>
                             <TableCell>
-                                <div className='flex gap-2 max-w-[204px] items-center overflow-hidden'>
+                                <div className='flex gap-2 max-w-[222px] items-center overflow-hidden'>
                                     <img className='h-4 w-4' src={`${item.favIconUrl}`} alt={item.title} />
 
                                     <div className='flex flex-col overflow-hidden'>
@@ -95,10 +84,10 @@ export const TabsList = ({ tabs }: { tabs: chrome.tabs.Tab[] }) => {
                                     </div>
                                 </div>
                             </TableCell>
-                            <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
-                                🚧
-                            </TableCell>
-                            <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
+                            {/* <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
+                                🚧GPU
+                            </TableCell> */}
+                            <TableCell title='In Construction' className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>
                                 🚧
                             </TableCell>
                             <TableCell className={`${successColorIfTrue(item.discarded)} text-[length:var(--font-size-table-content)]`}>

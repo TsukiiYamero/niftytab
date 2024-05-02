@@ -5,12 +5,12 @@ import { Outlet } from 'react-router-dom';
 const Home = () => {
     return (
         <div className='flex flex-col h-full'>
-            <header className='pt-[5px]'>
+            <header className='pt-[10px]'>
                 <Header />
             </header>
 
             <div className='grid overflow-auto'>
-                <main className='h-full py-4'>
+                <main className='h-full p-4'>
                     <Outlet />
                 </main>
             </div>

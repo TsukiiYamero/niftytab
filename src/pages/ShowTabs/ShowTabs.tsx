@@ -5,7 +5,7 @@ export const ShowTabs = () => {
     const { tabs } = useGetAllTabs();
 
     return (
-        <section className='grid justify-items-center gap-5'>
+        <section>
             <TabsTracker tabs={tabs} />
         </section>
     );
