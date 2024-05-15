@@ -1,5 +1,6 @@
 export * from './abortController';
 export * from './authValidations';
+export * from './BytesToMB';
 export * from './chrome';
 export * from './commonMsg';
 export * from './niftyDefaults';
