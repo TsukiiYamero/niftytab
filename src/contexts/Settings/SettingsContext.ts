@@ -6,6 +6,7 @@ interface SettingsContextType {
     openSettings: () => void,
     isOpen: boolean,
     settings: UserSettings
+    temporarySettings: UserSettings
 }
 
 export const SettingsContext = createContext<SettingsContextType>({
@@ -15,9 +16,25 @@ export const SettingsContext = createContext<SettingsContextType>({
         excludeList: [],
         maxTabsinMemory: 1,
         suspendAudibleTabs: false,
-        suspendTabsAtStartup: false
+        suspendTabsAtStartup: false,
+        excludeTabsFromList: false,
+        keepTabsInMemory: true
+    },
+    temporarySettings: {
+        excludeList: [],
+        maxTabsinMemory: 1,
+        suspendAudibleTabs: false,
+        suspendTabsAtStartup: false,
+        excludeTabsFromList: false,
+        keepTabsInMemory: true
     }
 });
 
 export const SettingsDispatchContext =
-    createContext<Dispatch<SettingsActionType> | null>(null);
+    createContext<{
+        settingsDispatch: Dispatch<SettingsActionType>,
+        temporarySettingsDispatch: Dispatch<SettingsActionType>
+    }>({
+        settingsDispatch: () => { },
+        temporarySettingsDispatch: () => { }
+    });

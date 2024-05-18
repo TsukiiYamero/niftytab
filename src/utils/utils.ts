@@ -17,3 +17,8 @@ export const ShowTabsRoute = 'showTabs';
 export const successColorIfTrue = (condition: boolean) => {
     return condition ? 'text-[#74DFA2]' : '';
 };
+
+export const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+export const isValidUrl = (url: string) => {
+    return urlRegex.test(url);
+};

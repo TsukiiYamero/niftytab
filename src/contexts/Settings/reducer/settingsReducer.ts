@@ -15,3 +15,22 @@ export const settingsReducer = (
             throw new Error('Unhandled Settings action type');
     }
 };
+
+export const temporaryUserSettingsReducer = (
+    state: UserSettings,
+    action: SettingsActionType
+) => {
+    switch (action.type) {
+        case SettingsActions.updateSettings:
+            return {
+                ...state,
+                ...action.payload
+            };
+        case SettingsActions.resetSettings:
+            return {
+                ...action.payload
+            };
+        default:
+            throw new Error('Unhandled Settings action type');
+    }
+};
