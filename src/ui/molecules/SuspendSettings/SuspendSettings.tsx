@@ -80,6 +80,24 @@ export const SuspendSettings = () => {
                     </p>
                 </div>
 
+                <div className='flex h-[70px] p-3 rounded-md border-1 border-[--primary-color-45]'>
+                    <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
+                        https://gmail.com
+                    </p>
+                </div>
+
+                <div className='flex h-[70px] p-3 rounded-md border-1 border-[--primary-color-45]'>
+                    <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
+                        https://gmail.com
+                    </p>
+                </div>
+
+                <div className='flex h-[70px] p-3 rounded-md border-1 border-[--primary-color-45]'>
+                    <p className='text-[--neutral-color-alt-primary] text-[length:var(--font-size-tiny)]'>
+                        https://gmail.com
+                    </p>
+                </div>
+
             </div>
         </div>
     );

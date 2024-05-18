@@ -4,7 +4,7 @@ import { IconSettings } from '@tabler/icons-react';
 
 export const ModalSettings = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     return (
-        <Modal size={'xl'}
+        <Modal size={'full'}
             isOpen={isOpen}
             onClose={onClose} >
             <ModalContent>
@@ -20,7 +20,9 @@ export const ModalSettings = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                             </ModalHeader>
 
                             <ModalBody>
-                                <SuspendSettings />
+                                <div className='h-[280px] overflow-auto'>
+                                    <SuspendSettings />
+                                </div>
 
                                 <ModalFooter style={{ paddingTop: '6px' }} className='flex gap-5'>
                                     <Button variant='flat' onPress={onClose}>
