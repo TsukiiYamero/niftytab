@@ -71,7 +71,7 @@ export const TabsList = ({ tabs }: { tabs: chrome.tabs.Tab[] }) => {
 
                         }}>
                             <TableCell>
-                                <div className='flex gap-2 max-w-[222px] items-center overflow-hidden'>
+                                <div className='flex gap-2 max-w-[200px] items-center overflow-hidden'>
                                     <img className='h-4 w-4' src={`${item.favIconUrl}`} alt={item.title} />
 
                                     <div className='flex flex-col overflow-hidden'>

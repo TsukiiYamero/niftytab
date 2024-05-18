@@ -3,16 +3,25 @@ import { SettingsContext } from '@/contexts/Settings';
 import { Logo } from '@/ui/atoms/svgs';
 import { bytesToMB, getMemoryInfo } from '@/utils';
 import { autoSuspendTabs } from '@/utils/tabs/autoSuspendTabs';
-import { Button, Switch, cn } from '@nextui-org/react';
+import { Button, Modal, ModalBody, ModalContent, ModalHeader, Switch, cn, useDisclosure } from '@nextui-org/react';
 import { IconSettings } from '@tabler/icons-react';
 import { useContext, useState, type FC } from 'react';
+import { ShowTabs } from '../ShowTabs';
 
 export const Suspend = () => {
     const { openSettings } = useContext(SettingsContext);
     const [mbSaved, setMbSaved] = useState(0);
     const [nOfSuspendedTabs, setNOfSuspendedTabs] = useState(0);
     const [logoColor, setLogoColor] = useState<string>('#f8f8f8');
-    const [memoryInUse, setMemoryInUse] = useState(0);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const onCloseModal = () => {
+        onClose();
+    };
+
+    const onOpenModal = () => {
+        onOpen();
+    };
 
     const handleOpenModal = () => { openSettings(); };
 
@@ -74,9 +83,9 @@ export const Suspend = () => {
             </div>
 
             <div className='mt-[14px]'>
-                <p className='text-[1rem] underline cursor-pointer'>
+                <Button variant='bordered' size='sm' className='' onClick={onOpenModal}>
                     Show Tabs
-                </p>
+                </Button>
             </div>
 
             <div className='flex items-center gap-5'>
@@ -101,6 +110,23 @@ export const Suspend = () => {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                isOpen={isOpen}
+                isDismissable={false}
+                onOpenChange={onCloseModal}
+                backdrop='blur'
+                size='full'
+            >
+                <ModalContent>
+                    <ModalHeader></ModalHeader>
+                    <ModalBody>
+                        <div>
+                            <ShowTabs />
+                        </div>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </section>
     );
 };
