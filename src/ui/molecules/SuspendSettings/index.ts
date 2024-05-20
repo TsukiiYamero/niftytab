@@ -1,1 +1,2 @@
-export * from './SuspendSettings';
+export * from './SuspendSettingsContainer';
+export * from './SuspendSettingsView';
