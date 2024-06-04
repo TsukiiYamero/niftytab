@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SettingsContext } from '@/contexts/Settings';
 import { Logo } from '@/ui/atoms/svgs';
@@ -5,15 +6,24 @@ import { bytesToMB, getMemoryInfo } from '@/utils';
 import { autoSuspendTabs } from '@/utils/tabs/autoSuspendTabs';
 import { Button, Modal, ModalBody, ModalContent, ModalHeader, Switch, cn, useDisclosure } from '@nextui-org/react';
 import { IconSettings } from '@tabler/icons-react';
-import { useContext, useState, type FC } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ShowTabs } from '../ShowTabs';
+import { useGetDataFromLocal } from '@/customHooks/useGetDataFromLocal';
+import { useSetDataForLocal } from '@/customHooks/useSetDataForLocal';
 
 export const Suspend = () => {
+    const { data } = useGetDataFromLocal();
+    const { setDataForLocal } = useSetDataForLocal();
+    const [isSelected, setIsSelected] = useState<boolean>(false);
     const { openSettings } = useContext(SettingsContext);
     const [mbSaved, setMbSaved] = useState(0);
     const [nOfSuspendedTabs, setNOfSuspendedTabs] = useState(0);
     const [logoColor, setLogoColor] = useState<string>('#f8f8f8');
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    useEffect(() => {
+        setIsSelected(data.isSuspend ?? isSelected);
+    }, [data.isSuspend]);
 
     const onCloseModal = () => {
         onClose();
@@ -25,8 +35,17 @@ export const Suspend = () => {
 
     const handleOpenModal = () => { openSettings(); };
 
-    const handleToggle = async () => {
-        /* setIsSelected(value); */
+    const handleToggle = (value: boolean) => {
+        setIsSelected(value);
+        setDataForLocal({ isSuspend: value });
+
+        if (!value)
+            return;
+
+        handdleSuspend();
+    };
+
+    const handdleSuspend = async () => {
         const { availableCapacity: memoryBefore } = await getMemoryInfo();
         const suspendedTabs = await autoSuspendTabs(3);
         // get info and rest
@@ -54,8 +73,9 @@ export const Suspend = () => {
 
                 <div className='flex items-center relative pt-[10px]'>
                     <Switch
-                        onChange={() => {
-                            handleToggle();
+                        isSelected={isSelected}
+                        onValueChange={(value) => {
+                            handleToggle(value);
                         }}
                         color='success'
                         classNames={{

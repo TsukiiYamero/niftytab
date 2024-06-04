@@ -1,4 +1,4 @@
-import { SaveTabsRoute, ShowTabsRoute, SuspendRoute } from '@/utils';
+import { SaveTabsRoute, SuspendRoute } from '@/utils';
 import { Button } from '@nextui-org/react';
 import { IconUserCircle } from '@tabler/icons-react';
 import { NavLink } from 'react-router-dom';
@@ -7,9 +7,6 @@ import { Logo } from '@/ui/atoms/svgs';
 const Routes = [{
     path: SuspendRoute,
     title: 'Suspend'
-}, {
-    path: ShowTabsRoute,
-    title: 'Show Tabs'
 }, {
     path: SaveTabsRoute,
     title: 'Save Tabs'

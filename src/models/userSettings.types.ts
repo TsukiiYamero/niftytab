@@ -7,3 +7,8 @@ export interface UserSettings {
     suspendTabsAtStartup?: boolean,
     suspendTabsAfter?: number,
 }
+
+export interface UserDataStored {
+    userSettings?: UserSettings,
+    isSuspend?: boolean,
+}
