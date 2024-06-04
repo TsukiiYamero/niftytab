@@ -1,21 +1,23 @@
 import { useEffect, useReducer, type ReactNode } from 'react';
 import { SettingsContext, SettingsDispatchContext } from '../SettingsContext';
-import { ModalSettings } from '@/ui/organisms/ModalSettings';
+import { ModalSettingsContainer } from '@/ui/organisms/ModalSettings';
 import { useDisclosure } from '@nextui-org/react';
 import { settingsReducer, temporaryUserSettingsReducer } from '../reducer/settingsReducer';
 import { SettingsActions } from '../settings.types';
+import type { UserSettings } from '@/models/userSettings.types';
 
 type Props = {
     children: ReactNode;
 }
 
-const initialState = {
+const initialState: UserSettings = {
     excludeList: [],
-    maxTabsinMemory: 1,
-    suspendAudibleTabs: false,
+    maxTabsinMemory: 3,
+    suspendTabsAfter: 5,
+    keepTabsInMemory: true,
     suspendTabsAtStartup: false,
-    excludeTabsFromList: false,
-    keepTabsInMemory: true
+    neverSuspendAudibleTabs: false,
+    excludeTabsFromList: false
 };
 
 export const SettingsProvider = ({ children }: Props) => {
@@ -25,7 +27,8 @@ export const SettingsProvider = ({ children }: Props) => {
 
     useEffect(() => {
         dispatchTemporary({ type: SettingsActions.resetSettings, payload: settings });
-    }, [settings]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <SettingsContext.Provider value={{ openSettings: onOpen, isOpen, settings, temporarySettings }} >
@@ -34,7 +37,7 @@ export const SettingsProvider = ({ children }: Props) => {
                 temporarySettingsDispatch: dispatchTemporary
             }}>
                 {children}
-                <ModalSettings isOpen={isOpen} onClose={onClose} />
+                <ModalSettingsContainer isOpen={isOpen} onClose={onClose} />
             </SettingsDispatchContext.Provider>
         </SettingsContext.Provider>
     );

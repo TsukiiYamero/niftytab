@@ -14,19 +14,21 @@ export const SettingsContext = createContext<SettingsContextType>({
     isOpen: false,
     settings: {
         excludeList: [],
-        maxTabsinMemory: 1,
-        suspendAudibleTabs: false,
+        maxTabsinMemory: 3,
+        suspendTabsAfter: 3,
+        keepTabsInMemory: true,
+        neverSuspendAudibleTabs: false,
         suspendTabsAtStartup: false,
-        excludeTabsFromList: false,
-        keepTabsInMemory: true
+        excludeTabsFromList: false
     },
     temporarySettings: {
         excludeList: [],
-        maxTabsinMemory: 1,
-        suspendAudibleTabs: false,
+        maxTabsinMemory: 3,
+        suspendTabsAfter: 3,
+        keepTabsInMemory: true,
+        neverSuspendAudibleTabs: false,
         suspendTabsAtStartup: false,
-        excludeTabsFromList: false,
-        keepTabsInMemory: true
+        excludeTabsFromList: false
     }
 });
 

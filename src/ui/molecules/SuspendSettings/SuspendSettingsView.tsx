@@ -1,8 +1,11 @@
 import { Checkbox, Chip, Input, Select, SelectItem, Tooltip } from '@nextui-org/react';
+
 import { IconDeviceFloppy, IconInfoCircle } from '@tabler/icons-react';
+import type { ChangeEvent } from 'react';
 
 interface SuspendSettingsViewProps {
     listNumbersTabsInMemory: Array<{ value: number, label: string }>,
+    listMinutes: Array<{ value: string, label: string }>,
     keepTabsInMemory: boolean,
     maxTabsinMemory: number,
     suspendTabsAtStartup: boolean,
@@ -10,11 +13,13 @@ interface SuspendSettingsViewProps {
     excludeList: string[],
     excludeTabsFromList: boolean,
     domainExcluded: string,
+    suspendTabsAfter: number,
     handdleKeepTabsInMemory: () => void,
     handdleSuspendAtStartup: () => void,
     handdleSuspendAudibleTabs: () => void,
     handdleExcludeTabs: () => void,
     handdleNewExcludeItem: () => void,
+    handleSuspendTabsAfter: (value: number) => void,
     handdleDeleteExcludeItem: (index: number) => void,
     handdleMaxTabsInMemory: (value: number) => void,
     setDomainExcluded: (value: string) => void
@@ -22,12 +27,14 @@ interface SuspendSettingsViewProps {
 
 export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
     listNumbersTabsInMemory,
+    listMinutes,
     keepTabsInMemory,
     maxTabsinMemory,
     suspendTabsAtStartup,
     suspendAudibleTabs,
     excludeList,
     excludeTabsFromList,
+    suspendTabsAfter,
     handdleKeepTabsInMemory,
     handdleMaxTabsInMemory,
     handdleSuspendAtStartup,
@@ -36,7 +43,8 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
     handdleDeleteExcludeItem,
     handdleNewExcludeItem,
     domainExcluded,
-    setDomainExcluded
+    setDomainExcluded,
+    handleSuspendTabsAfter
 }: SuspendSettingsViewProps) => {
     return (
         <div className='flex flex-col gap-2'>
@@ -44,9 +52,34 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                 <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>
                     Suspend tabs
                 </p>
+
+                <div className='flex items-center gap-2 pl-[7px]'>
+                    <p className='text-[length:var(--font-size-tiny)] text-foreground'>
+                        Suspend Tabs after
+                    </p>
+
+                    <Select
+                        aria-label='Select a number of time to suspend tabs'
+                        className="max-w-[126px]"
+                        size='sm'
+                        defaultSelectedKeys={[`${suspendTabsAfter}`]}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                            handleSuspendTabsAfter(Number(e.target.value));
+                        }}
+                    >
+                        {
+                            listMinutes.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </SelectItem>
+                            ))
+                        }
+                    </Select>
+                </div>
+
                 <Checkbox isSelected={keepTabsInMemory} onChange={handdleKeepTabsInMemory} className='w-full'>
                     <div className='flex items-center gap-2'>
-                        <p className={`text-[${keepTabsInMemory ? '--primary-color' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)] w-[132px]`}>
+                        <p className={`text-[${keepTabsInMemory ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)] w-[132px]`}>
                             Keep maximum of
                         </p>
 
@@ -55,7 +88,7 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                             className="max-w-[70px]"
                             size='sm'
                             defaultSelectedKeys={[`${maxTabsinMemory}`]}
-                            onChange={(e) => {
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                                 handdleMaxTabsInMemory(Number(e.target.value));
                             }}
                         >
@@ -68,7 +101,7 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                             }
                         </Select>
 
-                        <p className={`text-[${keepTabsInMemory ? '--primary-color' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
+                        <p className={`text-[${keepTabsInMemory ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
                             recent tabs in memory and suspend the rest
                         </p>
                     </div>
@@ -76,7 +109,7 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                 </Checkbox>
 
                 <Checkbox isSelected={suspendTabsAtStartup} onChange={handdleSuspendAtStartup}>
-                    <p className={`text-[${suspendTabsAtStartup ? '--primary-color' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
+                    <p className={`text-[${suspendTabsAtStartup ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
                         Suspend tabs at startup
                     </p>
                 </Checkbox>
@@ -89,13 +122,13 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                 </p>
 
                 <Checkbox isSelected={suspendAudibleTabs} onChange={handdleSuspendAudibleTabs}>
-                    <p className={`text-[${suspendAudibleTabs ? '--primary-color' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
+                    <p className={`text-[${suspendAudibleTabs ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
                         Never suspend tabs that are playing a video or audio
                     </p>
                 </Checkbox>
 
                 <Checkbox isSelected={excludeTabsFromList} onChange={handdleExcludeTabs}>
-                    <p className={`text-[${excludeTabsFromList ? '--primary-color' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
+                    <p className={`text-[${excludeTabsFromList ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
                         Never suspend tabs from this list
                     </p>
                 </Checkbox>
@@ -118,7 +151,7 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                     <div className='w-[300px] flex items-center gap-2'>
                         <Input
                             value={domainExcluded}
-                            onChange={(e) => { setDomainExcluded(e.target.value); }}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => { setDomainExcluded(e.target.value); }}
                             size='sm'
                             placeholder="https://www.youtube.com"
                             endContent={

@@ -5,14 +5,23 @@ import { isValidUrl } from '@/utils';
 import { useContext, useState } from 'react';
 import { SuspendSettingsView } from './SuspendSettingsView';
 
-export const SuspendSettings = () => {
+export const SuspendSettingsContainer = () => {
     const {
-        temporarySettings: { maxTabsinMemory, suspendAudibleTabs, suspendTabsAtStartup, excludeList, excludeTabsFromList, keepTabsInMemory }
+        temporarySettings: {
+            maxTabsinMemory,
+            neverSuspendAudibleTabs,
+            suspendTabsAtStartup,
+            excludeList,
+            excludeTabsFromList,
+            keepTabsInMemory,
+            suspendTabsAfter
+        }
     } = useContext(SettingsContext);
     const { temporarySettingsDispatch } = useContext(SettingsDispatchContext);
     const [domainExcluded, setDomainExcluded] = useState('');
 
     const tabsOptions = [{ label: '1', value: 1 }, { label: '2', value: 2 }, { label: '3', value: 3 }, { label: '4', value: 4 }, { label: '5', value: 5 }, { label: '7', value: 7 }, { label: '9', value: 9 }, { label: '11', value: 11 }];
+    const listMinutes = [{ label: '2 Min', value: '2' }, { label: '5 Min', value: '5' }, { label: '10 Min', value: '10' }, { label: '15 Min', value: '15' }, { label: '30 Min', value: '30' }, { label: '45 Min', value: '45' }, { label: '1 Hour', value: '60' }, { label: '3 Hours', value: '180' }, { label: '5 Hours', value: '300' }];
 
     const handdleKeepTabsInMemory = () => {
         temporarySettingsDispatch({
@@ -34,7 +43,7 @@ export const SuspendSettings = () => {
 
     const handdleSuspendAudibleTabs = () => {
         temporarySettingsDispatch({
-            type: SettingsActions.updateSettings, payload: { suspendAudibleTabs: !suspendAudibleTabs }
+            type: SettingsActions.updateSettings, payload: { neverSuspendAudibleTabs: !neverSuspendAudibleTabs }
         });
     };
 
@@ -68,15 +77,23 @@ export const SuspendSettings = () => {
         setDomainExcluded('');
     };
 
+    const handleSuspendTabsAfter = (value: number) => {
+        temporarySettingsDispatch({
+            type: SettingsActions.updateSettings, payload: { suspendTabsAfter: value }
+        });
+    };
+
     return (
         <SuspendSettingsView
             listNumbersTabsInMemory={tabsOptions}
             keepTabsInMemory={keepTabsInMemory!}
             maxTabsinMemory={maxTabsinMemory!}
             suspendTabsAtStartup={suspendTabsAtStartup!}
-            suspendAudibleTabs={suspendAudibleTabs!}
+            suspendAudibleTabs={neverSuspendAudibleTabs!}
             excludeList={excludeList!}
             excludeTabsFromList={excludeTabsFromList!}
+            listMinutes={listMinutes}
+            suspendTabsAfter={suspendTabsAfter!}
             handdleKeepTabsInMemory={handdleKeepTabsInMemory}
             handdleMaxTabsInMemory={handdleMaxTabsInMemory}
             handdleSuspendAtStartup={handdleSuspendAtStartup}
@@ -84,6 +101,7 @@ export const SuspendSettings = () => {
             handdleExcludeTabs={handdleExcludeTabs}
             handdleDeleteExcludeItem={handdleDeleteExcludeItem}
             handdleNewExcludeItem={handdleNewExcludeItem}
+            handleSuspendTabsAfter={handleSuspendTabsAfter}
             domainExcluded={domainExcluded}
             setDomainExcluded={setDomainExcluded}
         />

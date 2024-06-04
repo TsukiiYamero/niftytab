@@ -1,9 +1,9 @@
 export interface UserSettings {
     keepTabsInMemory?: boolean,
     maxTabsinMemory?: number,
-    suspendAudibleTabs?: boolean,
+    neverSuspendAudibleTabs?: boolean,
     excludeList?: string[],
     excludeTabsFromList?: boolean,
     suspendTabsAtStartup?: boolean,
-
+    suspendTabsAfter?: number,
 }

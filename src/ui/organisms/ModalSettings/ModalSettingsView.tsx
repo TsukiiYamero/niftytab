@@ -1,15 +1,22 @@
-import { SuspendSettings } from '@/ui/molecules/SuspendSettings';
+import { SuspendSettingsContainer } from '@/ui/molecules/SuspendSettings';
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
 import { IconSettings } from '@tabler/icons-react';
 
-export const ModalSettings = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+interface Props {
+    onClose: () => void,
+    isOpen: boolean,
+    onSave: () => void,
+    onCancel: () => void
+}
+
+export const ModalSettingsView: React.FC<Props> = ({ onClose, isOpen, onSave, onCancel }: Props) => {
     return (
         <Modal size={'full'}
             isOpen={isOpen}
             onClose={onClose} >
             <ModalContent>
                 {
-                    (onClose) => (
+                    (onClose: any) => (
                         <>
                             <ModalHeader style={{ paddingBottom: '6px' }} >
 
@@ -21,14 +28,14 @@ export const ModalSettings = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
 
                             <ModalBody>
                                 <div className='h-[280px] overflow-auto'>
-                                    <SuspendSettings />
+                                    <SuspendSettingsContainer />
                                 </div>
 
                                 <ModalFooter style={{ paddingTop: '6px' }} className='flex gap-5'>
-                                    <Button variant='flat' onPress={onClose}>
+                                    <Button variant='flat' onPress={onCancel}>
                                         Cancel
                                     </Button>
-                                    <Button color="success" variant='flat' onPress={onClose}>
+                                    <Button color="success" variant='flat' onPress={onSave}>
                                         Save
                                     </Button>
                                 </ModalFooter>

@@ -1,1 +1,2 @@
-export * from './ModalSettings';
+export * from './ModalSettingsContainer';
+export * from './ModalSettingsView';

@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@fontsource/poppins": "^5.0.13",
-    "@nextui-org/react": "^2.2.10",
+    "@internationalized/date": "^3.5.4",
+    "@nextui-org/react": "^2.4.0",
     "@supabase/supabase-js": "2.39.7",
     "@tabler/icons-react": "^3.0.1",
     "framer-motion": "^11.0.8",
