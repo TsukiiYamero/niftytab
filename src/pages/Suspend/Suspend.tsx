@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { SettingsContext } from '@/contexts/Settings';
+import { SettingsContext, SettingsDispatchContext } from '@/contexts/Settings';
 import { Logo } from '@/ui/atoms/svgs';
 import { bytesToMB, getMemoryInfo } from '@/utils';
 import { autoSuspendTabs } from '@/utils/tabs/autoSuspendTabs';
@@ -8,22 +6,31 @@ import { Button, Modal, ModalBody, ModalContent, ModalHeader, Switch, cn, useDis
 import { IconSettings } from '@tabler/icons-react';
 import { useContext, useEffect, useState } from 'react';
 import { ShowTabs } from '../ShowTabs';
-import { useGetDataFromLocal } from '@/customHooks/useGetDataFromLocal';
+import { useGetUserDataFromLocal } from '@/customHooks/useGetDataFromLocal';
 import { useSetDataForLocal } from '@/customHooks/useSetDataForLocal';
+import { SettingsActions } from '@/contexts/Settings/settings.types';
 
 export const Suspend = () => {
-    const { data } = useGetDataFromLocal();
+    const { data } = useGetUserDataFromLocal();
     const { setDataForLocal } = useSetDataForLocal();
     const [isSelected, setIsSelected] = useState<boolean>(false);
     const { openSettings } = useContext(SettingsContext);
+    const { settingsDispatch, temporarySettingsDispatch } = useContext(SettingsDispatchContext);
     const [mbSaved, setMbSaved] = useState(0);
     const [nOfSuspendedTabs, setNOfSuspendedTabs] = useState(0);
     const [logoColor, setLogoColor] = useState<string>('#f8f8f8');
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    /* Set settings user in state from chrome sesion local */
     useEffect(() => {
         setIsSelected(data.isSuspend ?? isSelected);
-    }, [data.isSuspend]);
+
+        if (!data?.userSettings) return;
+
+        temporarySettingsDispatch({ type: SettingsActions.updateSettings, payload: data.userSettings });
+        settingsDispatch({ type: SettingsActions.updateSettings, payload: data.userSettings });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     const onCloseModal = () => {
         onClose();

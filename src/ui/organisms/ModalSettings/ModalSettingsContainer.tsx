@@ -2,15 +2,18 @@ import { SettingsContext, SettingsDispatchContext } from '@/contexts/Settings';
 import { SettingsActions } from '@/contexts/Settings/settings.types';
 import { useContext } from 'react';
 import { ModalSettingsView } from './ModalSettingsView';
+import { useSetDataForLocal } from '@/customHooks/useSetDataForLocal';
 
 export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     const { settingsDispatch, temporarySettingsDispatch } = useContext(SettingsDispatchContext);
     const {
         settings, temporarySettings
     } = useContext(SettingsContext);
+    const { setDataForLocal } = useSetDataForLocal();
 
     const handleSave = () => {
         settingsDispatch({ type: SettingsActions.updateSettings, payload: temporarySettings });
+        setDataForLocal({ userSettings: temporarySettings });
         onClose();
     };
 
