@@ -1,4 +1,5 @@
-import { getAllBrowserTabs, suspendTab } from '@/utils/chrome';
+import { getAllBrowserTabs } from '@/utils/chrome';
+import { excludeMediaTabs, excludeTabsByUser, sortTabsByLastAccessed, suspendTabs } from '../tabs';
 
 /**
  * `autoSuspendTabs` suspends a specified number of least recently accessed browser tabs.
@@ -8,32 +9,55 @@ import { getAllBrowserTabs, suspendTab } from '@/utils/chrome';
  * by last accessed time.
  * @returns The function `autoSuspendTabs` returns the number of tabs that were successfully suspended.
  */
-export const autoSuspendTabs = async (excludeRecentTabs: number) => {
+export const autoSuspendTabs = async (
+    excludeRecentTabs: number,
+    excludeMedia: boolean,
+    excludeByUser: string[]
+) => {
     const tabs = await getAllBrowserTabs();
+    const tabsToSuspend = filterTabsByConditions(tabs, excludeRecentTabs, excludeMedia, excludeByUser);
 
-    const tabsLastAccess = tabs.sort((a, b) => {
-        const aLastAccessed = a.lastAccessed ?? 0;
-        const bLastAccessed = b.lastAccessed ?? 0;
-        return bLastAccessed - aLastAccessed;
-    });
+    // cantidad de tabs suspendidos
+    const tabsSuspended = await suspendTabs(tabsToSuspend);
+    return tabsSuspended;
+};
 
-    const tabsToSuspend = tabsLastAccess.slice(excludeRecentTabs);
-    console.log(tabsToSuspend, ' tabs to suspend');
-    console.log(tabsLastAccess.slice(0, excludeRecentTabs), ' tabs to Not suspend');
+/**
+ * #### Filters an array of Chrome tabs based on specified conditions.
+ * 
+ * @param {chrome.tabs.Tab[]} tabs - array of Chrome tab that you
+ * want to filter based on certain conditions.
+ * @param {number} excludeRecentTabs - number that determines
+ * how many of the most recent tabs should be excluded from the filtering process.
+ * @param {boolean} excludeMedia - determines whether tabs playing audio or video should be excluded
+ * from the final list of tabs to suspend.
+ * @param {string[]} excludeByUser - array of strings that represents the users for whom certain 
+ * tabs should be excluded from suspension.
+ * @returns returning an array of chrome.tabs.Tab objects that meet the specified conditions.
+ */
+export const filterTabsByConditions = (
+    tabs: chrome.tabs.Tab[],
+    excludeRecentTabs: number,
+    excludeMedia: boolean,
+    excludeByUser: string[]
+) => {
+    let tabsToSuspend: chrome.tabs.Tab[] = [];
+    /* Ordenar tabs de mas reciente a mas antiguo */
+    const tabsOrderedLastAccess = sortTabsByLastAccessed(tabs);
+    tabsToSuspend = tabsOrderedLastAccess.slice(excludeRecentTabs);
 
-    const suspendedTabsPromises: Array<Promise<chrome.tabs.Tab>> = [];
-    let suspended = 0;
+    console.log(tabsOrderedLastAccess.slice(excludeRecentTabs), ' excluded recent tabs');
 
-    tabsToSuspend.forEach((tab) => {
-        if (!tab.id) return;
-        suspendedTabsPromises.push(suspendTab(tab.id));
-    });
+    /* Remover tabs que reproducen audio o video */
+    if (excludeMedia) {
+        tabsToSuspend = excludeMediaTabs(tabsToSuspend);
+        console.log(tabsToSuspend, ' excluded with media tabs');
+    }
 
-    const suspendedTabs = await Promise.allSettled(suspendedTabsPromises);
+    /* Remover tabs que el usuario no quiere suspender */
+    if (excludeByUser.length > 0) {
+        tabsToSuspend = excludeTabsByUser(tabsToSuspend, excludeByUser);
+    }
 
-    suspendedTabs.forEach((tab) => {
-        if (tab.status === 'fulfilled') suspended++;
-    });
-
-    return suspended;
+    return tabsToSuspend;
 };

@@ -14,12 +14,18 @@ export const Suspend = () => {
     const { data } = useGetUserDataFromLocal();
     const { setDataForLocal } = useSetDataForLocal();
     const [isSelected, setIsSelected] = useState<boolean>(false);
-    const { openSettings } = useContext(SettingsContext);
+    const { openSettings, settings } = useContext(SettingsContext);
     const { settingsDispatch, temporarySettingsDispatch } = useContext(SettingsDispatchContext);
     const [mbSaved, setMbSaved] = useState(0);
     const [nOfSuspendedTabs, setNOfSuspendedTabs] = useState(0);
     const [logoColor, setLogoColor] = useState<string>('#f8f8f8');
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    /* 
+    
+    COlocar un mensajito que ya no se pueden suspender mas tabas todos los tabs ya se encuentran suspendidos
+    
+    */
 
     /* Set settings user in state from chrome sesion local */
     useEffect(() => {
@@ -52,9 +58,16 @@ export const Suspend = () => {
         handdleSuspend();
     };
 
+    /* falta mejorar la reutilizacion */
+    /* falta aplicar la suspension con las conmfiguraciones del usuario */
+
     const handdleSuspend = async () => {
         const { availableCapacity: memoryBefore } = await getMemoryInfo();
-        const suspendedTabs = await autoSuspendTabs(3);
+        const suspendedTabs = await autoSuspendTabs(
+            settings.maxTabsinMemory!,
+            settings.neverSuspendAudibleTabs!,
+            settings.excludeList!
+        );
         // get info and rest
         if (suspendedTabs === 0) return;
 
