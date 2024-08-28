@@ -14,7 +14,6 @@ const initialState: UserSettings = {
     excludeList: [],
     maxTabsinMemory: 3,
     suspendTabsAfter: 5,
-    keepTabsInMemory: true,
     suspendTabsAtStartup: false,
     neverSuspendAudibleTabs: true,
     excludeTabsFromList: false

@@ -14,7 +14,6 @@ interface SuspendSettingsViewProps {
     excludeTabsFromList: boolean,
     domainExcluded: string,
     suspendTabsAfter: number,
-    handdleKeepTabsInMemory: () => void,
     handdleSuspendAtStartup: () => void,
     handdleSuspendAudibleTabs: () => void,
     handdleExcludeTabs: () => void,
@@ -35,7 +34,6 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
     excludeList,
     excludeTabsFromList,
     suspendTabsAfter,
-    handdleKeepTabsInMemory,
     handdleMaxTabsInMemory,
     handdleSuspendAtStartup,
     handdleSuspendAudibleTabs,
@@ -77,7 +75,7 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                     </Select>
                 </div>
 
-                <Checkbox isSelected={keepTabsInMemory} onChange={handdleKeepTabsInMemory} className='w-full'>
+                <div className='flex items-center gap-2 pl-[7px]'>
                     <div className='flex items-center gap-2'>
                         <p className={`text-[${keepTabsInMemory ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)] w-[132px]`}>
                             Keep maximum of
@@ -106,7 +104,7 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                         </p>
                     </div>
 
-                </Checkbox>
+                </div>
 
                 <Checkbox isSelected={suspendTabsAtStartup} onChange={handdleSuspendAtStartup}>
                     <p className={`text-[${suspendTabsAtStartup ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>

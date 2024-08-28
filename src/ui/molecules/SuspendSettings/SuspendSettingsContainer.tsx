@@ -13,7 +13,6 @@ export const SuspendSettingsContainer = () => {
             suspendTabsAtStartup,
             excludeList,
             excludeTabsFromList,
-            keepTabsInMemory,
             suspendTabsAfter
         }
     } = useContext(SettingsContext);
@@ -22,12 +21,6 @@ export const SuspendSettingsContainer = () => {
 
     const tabsOptions = [{ label: '1', value: 1 }, { label: '2', value: 2 }, { label: '3', value: 3 }, { label: '4', value: 4 }, { label: '5', value: 5 }, { label: '7', value: 7 }, { label: '9', value: 9 }, { label: '11', value: 11 }];
     const listMinutes = [{ label: '2 Min', value: '2' }, { label: '5 Min', value: '5' }, { label: '10 Min', value: '10' }, { label: '15 Min', value: '15' }, { label: '30 Min', value: '30' }, { label: '45 Min', value: '45' }, { label: '1 Hour', value: '60' }, { label: '3 Hours', value: '180' }, { label: '5 Hours', value: '300' }];
-
-    const handdleKeepTabsInMemory = () => {
-        temporarySettingsDispatch({
-            type: SettingsActions.updateSettings, payload: { keepTabsInMemory: !keepTabsInMemory }
-        });
-    };
 
     const handdleMaxTabsInMemory = (value: number) => {
         temporarySettingsDispatch({
@@ -86,7 +79,7 @@ export const SuspendSettingsContainer = () => {
     return (
         <SuspendSettingsView
             listNumbersTabsInMemory={tabsOptions}
-            keepTabsInMemory={keepTabsInMemory!}
+            keepTabsInMemory={true}
             maxTabsinMemory={maxTabsinMemory!}
             suspendTabsAtStartup={suspendTabsAtStartup!}
             suspendAudibleTabs={neverSuspendAudibleTabs!}
@@ -94,7 +87,6 @@ export const SuspendSettingsContainer = () => {
             excludeTabsFromList={excludeTabsFromList!}
             listMinutes={listMinutes}
             suspendTabsAfter={suspendTabsAfter!}
-            handdleKeepTabsInMemory={handdleKeepTabsInMemory}
             handdleMaxTabsInMemory={handdleMaxTabsInMemory}
             handdleSuspendAtStartup={handdleSuspendAtStartup}
             handdleSuspendAudibleTabs={handdleSuspendAudibleTabs}
