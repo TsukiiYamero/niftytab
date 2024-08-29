@@ -12,6 +12,10 @@ export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, o
     const { setDataForLocal } = useSetDataForLocal();
 
     const handleSave = () => {
+        /* 
+        por hacer
+        Confirmacion en mensajito que se guardo la configuracion
+        */
         settingsDispatch({ type: SettingsActions.updateSettings, payload: temporarySettings });
         setDataForLocal({ userSettings: temporarySettings });
         onClose();

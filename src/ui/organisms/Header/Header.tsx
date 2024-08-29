@@ -1,6 +1,6 @@
 import { SaveTabsRoute, SuspendRoute } from '@/utils';
-import { Button } from '@nextui-org/react';
-import { IconUserCircle } from '@tabler/icons-react';
+/* import { Button } from '@nextui-org/react';
+import { IconUserCircle } from '@tabler/icons-react'; */
 import { NavLink } from 'react-router-dom';
 import { Logo } from '@/ui/atoms/svgs';
 
@@ -32,12 +32,12 @@ export const Header = () => {
                 }
             </ul>
 
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
 
                 <Button isIconOnly size='sm' variant='light' >
                     <IconUserCircle strokeWidth={2} className='w-[--icons-size-primary] h-[--icons-size-primary] text-[--neutral-color-alt-primary]' />
                 </Button>
-            </div>
+            </div> */}
         </nav>
     );
 };

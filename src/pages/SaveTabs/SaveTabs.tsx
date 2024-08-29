@@ -8,7 +8,9 @@ export const SaveTabs = () => {
         <section className='grid justify-items-center gap-6'>
             <div className='flex flex-col gap-2 items-center'>
 
-                <div className="flex flex-col text-center gap-1">
+                <h1 className='font-bold text-[28px]'>🚧 !! Under construction </h1>
+
+                <div className="flex flex-col text-center gap-1 mt-9">
                     <p className='text-[length:var(--font-size-tiny)] text-[--neutral-color-alt-primary]'>
                         Save Tabs in group and then open them <br></br> whenever you want in other computer or browser.
                     </p>
