@@ -1,4 +1,5 @@
 import type { UserDataStored } from '@/models/userSettings.types';
+import { getUserDataFromSync } from '@/utils/chrome/getUserData';
 import { useEffect, useState } from 'react';
 
 /**
@@ -14,14 +15,16 @@ export const useGetUserDataFromLocal = () => {
     useEffect(() => {
         // usar getUserDataFromLocal from getUserData ts
         const getDataFromLocal = async () => {
-            try {
-                const getDataFromLocal: UserDataStored | undefined = await chrome.storage?.local?.get();
-                if (getDataFromLocal) {
-                    setData(getDataFromLocal);
-                }
-            } catch (error) {
+            const getDataFromLocal = getUserDataFromSync();
 
-            }
+            if (!getDataFromLocal) return;
+
+            setData((previusData) => {
+                return {
+                    ...previusData,
+                    ...getDataFromLocal
+                };
+            });
         };
 
         getDataFromLocal();

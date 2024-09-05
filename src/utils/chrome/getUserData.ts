@@ -1,16 +1,12 @@
-import { type UserDataStored } from '@/models/userSettings.types';
+import type { UserDataStored } from '@/models/userSettings.types';
 
-export const getUserDataFromLocal = async (): Promise<UserDataStored | undefined> => {
+export const getUserDataFromSync = async (): Promise<UserDataStored | undefined> => {
     try {
-        const getDataFromLocal: Record<string, UserDataStored> = await chrome.storage?.local?.get();
-        console.log(getDataFromLocal);
-        if (getDataFromLocal && Object.keys(getDataFromLocal).length > 0) {
-            return undefined;
-        }
+        const { userData } = await chrome.storage?.sync?.get() as { userData?: UserDataStored };
 
-        return undefined;
+        return userData;
     } catch (error) {
-
+        console.error('Couldn\'t get user data [getUserDataFromLocal] ', error);
     }
 };
 

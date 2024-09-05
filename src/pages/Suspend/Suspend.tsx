@@ -7,12 +7,12 @@ import { IconSettings } from '@tabler/icons-react';
 import { useContext, useEffect, useState } from 'react';
 import { ShowTabs } from '../ShowTabs';
 import { useGetUserDataFromLocal } from '@/customHooks/useGetDataFromLocal';
-import { useSetDataForLocal } from '@/customHooks/useSetDataForLocal';
+import { useSetDataInSync } from '@/customHooks/useSetDataForLocal';
 import { SettingsActions } from '@/contexts/Settings/settings.types';
 
 export const Suspend = () => {
     const { data } = useGetUserDataFromLocal();
-    const { setDataForLocal } = useSetDataForLocal();
+    const { setDataForSync } = useSetDataInSync();
     const [isSelected, setIsSelected] = useState<boolean>(false);
     const { openSettings, settings } = useContext(SettingsContext);
     const { settingsDispatch, temporarySettingsDispatch } = useContext(SettingsDispatchContext);
@@ -50,7 +50,7 @@ export const Suspend = () => {
 
     const handleToggle = (value: boolean) => {
         setIsSelected(value);
-        setDataForLocal({ isSuspend: value });
+        setDataForSync({ isSuspend: value });
 
         if (!value)
             return;

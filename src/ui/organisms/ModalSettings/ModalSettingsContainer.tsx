@@ -2,14 +2,14 @@ import { SettingsContext, SettingsDispatchContext } from '@/contexts/Settings';
 import { SettingsActions } from '@/contexts/Settings/settings.types';
 import { useContext } from 'react';
 import { ModalSettingsView } from './ModalSettingsView';
-import { useSetDataForLocal } from '@/customHooks/useSetDataForLocal';
+import { useSetDataInSync } from '@/customHooks/useSetDataForLocal';
 
 export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     const { settingsDispatch, temporarySettingsDispatch } = useContext(SettingsDispatchContext);
     const {
         settings, temporarySettings
     } = useContext(SettingsContext);
-    const { setDataForLocal } = useSetDataForLocal();
+    const { setDataForSync } = useSetDataInSync();
 
     const handleSave = () => {
         /* 
@@ -17,7 +17,7 @@ export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, o
         Confirmacion en mensajito que se guardo la configuracion
         */
         settingsDispatch({ type: SettingsActions.updateSettings, payload: temporarySettings });
-        setDataForLocal({ userSettings: temporarySettings });
+        setDataForSync({ userSettings: temporarySettings });
         onClose();
     };
 

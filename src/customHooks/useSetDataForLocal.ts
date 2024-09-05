@@ -1,15 +1,16 @@
 import type { UserDataStored } from '@/models/userSettings.types';
+import { setUserData } from '@/utils/chrome/setUserData';
 
-export const useSetDataForLocal = () => {
-    const setDataForLocal = async (data: UserDataStored) => {
+export const useSetDataInSync = () => {
+    const setDataForSync = async (data: UserDataStored) => {
         try {
-            await chrome.storage?.local?.set(data);
+            await setUserData(data);
         } catch (error) {
             console.error(error);
         }
     };
 
     return {
-        setDataForLocal
+        setDataForSync
     };
 };
