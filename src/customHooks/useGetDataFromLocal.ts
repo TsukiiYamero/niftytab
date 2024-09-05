@@ -12,6 +12,7 @@ export const useGetUserDataFromLocal = () => {
     });
 
     useEffect(() => {
+        // usar getUserDataFromLocal from getUserData ts
         const getDataFromLocal = async () => {
             try {
                 const getDataFromLocal: UserDataStored | undefined = await chrome.storage?.local?.get();
