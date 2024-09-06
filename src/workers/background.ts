@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(async () => {
     console.log('OnInstalled bg worker');
 });
 
-// On Change user settings in extension
+// On Change user settings in extension FUNICONOO MRDDDD
 chrome.storage.onChanged.addListener(async () => {
     console.log('UserConfig updated restarting bg worker');
 
