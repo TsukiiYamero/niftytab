@@ -15,7 +15,7 @@ export const useGetUserDataFromLocal = () => {
     useEffect(() => {
         // usar getUserDataFromLocal from getUserData ts
         const getDataFromLocal = async () => {
-            const getDataFromLocal = getUserDataFromSync();
+            const getDataFromLocal = await getUserDataFromSync();
 
             if (!getDataFromLocal) return;
 
