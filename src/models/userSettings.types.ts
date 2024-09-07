@@ -5,6 +5,7 @@ export interface UserSettings {
     excludeTabsFromList?: boolean,
     suspendTabsAtStartup?: boolean,
     suspendTabsAfter?: number,
+    suspendNotification?: boolean,
 }
 
 export interface UserDataStored {

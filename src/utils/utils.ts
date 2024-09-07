@@ -30,6 +30,7 @@ export const initialUserSettings: UserSettings = {
     excludeTabsFromList: false,
     neverSuspendAudibleTabs: true,
     recentTabsLimit: 3,
-    suspendTabsAfter: 3,
-    suspendTabsAtStartup: false
+    suspendTabsAfter: 3, // change to 10 after publication
+    suspendTabsAtStartup: false,
+    suspendNotification: true
 };

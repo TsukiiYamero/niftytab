@@ -53,7 +53,7 @@ const main = async (isStartup = false) => {
 
         console.info('[Number of Tabs Suspended] show in a notification ui ', newNOfSuspendedTabs);
 
-        if (newNOfSuspendedTabs > 0)
+        if (newNOfSuspendedTabs > 0 && userSettings?.suspendNotification)
             showNotification(newNOfSuspendedTabs);
     };
 
@@ -106,7 +106,6 @@ const showNotification = (numTabsSuspended: number) => {
         type: 'basic',
         iconUrl: logo,
         title: 'Tabs Suspended',
-        message: `${numTabsSuspended} tabs were suspended.`,
-        priority: 1
+        message: `${numTabsSuspended} tabs were suspended.`
     });
 };

@@ -9,6 +9,7 @@ interface SuspendSettingsViewProps {
     keepTabsInMemory: boolean,
     recentTabsLimit: number,
     suspendTabsAtStartup: boolean,
+    suspendNotification: boolean,
     suspendAudibleTabs: boolean,
     excludeList: string[],
     excludeTabsFromList: boolean,
@@ -19,6 +20,7 @@ interface SuspendSettingsViewProps {
     isValidRecentTabsLimit: boolean,
 
     handdleSuspendAtStartup: () => void,
+    handleSuspendNotification: () => void,
     handdleSuspendAudibleTabs: () => void,
     handdleExcludeTabs: () => void,
     handdleNewExcludeItem: () => void,
@@ -34,11 +36,13 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
     keepTabsInMemory,
     recentTabsLimit,
     suspendTabsAtStartup,
+    suspendNotification,
     suspendAudibleTabs,
     excludeList,
     excludeTabsFromList,
     suspendTabsAfter,
     handdleSuspendAtStartup,
+    handleSuspendNotification,
     handdleSuspendAudibleTabs,
     handdleExcludeTabs,
     handdleDeleteExcludeItem,
@@ -117,6 +121,12 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                 <Checkbox isSelected={suspendTabsAtStartup} onChange={handdleSuspendAtStartup}>
                     <p className={`text-[${suspendTabsAtStartup ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
                         Suspend tabs at startup
+                    </p>
+                </Checkbox>
+
+                <Checkbox isSelected={suspendNotification} onChange={handleSuspendNotification}>
+                    <p className={`text-[${suspendTabsAtStartup ? 'foreground' : '--neutral-color-alt-primary'}] text-[length:var(--font-size-tiny)]`}>
+                        Show suspend notifications
                     </p>
                 </Checkbox>
             </div >
