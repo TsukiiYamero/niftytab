@@ -7,34 +7,37 @@ interface SuspendSettingsViewProps {
     listNumbersTabsInMemory: Array<{ value: number, label: string }>,
     listMinutes: Array<{ value: string, label: string }>,
     keepTabsInMemory: boolean,
-    maxTabsinMemory: number,
+    recentTabsLimit: number,
     suspendTabsAtStartup: boolean,
     suspendAudibleTabs: boolean,
     excludeList: string[],
     excludeTabsFromList: boolean,
     domainExcluded: string,
     suspendTabsAfter: number,
+    // validateSelects
+    isValidNumberOfTime: boolean,
+    isValidRecentTabsLimit: boolean,
+
     handdleSuspendAtStartup: () => void,
     handdleSuspendAudibleTabs: () => void,
     handdleExcludeTabs: () => void,
     handdleNewExcludeItem: () => void,
-    handleSuspendTabsAfter: (value: number) => void,
+    OnChangeSelectSuspendTime: (e: ChangeEvent<HTMLSelectElement>) => void,
+    onChangeSelectRecentTabsLimit: (e: ChangeEvent<HTMLSelectElement>) => void,
     handdleDeleteExcludeItem: (index: number) => void,
-    handdleMaxTabsInMemory: (value: number) => void,
-    setDomainExcluded: (value: string) => void
+    setDomainExcluded: (value: string) => void,
 }
 
 export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
     listNumbersTabsInMemory,
     listMinutes,
     keepTabsInMemory,
-    maxTabsinMemory,
+    recentTabsLimit,
     suspendTabsAtStartup,
     suspendAudibleTabs,
     excludeList,
     excludeTabsFromList,
     suspendTabsAfter,
-    handdleMaxTabsInMemory,
     handdleSuspendAtStartup,
     handdleSuspendAudibleTabs,
     handdleExcludeTabs,
@@ -42,7 +45,10 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
     handdleNewExcludeItem,
     domainExcluded,
     setDomainExcluded,
-    handleSuspendTabsAfter
+    OnChangeSelectSuspendTime,
+    onChangeSelectRecentTabsLimit,
+    isValidNumberOfTime,
+    isValidRecentTabsLimit
 }: SuspendSettingsViewProps) => {
     return (
         <div className='flex flex-col gap-2'>
@@ -61,9 +67,10 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                         className="max-w-[126px]"
                         size='sm'
                         defaultSelectedKeys={[`${suspendTabsAfter}`]}
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                            handleSuspendTabsAfter(Number(e.target.value));
-                        }}
+                        isRequired
+                        isInvalid={!isValidNumberOfTime}
+                        errorMessage={!isValidNumberOfTime ? 'Please select an option' : ''}
+                        onChange={OnChangeSelectSuspendTime}
                     >
                         {
                             listMinutes.map((option) => (
@@ -85,10 +92,11 @@ export const SuspendSettingsView: React.FC<SuspendSettingsViewProps> = ({
                             aria-label='Select a number of tabs to keep'
                             className="max-w-[70px]"
                             size='sm'
-                            defaultSelectedKeys={[`${maxTabsinMemory}`]}
-                            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                                handdleMaxTabsInMemory(Number(e.target.value));
-                            }}
+                            isRequired
+                            isInvalid={!isValidRecentTabsLimit}
+                            errorMessage={!isValidRecentTabsLimit ? 'Please select an option' : ''}
+                            defaultSelectedKeys={[`${recentTabsLimit}`]}
+                            onChange={onChangeSelectRecentTabsLimit}
                         >
                             {
                                 listNumbersTabsInMemory.map((option) => (

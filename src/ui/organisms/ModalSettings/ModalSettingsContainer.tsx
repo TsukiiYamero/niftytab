@@ -16,6 +16,8 @@ export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, o
         por hacer
         Confirmacion en mensajito que se guardo la configuracion
         */
+        if (!isValidSettings()) return;
+
         settingsDispatch({ type: SettingsActions.updateSettings, payload: temporarySettings });
         setDataForSync({ userSettings: temporarySettings });
         onClose();
@@ -24,6 +26,14 @@ export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, o
     const handleCancel = () => {
         temporarySettingsDispatch({ type: SettingsActions.resetSettings, payload: settings });
         onClose();
+    };
+
+    const isValidSettings = () => {
+        if (!temporarySettings?.recentTabsLimit) return false;
+
+        if (!temporarySettings?.suspendTabsAfter) return false;
+
+        return true;
     };
 
     return (

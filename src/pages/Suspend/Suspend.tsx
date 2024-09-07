@@ -64,7 +64,7 @@ export const Suspend = () => {
     const handdleSuspend = async () => {
         const { availableCapacity: memoryBefore } = await getMemoryInfo();
         const suspendedTabs = await autoSuspendTabs(
-            settings.maxTabsinMemory!,
+            settings.recentTabsLimit!,
             settings.neverSuspendAudibleTabs!,
             settings.excludeList!
         );

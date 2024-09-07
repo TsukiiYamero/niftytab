@@ -1,5 +1,5 @@
 export interface UserSettings {
-    maxTabsinMemory?: number,
+    recentTabsLimit?: number,
     neverSuspendAudibleTabs?: boolean,
     excludeList?: string[],
     excludeTabsFromList?: boolean,

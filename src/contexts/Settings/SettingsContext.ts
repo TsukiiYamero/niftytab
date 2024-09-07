@@ -14,7 +14,7 @@ export const SettingsContext = createContext<SettingsContextType>({
     isOpen: false,
     settings: {
         excludeList: [],
-        maxTabsinMemory: 3,
+        recentTabsLimit: 3,
         suspendTabsAfter: 3,
         neverSuspendAudibleTabs: false,
         suspendTabsAtStartup: false,
@@ -22,7 +22,7 @@ export const SettingsContext = createContext<SettingsContextType>({
     },
     temporarySettings: {
         excludeList: [],
-        maxTabsinMemory: 3,
+        recentTabsLimit: 3,
         suspendTabsAfter: 3,
         neverSuspendAudibleTabs: false,
         suspendTabsAtStartup: false,

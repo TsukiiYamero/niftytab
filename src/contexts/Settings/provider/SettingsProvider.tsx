@@ -5,19 +5,13 @@ import { useDisclosure } from '@nextui-org/react';
 import { settingsReducer, temporaryUserSettingsReducer } from '../reducer/settingsReducer';
 import { SettingsActions } from '../settings.types';
 import type { UserSettings } from '@/models/userSettings.types';
+import { initialUserSettings } from '@/utils';
 
 type Props = {
     children: ReactNode;
 }
 
-const initialState: UserSettings = {
-    excludeList: [],
-    maxTabsinMemory: 3,
-    suspendTabsAfter: 5,
-    suspendTabsAtStartup: false,
-    neverSuspendAudibleTabs: true,
-    excludeTabsFromList: false
-};
+const initialState: UserSettings = initialUserSettings;
 
 export const SettingsProvider = ({ children }: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();

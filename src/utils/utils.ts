@@ -1,3 +1,5 @@
+import { type UserSettings } from '@/models/userSettings.types';
+
 export const moveItem = <T>(arr: T[] = [], from = 0, to = 0) => {
     if (from === to || arr.length === 0) return arr;
 
@@ -21,4 +23,13 @@ export const successColorIfTrue = (condition: boolean) => {
 export const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
 export const isValidUrl = (url: string) => {
     return urlRegex.test(url);
+};
+
+export const initialUserSettings: UserSettings = {
+    excludeList: [],
+    excludeTabsFromList: false,
+    neverSuspendAudibleTabs: true,
+    recentTabsLimit: 3,
+    suspendTabsAfter: 3,
+    suspendTabsAtStartup: false
 };
