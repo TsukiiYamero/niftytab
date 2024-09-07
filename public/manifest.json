@@ -18,7 +18,8 @@
         "processes",
         "system.cpu",
         "system.memory",
-        "storage"
+        "storage",
+        "notifications"
     ],
     "web_accessible_resources": [
         {

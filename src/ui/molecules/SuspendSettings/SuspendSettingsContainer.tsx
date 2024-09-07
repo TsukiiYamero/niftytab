@@ -21,7 +21,7 @@ export const SuspendSettingsContainer = () => {
     const [isValidRecentTabsLimit, setIsValidRecentTabsLimit] = useState(true);
 
     const tabsOptions = [{ label: '1', value: 1 }, { label: '2', value: 2 }, { label: '3', value: 3 }, { label: '4', value: 4 }, { label: '5', value: 5 }, { label: '7', value: 7 }, { label: '9', value: 9 }, { label: '11', value: 11 }];
-    const listMinutes = [{ label: '2 Min', value: '2' }, { label: '5 Min', value: '5' }, { label: '10 Min', value: '10' }, { label: '15 Min', value: '15' }, { label: '30 Min', value: '30' }, { label: '45 Min', value: '45' }, { label: '1 Hour', value: '60' }, { label: '3 Hours', value: '180' }, { label: '5 Hours', value: '300' }];
+    const listMinutes = [{ label: '2 Min', value: '2' }, { label: '3 Min', value: '3' }, { label: '5 Min', value: '5' }, { label: '10 Min', value: '10' }, { label: '15 Min', value: '15' }, { label: '30 Min', value: '30' }, { label: '45 Min', value: '45' }, { label: '1 Hour', value: '60' }, { label: '3 Hours', value: '180' }, { label: '5 Hours', value: '300' }];
 
     const handdleMaxTabsInMemory = (value: number) => {
         temporarySettingsDispatch({
