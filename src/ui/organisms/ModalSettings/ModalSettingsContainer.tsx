@@ -3,6 +3,7 @@ import { SettingsActions } from '@/contexts/Settings/settings.types';
 import { useContext } from 'react';
 import { ModalSettingsView } from './ModalSettingsView';
 import { useSetDataInSync } from '@/customHooks/useSetDataForLocal';
+import toast from 'react-hot-toast';
 
 export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     const { settingsDispatch, temporarySettingsDispatch } = useContext(SettingsDispatchContext);
@@ -21,6 +22,7 @@ export const ModalSettingsContainer = ({ isOpen, onClose }: { isOpen: boolean, o
         settingsDispatch({ type: SettingsActions.updateSettings, payload: temporarySettings });
         setDataForSync({ userSettings: temporarySettings });
         onClose();
+        toast.success('Settings saved');
     };
 
     const handleCancel = () => {

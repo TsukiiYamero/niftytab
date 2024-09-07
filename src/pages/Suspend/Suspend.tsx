@@ -9,6 +9,7 @@ import { ShowTabs } from '../ShowTabs';
 import { useGetUserDataFromLocal } from '@/customHooks/useGetDataFromLocal';
 import { useSetDataInSync } from '@/customHooks/useSetDataForLocal';
 import { SettingsActions } from '@/contexts/Settings/settings.types';
+import toast from 'react-hot-toast';
 
 export const Suspend = () => {
     const { data } = useGetUserDataFromLocal();
@@ -52,10 +53,16 @@ export const Suspend = () => {
         setIsSelected(value);
         setDataForSync({ isSuspend: value });
 
-        if (!value)
+        if (!value) {
+            toast('Unsuspending');
             return;
+        }
 
         handdleSuspend();
+        toast(`Suspending tabs each ${settings.suspendTabsAfter} minutes `, {
+            icon: '🕑',
+            duration: 5500
+        });
     };
 
     /* falta mejorar la reutilizacion */

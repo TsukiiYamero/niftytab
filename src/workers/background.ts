@@ -51,7 +51,7 @@ const main = async (isStartup = false) => {
             userSettings?.excludeList ?? initialUserSettings.excludeList!
         );
 
-        console.info('[Number of Tabs Suspended] show in a notification ui ', newNOfSuspendedTabs);
+        console.info('[Number of Tabs Suspended] ', newNOfSuspendedTabs);
 
         if (newNOfSuspendedTabs > 0 && userSettings?.suspendNotification)
             showNotification(newNOfSuspendedTabs);
